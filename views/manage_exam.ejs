@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Thông tin bài thi</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/img/iconGDU.ico" rel="shortcut icon" type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/manage_exam.css">
+    </style>
+</head>
+
+<body>
+    <div id="thong_tin" class="container hidden">
+        <h2 style="text-align:center">Kỳ thi tin học văn phòng 2019</h2>
+        <p style="text-align:center">Bên dưới là thông tin thí sinh và cuộc thi</p>
+        <div class="columns">
+            <ul class="price">
+                <li class="header">Thông tin thí sinh</li>
+                <li class="grey">
+                    <div class="row">
+                        <div>
+                            Họ tên :
+                        </div>
+                        <div>
+                            <div id="ho_ten"><%= user.full_name %></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            MSSV:
+                        </div>
+                        <div>
+                            <div id="ma_sv"><%= user.student_code %></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Số CMND:
+                        </div>
+                        <div>
+                            <div id="cmnd"><%= user.identity_card_number %></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Lớp:
+                        </div>
+                        <div>
+                            <div id="lop"><%= user.student_class.class_name %></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Ngày sinh:
+                        </div>
+                        <div>
+                            <div id="ngay_sinh"><%= user.date_of_birth %></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Khoa:
+                        </div>
+                        <div>
+                            <div id="khoa"><%= user.student_class.faculty %></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Giới tính:
+                        </div>
+                        <div>
+                            <div id="gioi_tinh"><%= user.sex %></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="columns">
+            <ul class="price">
+                <li class="header" style="background-color:#4CAF50">Thông tin bài thi</li>
+                <li class="grey">
+                    <div class="row">
+                        <div>
+                            Mã đề :
+                        </div>
+                        <div>
+                            <div id="ma_de_thi"></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Chủ đề:
+                        </div>
+                        <div>
+                            <div id="chu_de"></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Thời gian:
+                        </div>
+                        <div>
+                            <div id="thoi_gian"></div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div>
+                            Số câu hỏi:
+                        </div>
+                        <div>
+                            <div id="so_cau_hoi"></div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button type="button" class="btn btn-primary" style="width: 100%;height: 50px;" id="bat_dau_thi">Bắt đầu làm
+            bài</button>
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+        </div>
+        <div class="col-lg-8">
+            <div class="center">
+                <div class="form-group" id="nhap_ma_de">
+                    <label id="thong_bao" for="ma_de">Nhập mã đề</label>
+                    <input type="text" class="form-control" name="" id="exam_code" aria-describedby="helpId"
+                        placeholder="Nhập mã đề">
+                    <button type="button" style="width: 100%" class="btn btn-primary" id="dong_y">Đồng ý</button>
+                    <input id="test_student_code" type="hidden" value= <%= user.student_code %>>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2">
+        </div>
+    </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min.js" ></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/business/data.js"></script>
+    <script src="/business/manage_exam_1.js"></script>
+    <script>
+        sessionStorage.setItem("student_code", test_student_code.value)
+        //console.log(user.student_code);
+        bat_dau_thi.onclick = () => {
+            document.location.href = "take_exam";
+        }
+    </script>
+</body>
+
+</html>

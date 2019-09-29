@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Bài thi</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="/img/iconGDU.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/menu.css">
+    <link rel="stylesheet" href="/css/take_exam.css">
+</head>
+
+<body>
+    <header class="fixed-top" style="background-color: #003262;position: fixed;">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#thong_tin_thi_sinh" id="btn_thong_tin_thi_sinh">Hiện thông tin thí sinh</button> -->
+                    </div>
+                    <div class="col-lg-5">
+                        <button type="button" class="btn btn-primary" style="display: none" data-toggle="modal"
+                            data-target="#myModal" id="btn_tien_do">Tiến độ</button>
+                    </div>
+                </div>
+
+                <div></div>
+            </div>
+            <div class="col-lg-6">
+                <h1 id="time_count" class="text-center" style="color: white"></h1>
+            </div>
+            <div class="col-lg-3">
+
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid" style="margin-top:65px">
+
+
+        <div class="row">
+            <div class="col-md-12 col-lg-2 collapse in show" id="thong_tin_thi_sinh">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h5 class="text-center">Thông tin thí sinh</h5>
+                    </div>
+                    <div class="col-sm-12" id="avatar_sv">
+                            <img src="/img/<%= user.student_code %>.jpg" width="100%" height="100%">
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Họ tên :
+                    </div>
+                    <div>
+                        <div id="ho_ten"><%= user.full_name %></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        MSSV:
+                    </div>
+                    <div>
+                        <div id="ma_sv"><%= user.student_code %></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Số CMND:
+                    </div>
+                    <div>
+                        <div id="cmnd"><%= user.identity_card_number %></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Lớp:
+                    </div>
+                    <div>
+                        <div id="lop"><%= user.student_class.class_name %></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Khoa:
+                    </div>
+                    <div>
+                        <div id="khoa"><%= user.student_class.faculty %></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Ngày sinh:
+                    </div>
+                    <div>
+                        <div id="ngay_sinh"><%= user.date_of_birth %></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Giới tính:
+                    </div>
+                    <div>
+                        <div id="gioi_tinh"><%= user.sex %></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-7" id="lam_bai_thi">
+                <h4 class="text-center">BÀI THI</h4>
+                <div class="bailam">
+                    <table class="table" id="noi_dung_thi"></table>
+                </div>
+
+            </div>
+            
+            <div class="col-md-12 col-lg-3" id="thong_tin_bai_thi">
+                <div class="row" style="padding-left:20px">
+                    <div class="col-sm-12">
+                        <h5 class="text-center">Thông bài thi</h5>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Mã đề :
+                    </div>
+                    <div>
+                        <div id="ma_de"></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Chủ đề:
+                    </div>
+                    <div>
+                        <div id="chu_de"></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div>
+                        Thời gian:
+                    </div>
+                    <div>
+                        <div id="thoi_gian"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12" id="thong_tin_tien_do">
+                        <h5 class="text-center">Tiến độ</h5>
+                        <div class="row" style="padding-left:20px" id="dem_cau_tl">
+                            <div class="col-sm-6">
+                                <div id="soCauLam"></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="tongCauHoi"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div id="tien_do" class="tiendo"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="text-center" id="bam_nop_bai"></div>
+                    </div>
+                </div>
+                <div class="row" style="padding-left:20px">
+                    <div class="col-sm-12">
+                        <b>
+                            <div class="text-center" id="tongDiem"></div>
+                        </b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="editor"></div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog" style="width: 280px;">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="row">
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-8">
+                            Tiến độ:
+                            <div id="soCauLam2" style="display: inline-block;"></div>
+                            <div id="tongCauHoi2" style="display: inline-block;"></div>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div id="tien_do2" class="tiendo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="/js/jquery-3.3.1.slim.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/business/data.js"></script>
+        <script src="/business/take_exam.js"></script>
+        <script src="/js/jspdf.min.js"></script>
+        <!-- <script src="js/bundle.js"></script> -->
+        <script>
+            startTimer(); //start time count down
+
+            var doc = new jsPDF();
+            var specialElementHandlers = {
+                '#editor': function (element, renderer) {
+                    return true;
+                }
+            };
+            $('#cmd').click(function () {
+                doc.fromHTML($('#content').html(), 15, 15, {
+                    'width': 170,
+                    'elementHandlers': specialElementHandlers
+                });
+                doc.save('sample-file.pdf');
+            });
+        </script>
+
+</body>
+
+</html>

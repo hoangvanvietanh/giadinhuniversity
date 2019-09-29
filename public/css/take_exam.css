@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    padding: 20px;
+    margin: 0;
+    width: 100%;
+}
+
+.left-column {
+    margin-top: 5%;
+    margin-left: 2%;
+    display: block;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    overflow: hiddden;
+}
+
+.right-column {
+    margin-top: 5%;
+    width: 24%;
+    vertical-align: top;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow: hiddden;
+}
+
+.center-column {
+    margin-top: 6%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: calc(18%);
+    right: calc(12%);
+    bottom: 0;
+    overflow-y: scroll;
+    max-width: 58%;
+}
+
+.header {
+    height: 7%;
+    color: #fff;
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+    background-color: red;
+}
+
+.text-center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tiendo {
+    bottom: 0;
+    overflow-y: scroll;
+    height: 40vh;
+}
+
+.bailam {
+    bottom: 0;
+    overflow-y: scroll;
+    height: 85vh;
+}
+
+.hidden_button {
+    display: none;
+}
+
+.logoGDU {
+    width: 100px;
+    height: 100px;
+    background-image: url("img/logo_gia_dinh.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.btn_li_menu {
+    border-radius: 70%;
+    width: 80px;
+    height: 80px;
+    margin-top: -15%;
+}
