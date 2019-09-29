@@ -6,8 +6,6 @@ const { forwardAuthenticated } = require('../config/auth');
 
 router.get('/manage_exam', forwardAuthenticated, (req, res) => res.render('manage_exam'));
 
-router.get('/manage_exam2', forwardAuthenticated, (req, res) => res.render('manage_exam2'));
-
 router.get('/take_exam', forwardAuthenticated, (req, res) => res.render('take_exam'));
 
 router.post('/manage_exam', (req, res, next) => {

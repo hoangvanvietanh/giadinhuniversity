@@ -1,15 +1,4 @@
-var examCode = sessionStorage.getItem("exam_code");
-var studentCode = sessionStorage.getItem("student_code")
-var cau_hoi_thi = "";
-var html = "";
-var htmlTienDo = "";
-var j = 0;
-var timeCount = 0;
-var status = 0;
-var cauDaLam = 0;
-var submit = false;
-
-createTheExam(examCode);
+var _0xdaf4=["\x65\x78\x61\x6D\x5F\x63\x6F\x64\x65","\x67\x65\x74\x49\x74\x65\x6D","\x73\x74\x75\x64\x65\x6E\x74\x5F\x63\x6F\x64\x65",""];var examCode=sessionStorage[_0xdaf4[1]](_0xdaf4[0]);var studentCode=sessionStorage[_0xdaf4[1]](_0xdaf4[2]);var cau_hoi_thi=_0xdaf4[3];var html=_0xdaf4[3];var htmlTienDo=_0xdaf4[3];var j=0;var timeCount=0;var status=0;var cauDaLam=0;var submit=false;createTheExam(examCode)
 
 //***Create the exam**********************
 function createTheExam(examCode) {
