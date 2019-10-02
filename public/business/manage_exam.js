@@ -33,8 +33,8 @@ dong_y.onclick = () => {
     if (checkExamCode(examCode.value) == true) {
         ma_de_thi.innerHTML = theExam.exam_code;
         chu_de.innerHTML = theExam.topic;
-        thoi_gian.innerHTML = theExam.time;
-        so_cau_hoi.innerHTML = theExam.question_list.length;
+        thoi_gian.innerHTML = theExam.time + " phút";
+        so_cau_hoi.innerHTML = theExam.question_list.length + " câu";
         document.getElementById("nhap_ma_de").classList.add('hidden');
         document.getElementById("thong_tin").classList.remove('hidden');
 

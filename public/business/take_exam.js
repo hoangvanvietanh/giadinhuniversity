@@ -1,4 +1,15 @@
-var _0xdaf4=["\x65\x78\x61\x6D\x5F\x63\x6F\x64\x65","\x67\x65\x74\x49\x74\x65\x6D","\x73\x74\x75\x64\x65\x6E\x74\x5F\x63\x6F\x64\x65",""];var examCode=sessionStorage[_0xdaf4[1]](_0xdaf4[0]);var studentCode=sessionStorage[_0xdaf4[1]](_0xdaf4[2]);var cau_hoi_thi=_0xdaf4[3];var html=_0xdaf4[3];var htmlTienDo=_0xdaf4[3];var j=0;var timeCount=0;var status=0;var cauDaLam=0;var submit=false;createTheExam(examCode)
+var examCode = sessionStorage.getItem("exam_code");
+var studentCode = sessionStorage.getItem("student_code")
+var cau_hoi_thi = "";
+var html = "";
+var htmlTienDo = "";
+var j = 0;
+var timeCount = 0;
+var status = 0;
+var cauDaLam = 0;
+var submit = false;
+
+createTheExam(examCode);
 
 //***Create the exam**********************
 function createTheExam(examCode) {
@@ -19,27 +30,70 @@ function createTheExam(examCode) {
                 j++;
                 if (j < 10) {
                     if (j % 3 == 0) {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input type="checkbox" readonly="readonly" name="type" value="${j}"/></br>`
+                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input id="inpLock" id="${j}TAIP" type="checkbox" readonly="readonly" name="type" value="${j}"/> 
+                        <label class="btn-lock" for="${j}TAIP">
+      <svg width="16" height="22" viewBox="0 0 28 42">
+        <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
+        <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
+        <path class="bling" d="M29 20L31 22"></path>
+        <path class="bling" d="M31.5 15H34.5"></path>
+        <path class="bling" d="M29 10L31 8"></path>
+      </svg>
+    </label>
+                        </br>`
                     } else {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input type="checkbox" readonly="readonly" name="type" value="${j}"/>`
+                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/><label class="btn-lock" for="${j}TAIP">
+                        <svg width="16" height="22" viewBox="0 0 28 42">
+                          <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
+                          <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
+                          <path class="bling" d="M29 20L31 22"></path>
+                          <path class="bling" d="M31.5 15H34.5"></path>
+                          <path class="bling" d="M29 10L31 8"></path>
+                        </svg>
+                      </label>`
                     }
 
                 } else if (j % 3 == 0 && j > 10 && j < 100) {
-                    htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input type="checkbox" readonly="readonly" name="type" value="${j}"/> </br>`
+                    htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/> <label class="btn-lock" for="${j}TAIP">
+                    <svg width="16" height="22" viewBox="0 0 28 42">
+                      <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
+                      <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
+                      <path class="bling" d="M29 20L31 22"></path>
+                      <path class="bling" d="M31.5 15H34.5"></path>
+                      <path class="bling" d="M29 10L31 8"></path>
+                    </svg>
+                  </label></br>`
                 } else {
                     if (j % 2 != 0 && j >= 100) {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input type="checkbox" readonly="readonly" name="type" value="${j}"/> </br>`
+                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/> <label class="btn-lock" for="${j}TAIP">
+                        <svg width="16" height="22" viewBox="0 0 28 42">
+                          <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
+                          <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
+                          <path class="bling" d="M29 20L31 22"></path>
+                          <path class="bling" d="M31.5 15H34.5"></path>
+                          <path class="bling" d="M29 10L31 8"></path>
+                        </svg>
+                      </label></br>`
                     } else {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input type="checkbox" readonly="readonly" name="type" value="${j}"/>`
+                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/><label class="btn-lock" for="${j}TAIP">
+                        <svg width="16" height="22" viewBox="0 0 28 42">
+                          <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
+                          <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
+                          <path class="bling" d="M29 20L31 22"></path>
+                          <path class="bling" d="M31.5 15H34.5"></path>
+                          <path class="bling" d="M29 10L31 8"></path>
+                        </svg>
+                      </label>`
                     }
 
                 }
 
                 var deBai = content.question.split("_")
                 if (deBai.length == 2) {
-                    html += `<tbody width="100%"> <tr>
+                    html += `<tbody class="form"  width="100%"> <tr>
             <td id="${j}CH"><b> Câu ${j}: ${deBai[0]} </b></br>
-            <img src="${deBai[1]}" alt="" height=25% width=50%></img></td>
+            <img src="${deBai[1]}" alt="" height=25% width=50%></img></b>
+            </td>
             `
                 } else {
                     html += `<tbody width="100%"> <tr>
@@ -52,10 +106,10 @@ function createTheExam(examCode) {
                 });
                 for (var k = 0; k < content.answer_list.length; k++) {
                     html += `
-            <tr>
-            <td id="${j}-${k}"><input type="radio" name="CH_${j}" value="${k}_${
+            <tr >
+            <td class="inputGroup" style="padding: 0rem;border-top: none;" id="${j}-${k}"><input type="radio" id="CH_${j}-${k}_lb" name="CH_${j}" value="${k}_${
                         content.answer_list[k]
-                        }"> ${content.answer_list[k]}</td>
+                        }"> <label style="margin-bottom:1px;" for="CH_${j}-${k}_lb">${content.answer_list[k]}</label> </td>
             </tr>
             `
                 }
@@ -74,8 +128,9 @@ function createTheExam(examCode) {
 noi_dung_thi.innerHTML = html;
 tien_do.innerHTML = htmlTienDo;
 tien_do2.innerHTML = htmlTienDo;
+tien_do3.innerHTML = htmlTienDo;
 time_count.innerHTML = timeCount + ":" + 00
-bam_nop_bai.innerHTML = `<button type="button" class="btn btn-primary" style="width: 100%" id="nop_bai">Nộp bài</button>`
+bam_nop_bai.innerHTML = `<button type="button" class="btn btn-primary" style="width: 100%;background-color:#214a80" id="nop_bai">Nộp bài</button>`
 soCauLam.innerHTML = `Số câu đã làm: 0`
 soCauLam2.innerHTML = `0 /`
 //Create grading function
@@ -110,7 +165,7 @@ function gradingExam(examCode) {
 
                         //********Check correct sentence**********
                         if (correctAnswer.value == valueChecked[1]) {
-                            $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "green"); //Change color with id tag "td" of correct sentence 
+                            // $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "green"); //Change color with id tag "td" of correct sentence 
                             $("a#" + `${i}TA`).css("color", "green"); //Change color tag "a" of correct sentence
                             numberOfCorrectSentences++;
                             flag++;
@@ -119,7 +174,7 @@ function gradingExam(examCode) {
 
                     //**********Check incorrect sentence***********
                     if (valueChecked[1] == correctAnswer.value && flag == 0) {
-                        $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "red"); //Change color with id tag "td" of incorrect sentce
+                        $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "#96f23a") //Change color with id tag "td" of incorrect sentce
                         $("a#" + `${i}TA`).css("color", "red"); //Change color tag "a" of incorrect sentence
                     }
                 }
@@ -134,6 +189,7 @@ function gradingExam(examCode) {
     bam_nop_bai.innerHTML = `Số câu đúng : ${numberOfCorrectSentences}/${i}`
     var scores = numberOfCorrectSentences / i * 10;
     tongDiem.innerHTML = `Tổng điểm: ${scores.toFixed(2)}`
+    tongDiem2.innerHTML = `Tổng điểm: ${scores.toFixed(2)}`
 }
 
 //*****Submit exam*******************
@@ -161,12 +217,12 @@ $('#noi_dung_thi tr').click(function () {
         $(this).find('td input:radio').prop('checked', true);
 
         //*****Change color when click tag "tr" on table********
-        $(this)
-            .closest("tr")
-            .siblings()
-            .css("background-color", "white")
-            .end()
-            .css("background-color", "skyblue");
+        // $(this)
+        //     .closest("tr")
+        //     .siblings()
+        //     .css("background-color", "white")
+        //     .end()
+        //     .css("background-color", "skyblue");
 
         //******Get value "name" in tag "input"*********************
         var a = $(this).find('td input:radio').prop('checked', true)

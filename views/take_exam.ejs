@@ -33,13 +33,12 @@
                 <h1 id="time_count" class="text-center" style="color: white"></h1>
             </div>
             <div class="col-lg-3">
-                <a name="" id="" style="float:right" class="btn btn-primary" href="/users/logout" role="button">Thoát</a>
+                <a name="" id="" style="float:right" class="btn btn-primary" href="/users/logout"
+                    role="button">Thoát</a>
             </div>
         </div>
     </header>
     <div class="container-fluid" style="margin-top:65px">
-
-
         <div class="row">
             <div class="col-md-12 col-lg-2 collapse in show" id="thong_tin_thi_sinh">
                 <div class="row">
@@ -47,64 +46,43 @@
                         <h5 class="text-center">Thông tin thí sinh</h5>
                     </div>
                     <div class="col-sm-12" id="avatar_sv">
-                            <img src="/img/<%= user.student_code %>.jpg" width="100%" height="100%">
+                        <img src="/img/<%= user.student_code %>.jpg" width="100%" height="100%">
                     </div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Họ tên :
-                    </div>
-                    <div>
-                        <div id="ho_ten"><%= user.full_name %></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;">Họ tên :</p>
+                    <p style="float: right;margin-bottom: 5px;"><%= user.full_name %></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        MSSV:
-                    </div>
-                    <div>
-                        <div id="ma_sv"><%= user.student_code %></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;">MSSV:</p>
+                    <p style="float: right;margin-bottom: 5px;"><%= user.student_code %></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Số CMND:
-                    </div>
-                    <div>
-                        <div id="cmnd"><%= user.identity_card_number %></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;">Số CMND:</p>
+                    <p style="float: right;margin-bottom: 5px;"><%= user.identity_card_number %></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Lớp:
-                    </div>
-                    <div>
-                        <div id="lop"><%= user.student_class.class_name %></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;">Lớp:</p>
+                    <p style="float: right;margin-bottom: 5px;"><%= user.student_class.class_name %></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Khoa:
-                    </div>
-                    <div>
-                        <div id="khoa"><%= user.student_class.faculty %></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;">Khoa:</p>
+                    <p style="float: right;margin-bottom: 5px;"><%= user.student_class.faculty %></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Ngày sinh:
-                    </div>
-                    <div>
-                        <div id="ngay_sinh"><%= user.date_of_birth %></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;">Ngày sinh:</p>
+                    <p style="float: right;margin-bottom: 5px;"><%= user.date_of_birth %></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Giới tính:
-                    </div>
-                    <div>
-                        <div id="gioi_tinh"><%= user.sex %></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;">Giới tính:</p>
+                    <p style="float: right;margin-bottom: 5px;"><%= user.sex %></p>
+                    <div style="clear: both;"></div>
                 </div>
             </div>
             <div class="col-md-12 col-lg-7" id="lam_bai_thi">
@@ -114,47 +92,37 @@
                 </div>
 
             </div>
-            
+
             <div class="col-md-12 col-lg-3" id="thong_tin_bai_thi">
-                <div class="row" style="padding-left:20px">
+                <div class="row">
                     <div class="col-sm-12">
                         <h5 class="text-center">Thông bài thi</h5>
                     </div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Mã đề :
-                    </div>
-                    <div>
-                        <div id="ma_de"></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Mã đề :</p>
+                    <p style="float: right;margin-bottom: 5px;" id="ma_de"></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Chủ đề:
-                    </div>
-                    <div>
-                        <div id="chu_de"></div>
-                    </div>
+
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Chủ đề:</p>
+                    <p style="float: right;margin-bottom: 5px;" id="chu_de"></p>
+                    <div style="clear: both;"></div>
                 </div>
-                <div class="row" style="padding-left:20px">
-                    <div>
-                        Thời gian:
-                    </div>
-                    <div>
-                        <div id="thoi_gian"></div>
-                    </div>
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Thời gian:</p>
+                    <p style="float: right;margin-bottom: 5px;" id="thoi_gian"></p>
+                    <div style="clear: both;"></div>
                 </div>
+
                 <div class="row">
                     <div class="col-sm-12" id="thong_tin_tien_do">
                         <h5 class="text-center">Tiến độ</h5>
-                        <div class="row" style="padding-left:20px" id="dem_cau_tl">
-                            <div class="col-sm-6">
-                                <div id="soCauLam"></div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div id="tongCauHoi"></div>
-                            </div>
+                        <div id="dem_cau_tl">
+                            <p style="float: left;margin-bottom: 5px;" id="soCauLam"></p>
+                            <p style="float: right;margin-bottom: 5px;" id="tongCauHoi"></p>
+                            <div style="clear: both;"></div>
                         </div>
                         <div class="col-sm-12">
                             <div id="tien_do" class="tiendo"></div>
@@ -164,9 +132,12 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="text-center" id="bam_nop_bai"></div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                            data-target=".bd-example-modal-xl">Extra
+                            large modal</button>
                     </div>
                 </div>
-                <div class="row" style="padding-left:20px">
+                <div class="row">
                     <div class="col-sm-12">
                         <b>
                             <div class="text-center" id="tongDiem"></div>
@@ -201,32 +172,106 @@
             </div>
         </div>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="/js/jquery-3.3.1.slim.min.js"></script>
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        <script src="/business/data.js"></script>
-        <script src="/business/take_exam.js"></script>
-        <script src="/js/jspdf.min.js"></script>
-        <!-- <script src="js/bundle.js"></script> -->
-        <script>
-            startTimer(); //start time count down
+        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="row" style="padding: 50px">
+                        <div class="col-sm-4">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h5 class="text-center">Thông tin thí sinh</h5>
+                                </div>
+                                <div class="col-sm-12" id="avatar_sv">
+                                    <img src="/img/<%= user.student_code %>.jpg" width="100%" height="100%">
+                                </div>
+                            </div>
+                            <div>
+                                <p style="float: left;margin-bottom: 5px;">Họ tên :</p>
+                                <p style="float: right;margin-bottom: 5px;"><%= user.full_name %></p>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div>
+                                <p style="float: left;margin-bottom: 5px;">MSSV:</p>
+                                <p style="float: right;margin-bottom: 5px;"><%= user.student_code %></p>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div>
+                                <p style="float: left;margin-bottom: 5px;">Số CMND:</p>
+                                <p style="float: right;margin-bottom: 5px;"><%= user.identity_card_number %></p>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div>
+                                <p style="float: left;margin-bottom: 5px;">Lớp:</p>
+                                <p style="float: right;margin-bottom: 5px;"><%= user.student_class.class_name %></p>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div>
+                                <p style="float: left;margin-bottom: 5px;">Khoa:</p>
+                                <p style="float: right;margin-bottom: 5px;"><%= user.student_class.faculty %></p>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div>
+                                <p style="float: left;margin-bottom: 5px;">Ngày sinh:</p>
+                                <p style="float: right;margin-bottom: 5px;"><%= user.date_of_birth %></p>
+                                <div style="clear: both;"></div>
+                            </div>
+                            <div>
+                                <p style="float: left;margin-bottom: 5px;">Giới tính:</p>
+                                <p style="float: right;margin-bottom: 5px;"><%= user.sex %></p>
+                                <div style="clear: both;"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <h5 class="text-center">Kết quả</h5>
+                                        <div class="col-sm-12">
+                                            <div id="tien_do3" class="tiendo"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <b>
+                                            <div class="text-center" id="tongDiem2"></div>
+                                        </b>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 
-            var doc = new jsPDF();
-            var specialElementHandlers = {
-                '#editor': function (element, renderer) {
-                    return true;
-                }
-            };
-            $('#cmd').click(function () {
-                doc.fromHTML($('#content').html(), 15, 15, {
-                    'width': 170,
-                    'elementHandlers': specialElementHandlers
-                });
-                doc.save('sample-file.pdf');
-            });
-        </script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/business/data.js"></script>
+    <script src="/business/take_exam.js"></script>
+    <script src="/js/jspdf.min.js"></script>
+    <!-- <script src="js/bundle.js"></script> -->
+    <script>
+        startTimer(); //start time count down
+
+            // var doc = new jsPDF();
+            // var specialElementHandlers = {
+            //     '#editor': function (element, renderer) {
+            //         return true;
+            //     }
+            // };
+            // $('#cmd').click(function () {
+            //     doc.fromHTML($('#content').html(), 15, 15, {
+            //         'width': 170,
+            //         'elementHandlers': specialElementHandlers
+            //     });
+            //     doc.save('sample-file.pdf');
+            // });
+    </script>
 
 </body>
 

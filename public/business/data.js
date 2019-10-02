@@ -1,1 +1,16 @@
-var _0xd9b4=["\x68\x74\x74\x70\x73\x3A\x2F\x2F\x64\x76\x2D\x77\x65\x62\x74\x72\x61\x63\x6E\x67\x68\x69\x65\x6D\x2E\x68\x65\x72\x6F\x6B\x75\x61\x70\x70\x2E\x63\x6F\x6D\x2F","\x44\x61\x6E\x68\x5F\x73\x61\x63\x68\x5F\x44\x65\x5F\x74\x68\x69","\x4D\x61\x5F\x73\x6F\x5F\x58\x75\x5F\x6C\x79\x3D\x44\x6F\x63\x5F\x44\x61\x6E\x68\x5F\x73\x61\x63\x68\x5F\x44\x65\x5F\x74\x68\x69","","\x3F","\x50\x4F\x53\x54","\x6F\x70\x65\x6E","\x73\x65\x6E\x64","\x72\x65\x73\x70\x6F\x6E\x73\x65\x54\x65\x78\x74","\x70\x61\x72\x73\x65"];var Dia_chi_Dich_vu=_0xd9b4[0];var examList=Doc_Danh_sach_De_thi()[_0xd9b4[1]];function Doc_Danh_sach_De_thi(){var _0x7b25x4={};var _0x7b25x5= new XMLHttpRequest();var _0x7b25x6=_0xd9b4[2];var _0x7b25x7=(_0xd9b4[3]+ Dia_chi_Dich_vu+ _0xd9b4[4]+ _0x7b25x6+ _0xd9b4[3]);_0x7b25x5[_0xd9b4[6]](_0xd9b4[5],_0x7b25x7,false);_0x7b25x5[_0xd9b4[7]](_0xd9b4[3]);var _0x7b25x8=_0x7b25x5[_0xd9b4[8]];if(_0x7b25x8!= _0xd9b4[3]){_0x7b25x4= JSON[_0xd9b4[9]](_0x7b25x8)};return _0x7b25x4}
+var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
+var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
+function Doc_Danh_sach_De_thi() {
+    var Du_lieu = {}
+    var Xu_ly_HTTP = new XMLHttpRequest()
+    var Tham_so = `Ma_so_Xu_ly=Doc_Danh_sach_De_thi`
+    var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
+    Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
+    Xu_ly_HTTP.send("")
+    var Chuoi_JSON = Xu_ly_HTTP.responseText
+    if (Chuoi_JSON != "")
+        Du_lieu = JSON.parse(Chuoi_JSON)
+    return Du_lieu
+}
+
+

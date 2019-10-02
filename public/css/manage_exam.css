@@ -38,19 +38,19 @@
 }
 
 .price .header {
-    background-color: #111;
-    color: white;
+    background-color: rgba(226, 226, 226, 0.822);
+    color: black;
     font-size: 25px;
 }
 
 .price li {
     border-bottom: 1px solid #eee;
-    padding: 20px;
+    padding: 10px;
     text-align: center;
 }
 
 .price .grey {
-    background-color: #eee;
+    background-color: hsla(84,100%,100%,0.8);
     font-size: 20px;
 }
 

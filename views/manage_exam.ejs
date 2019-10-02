@@ -10,84 +10,66 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/manage_exam.css">
+    <link rel="stylesheet" href="/css/login.css">
+    </style>
+    <style>
     </style>
 </head>
 
-<body>
-    <div id="thong_tin" class="container hidden">
+<body background="/img/backgroundGDU.jpg" style="background-size:cover;">
+    <div id="thong_tin" style="background: hsla(84,100%,100%,0.8)" class="container hidden">
+            <div style="text-align:center;"><img src="/img/logoGDU.png" alt="Smiley face" width="10%" height="10%"></div>
         <h2 style="text-align:center">Kỳ thi tin học văn phòng 2019</h2>
-        <p style="text-align:center">Bên dưới là thông tin thí sinh và cuộc thi</p>
         <div class="columns">
             <ul class="price">
                 <li class="header">Thông tin thí sinh</li>
                 <li class="grey">
-                    <div class="row">
-                        <div>
-                            Họ tên :
-                        </div>
-                        <div>
-                            <div id="ho_ten"><%= user.full_name %></div>
-                        </div>
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;">Họ tên :</p>
+                        <p style="float: right;margin-bottom: 5px;"><%= user.full_name %></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            MSSV:
-                        </div>
-                        <div>
-                            <div id="ma_sv"><%= user.student_code %></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;">MSSV:</p>
+                        <p style="float: right;margin-bottom: 5px;"><%= user.student_code %></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Số CMND:
-                        </div>
-                        <div>
-                            <div id="cmnd"><%= user.identity_card_number %></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;">Số CMND:</p>
+                        <p style="float: right;margin-bottom: 5px;"><%= user.identity_card_number %></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Lớp:
-                        </div>
-                        <div>
-                            <div id="lop"><%= user.student_class.class_name %></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;">Lớp:</p>
+                        <p style="float: right;margin-bottom: 5px;"><%= user.student_class.class_name %></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Ngày sinh:
-                        </div>
-                        <div>
-                            <div id="ngay_sinh"><%= user.date_of_birth %></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;">Ngày sinh:</p>
+                        <p style="float: right;margin-bottom: 5px;"><%= user.date_of_birth %></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Khoa:
-                        </div>
-                        <div>
-                            <div id="khoa"><%= user.student_class.faculty %></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;">Khoa:</p>
+                        <p style="float: right;margin-bottom: 5px;"><%= user.student_class.faculty %></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Giới tính:
-                        </div>
-                        <div>
-                            <div id="gioi_tinh"><%= user.sex %></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;">Giới tính:</p>
+                        <p style="float: right;margin-bottom: 5px;"><%= user.sex %></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
             </ul>
@@ -95,76 +77,60 @@
 
         <div class="columns">
             <ul class="price">
-                <li class="header" style="background-color:#4CAF50">Thông tin bài thi</li>
+                <li class="header">Thông tin bài thi</li>
                 <li class="grey">
-                    <div class="row">
-                        <div>
-                            Mã đề :
-                        </div>
-                        <div>
-                            <div id="ma_de_thi"></div>
-                        </div>
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;"> Mã đề :</p>
+                        <p style="float: right;margin-bottom: 5px;" id="ma_de_thi"></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Chủ đề:
-                        </div>
-                        <div>
-                            <div id="chu_de"></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;"> Chủ đề:</p>
+                        <p style="float: right;margin-bottom: 5px;" id="chu_de"></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Thời gian:
-                        </div>
-                        <div>
-                            <div id="thoi_gian"></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;"> Thời gian:</p>
+                        <p style="float: right;margin-bottom: 5px;" id="thoi_gian"></p>
+                        <div style="clear: both;"></div>
                     </div>
                 </li>
-                <li>
-                    <div class="row">
-                        <div>
-                            Số câu hỏi:
-                        </div>
-                        <div>
-                            <div id="so_cau_hoi"></div>
-                        </div>
+                <li class="grey">
+                    <div>
+                        <p style="float: left;margin-bottom: 5px;"> Số câu hỏi:</p>
+                        <p style="float: right;margin-bottom: 5px;" id="so_cau_hoi"></p>
+                        <div style="clear: both;"></div>
                     </div>
+                </li>
+                <li class="grey">
+
+                        <button type="button" class="btn btn-primary" style="width: 100%;height: 100px;font-size: 30px;background-color: #214a80" id="bat_dau_thi"><strong>Bắt đầu thi</strong> </button>
                 </li>
             </ul>
         </div>
-        <button type="button" class="btn btn-primary" style="width: 100%;height: 50px;" id="bat_dau_thi">Bắt đầu làm
-            bài</button>
-
-
-
     </div>
-    <div class="row">
-        <div class="col-lg-2">
-        </div>
-        <div class="col-lg-8">
-            <div class="center">
-                <div class="form-group" id="nhap_ma_de">
-                    <label id="thong_bao" for="ma_de">Nhập mã đề</label>
-                    <input type="text" class="form-control" name="" id="exam_code" aria-describedby="helpId"
-                        placeholder="Nhập mã đề">
-                    <button type="button" style="width: 100%" class="btn btn-primary" id="dong_y">Đồng ý</button>
-                    <input id="test_student_code" type="hidden" value= <%= user.student_code %>>
-                </div>
+
+    <div class="login-dark" id="nhap_ma_de">
+        <div class="form" style="background-color:hsla(84,100%,100%,0.8);">
+            <div class="illustration"><img src="/img/logoGDU.png" alt="Smiley face" width="100%" height="100%"></div>
+            <label id="thong_bao" style="color: red;text-align: center"></label>
+            <div class="form-group"><input class="form-control" style="color: black;" id="exam_code" type="text"
+                    name="student_code" placeholder="Nhập mã đề"></div>
+            <div class="form-group"><button class="btn btn-primary btn-block" style="background-color: #214a80" id="dong_y" type="submit">Đồng ý</button>
+                <input id="test_student_code" type="hidden" value=<%= user.student_code %>>
             </div>
         </div>
-        <div class="col-lg-2">
-        </div>
+    </div>
+
     </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="/js/jquery-3.3.1.slim.min.js" ></script>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/data.js"></script>
