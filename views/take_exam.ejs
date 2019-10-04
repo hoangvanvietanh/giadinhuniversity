@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/menu.css">
     <link rel="stylesheet" href="/css/take_exam.css">
+    <style>
+      
+    </style>
 </head>
 
 <body>
@@ -20,6 +23,7 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#thong_tin_thi_sinh" id="btn_thong_tin_thi_sinh">Hiện thông tin thí sinh</button> -->
+                        
                     </div>
                     <div class="col-lg-5">
                         <button type="button" class="btn btn-primary" style="display: none" data-toggle="modal"
@@ -194,7 +198,7 @@
                             <div>
                                 <p style="float: left;margin-bottom: 5px;">MSSV:</p>
                                 <p style="float: right;margin-bottom: 5px;" id="stu_code"><%= user.student_code %></p>
-                                <input type="hidden" value="<%= user.student_code %>"  />
+                                <input type="hidden" value="<%= user.student_code %>" />
                                 <div style="clear: both;"></div>
                             </div>
                             <div>
@@ -224,24 +228,24 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                                <div class="row">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h5 class="text-center">Kết quả</h5>
                                     <div class="col-sm-12">
-                                        <h5 class="text-center">Kết quả</h5>
-                                        <div class="col-sm-12">
-                                            <div id="tien_do3" class="tiendo"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <b>
-                                            <div class="text-center" id="tongDiem2"></div>
-                                        </b>
+                                        <div id="tien_do3" class="tiendo"></div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <b>
+                                        <div class="text-center" id="tongDiem2"></div>
+                                    </b>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

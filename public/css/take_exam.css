@@ -180,127 +180,61 @@ table {
 
 
   /*check Khoa*/
-  .btn-lock {
-    /* position: absolute; */
-    /* top: calc(50% - 32px);
-    left: calc(50% - 32px); */
-    display: inline-block;
-    background: #ff5b5b;
-    /* width: 64px;
-    height: 64px; */
-    box-sizing: border-box;
-    /* padding: 12px 0 0 18px; */
-    border-radius: 20%;
+  .check {
     cursor: pointer;
-    margin-bottom: 2px;
+    position: relative;
+    margin: auto;
+    width: 18px;
+    height: 18px;
     -webkit-tap-highlight-color: transparent;
-  }
-  .btn-lock svg {
-    fill: none;
     transform: translate3d(0, 0, 0);
   }
-  .btn-lock svg .bling {
-    stroke: white;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-dasharray: 3;
-    stroke-dashoffset: 15;
-    transition: all 0.3s ease;
+  .check:before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(34,50,84,0.03);
+    opacity: 0;
+    transition: opacity 0.2s ease;
   }
-  .btn-lock svg .lock {
-    stroke: white;
-    stroke-width: 4;
+  .check svg {
+    position: relative;
+    z-index: 1;
+    fill: none;
+    stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-linecap: round;
-    stroke-dasharray: 36;
-    transition: all 0.4s ease;
-  }
-  .btn-lock svg .lockb {
-    fill: white;
-    fill-rule: evenodd;
-    clip-rule: evenodd;
-    transform: rotate(8deg);
-    transform-origin: 14px 20px;
+    stroke: #c8ccd4;
+    stroke-width: 1.5;
+    transform: translate3d(0, 0, 0);
     transition: all 0.2s ease;
   }
-  #inpLock {
-    display: none;
+  .check svg path {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 0;
   }
-  #inpLock:checked + label {
-    background: #20cca5;
+  .check svg polyline {
+    stroke-dasharray: 22;
+    stroke-dashoffset: 66;
   }
-  #inpLock:checked + label svg {
+  .check:hover:before {
     opacity: 1;
   }
-  #inpLock:checked + label svg .bling {
-    animation: bling 0.3s linear forwards;
-    animation-delay: 0.2s;
+  .check:hover svg {
+    stroke: #4285f4;
   }
-  #inpLock:checked + label svg .lock {
-    stroke-dasharray: 48;
-    animation: locked 0.3s linear forwards;
+  .cbx:checked + .check svg {
+    stroke: #4285f4;
   }
-  #inpLock:checked + label svg .lockb {
-    transform: rotate(0);
-    transform-origin: 14px 22px;
+  .cbx:checked + .check svg path {
+    stroke-dashoffset: 60;
+    transition: all 0.3s linear;
   }
-  @-moz-keyframes bling {
-    50% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 12;
-    }
-    100% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 9;
-    }
-  }
-  @-webkit-keyframes bling {
-    50% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 12;
-    }
-    100% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 9;
-    }
-  }
-  @-o-keyframes bling {
-    50% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 12;
-    }
-    100% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 9;
-    }
-  }
-  @keyframes bling {
-    50% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 12;
-    }
-    100% {
-      stroke-dasharray: 3;
-      stroke-dashoffset: 9;
-    }
-  }
-  @-moz-keyframes locked {
-    50% {
-      transform: translateY(1px);
-    }
-  }
-  @-webkit-keyframes locked {
-    50% {
-      transform: translateY(1px);
-    }
-  }
-  @-o-keyframes locked {
-    50% {
-      transform: translateY(1px);
-    }
-  }
-  @keyframes locked {
-    50% {
-      transform: translateY(1px);
-    }
+  .cbx:checked + .check svg polyline {
+    stroke-dashoffset: 42;
+    transition: all 0.2s linear;
+    transition-delay: 0.15s;
   }

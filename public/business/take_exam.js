@@ -71,7 +71,7 @@ function createTheExam(examCode) {
                     return 0.5 - Math.random()
                 });
                 for (var k = 0; k < content.answer_list.length; k++) {
-                    console.log("=>" + store_Anser + "--" + content.answer_list[k] + "<-")
+                    //console.log("=>" + store_Anser + "--" + content.answer_list[k] + "<-")
                     if (store_Anser == content.answer_list[k]) {
 
                         html += `
@@ -102,60 +102,54 @@ function createTheExam(examCode) {
 
                     if (j < 10) {
                         if (j % 3 == 0) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input id="inpLock" id="${j}TAIP" type="checkbox" readonly="readonly" name="type" value="${j}"/> 
-            <label class="btn-lock" for="${j}TAIP">
-<svg width="16" height="22" viewBox="0 0 28 42">
-<path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-<path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-<path class="bling" d="M29 20L31 22"></path>
-<path class="bling" d="M31.5 15H34.5"></path>
-<path class="bling" d="M29 10L31 8"></path>
-</svg>
-</label>
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label>
             </br>`
                         } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/><label class="btn-lock" for="${j}TAIP">
-            <svg width="16" height="22" viewBox="0 0 28 42">
-              <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-              <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-              <path class="bling" d="M29 20L31 22"></path>
-              <path class="bling" d="M31.5 15H34.5"></path>
-              <path class="bling" d="M29 10L31 8"></path>
-            </svg>
-          </label>`
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label>`
                         }
 
                     } else if (j % 3 == 0 && j > 10 && j < 100) {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/> <label class="btn-lock" for="${j}TAIP">
-        <svg width="16" height="22" viewBox="0 0 28 42">
-          <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-          <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-          <path class="bling" d="M29 20L31 22"></path>
-          <path class="bling" d="M31.5 15H34.5"></path>
-          <path class="bling" d="M29 10L31 8"></path>
-        </svg>
-      </label></br>`
+                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
+                        <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
+                        <label for="${j}TAIP" class="check">
+                          <svg width="18px" height="18px" viewBox="0 0 18 18">
+                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                            <polyline points="1 9 7 14 15 4"></polyline>
+                          </svg>
+                        </label></br>`
                     } else {
                         if (j % 2 != 0 && j >= 100) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/> <label class="btn-lock" for="${j}TAIP">
-            <svg width="16" height="22" viewBox="0 0 28 42">
-              <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-              <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-              <path class="bling" d="M29 20L31 22"></path>
-              <path class="bling" d="M31.5 15H34.5"></path>
-              <path class="bling" d="M29 10L31 8"></path>
-            </svg>
-          </label></br>`
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label></br>`
                         } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}"/><label class="btn-lock" for="${j}TAIP">
-            <svg width="16" height="22" viewBox="0 0 28 42">
-              <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-              <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-              <path class="bling" d="M29 20L31 22"></path>
-              <path class="bling" d="M31.5 15H34.5"></path>
-              <path class="bling" d="M29 10L31 8"></path>
-            </svg>
-          </label>`
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label>`
                         }
 
                     }
@@ -165,60 +159,53 @@ function createTheExam(examCode) {
                     totalAnswerInStore++;
                     if (j < 10) {
                         if (j % 3 == 0) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input id="inpLock" id="${j}TAIP" type="checkbox" readonly="readonly" name="type" value="${j}" checked/> 
-            <label class="btn-lock" for="${j}TAIP">
-<svg width="16" height="22" viewBox="0 0 28 42">
-<path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-<path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-<path class="bling" d="M29 20L31 22"></path>
-<path class="bling" d="M31.5 15H34.5"></path>
-<path class="bling" d="M29 10L31 8"></path>
-</svg>
-</label>
-            </br>`
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label></br>`
                         } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}" checked/><label class="btn-lock" for="${j}TAIP">
-            <svg width="16" height="22" viewBox="0 0 28 42">
-              <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-              <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-              <path class="bling" d="M29 20L31 22"></path>
-              <path class="bling" d="M31.5 15H34.5"></path>
-              <path class="bling" d="M29 10L31 8"></path>
-            </svg>
-          </label>`
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label>`
                         }
 
                     } else if (j % 3 == 0 && j > 10 && j < 100) {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}" checked/> <label class="btn-lock" for="${j}TAIP">
-        <svg width="16" height="22" viewBox="0 0 28 42">
-          <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-          <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-          <path class="bling" d="M29 20L31 22"></path>
-          <path class="bling" d="M31.5 15H34.5"></path>
-          <path class="bling" d="M29 10L31 8"></path>
-        </svg>
-      </label></br>`
+                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
+                        <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
+                        <label for="${j}TAIP" class="check">
+                          <svg width="18px" height="18px" viewBox="0 0 18 18">
+                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                            <polyline points="1 9 7 14 15 4"></polyline>
+                          </svg>
+                        </label></br>`
                     } else {
                         if (j % 2 != 0 && j >= 100) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}" checked/> <label class="btn-lock" for="${j}TAIP">
-            <svg width="16" height="22" viewBox="0 0 28 42">
-              <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-              <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-              <path class="bling" d="M29 20L31 22"></path>
-              <path class="bling" d="M31.5 15H34.5"></path>
-              <path class="bling" d="M29 10L31 8"></path>
-            </svg>
-          </label></br>`
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label></br>`
                         } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a> <input id="inpLock" type="checkbox" readonly="readonly" name="type" value="${j}" checked/><label class="btn-lock" for="${j}TAIP">
-            <svg width="16" height="22" viewBox="0 0 28 42">
-              <path class="lockb" d="M27 27C27 34.1797 21.1797 40 14 40C6.8203 40 1 34.1797 1 27C1 19.8203 6.8203 14 14 14C21.1797 14 27 19.8203 27 27ZM15.6298 26.5191C16.4544 25.9845 17 25.056 17 24C17 22.3431 15.6569 21 14 21C12.3431 21 11 22.3431 11 24C11 25.056 11.5456 25.9845 12.3702 26.5191L11 32H17L15.6298 26.5191Z"></path>
-              <path class="lock" d="M6 21V10C6 5.58172 9.58172 2 14 2V2C18.4183 2 22 5.58172 22 10V21"></path>
-              <path class="bling" d="M29 20L31 22"></path>
-              <path class="bling" d="M31.5 15H34.5"></path>
-              <path class="bling" d="M29 10L31 8"></path>
-            </svg>
-          </label>`
+                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
+                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
+                            <label for="${j}TAIP" class="check">
+                              <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+                                <polyline points="1 9 7 14 15 4"></polyline>
+                              </svg>
+                            </label>`
                         }
 
                     }
@@ -363,7 +350,7 @@ $('#noi_dung_thi tr').click(function () {
                 soCauLam2.innerHTML = `${cauDaLam} /`
             }
             array.push(as[0].value)
-            console.log(as[0].value)
+            //console.log(as[0].value)
             flag2++;
         }
 
@@ -395,9 +382,11 @@ function startTimer() {
     } else {
         if (submit == false) {
             time_count.innerHTML = "Hoàn thành bài thi";
+            localStorage.clear();
             nop_bai.click();
         } else {
             time_count.innerHTML = "Hoàn thành bài thi";
+            localStorage.clear();
         }
 
     }
