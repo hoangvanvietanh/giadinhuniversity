@@ -193,7 +193,8 @@
                             </div>
                             <div>
                                 <p style="float: left;margin-bottom: 5px;">MSSV:</p>
-                                <p style="float: right;margin-bottom: 5px;"><%= user.student_code %></p>
+                                <p style="float: right;margin-bottom: 5px;" id="stu_code"><%= user.student_code %></p>
+                                <input type="hidden" value="<%= user.student_code %>"  />
                                 <div style="clear: both;"></div>
                             </div>
                             <div>

@@ -1,5 +1,5 @@
 var examCode = document.getElementById("exam_code");
-var studentCode = sessionStorage.getItem("student_code");
+var studentCode = localStorage.getItem("student_code");
 var theExam;
 
 
@@ -8,7 +8,7 @@ function checkExamCode(examCode) {
     examList.forEach(exam => {
         if (exam.exam_code == examCode) {
             theExam = exam;
-            sessionStorage.setItem("exam_code", exam.exam_code)
+            localStorage.setItem("exam_code", exam.exam_code)
             flag++;
         }
 
