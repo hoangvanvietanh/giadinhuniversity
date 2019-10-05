@@ -10,6 +10,7 @@ var status = 0;
 var cauDaLam = 0;
 var submit = false;
 var array = [];
+var scores = 0;
 soCauLam.innerHTML = `Số câu đã làm: 0`
 createTheExam(examCode);
 
@@ -213,7 +214,7 @@ function createTheExam(examCode) {
             });
             soCauLam.innerHTML = `Số câu đã làm: ${totalAnswerInStore}`
             cauDaLam = totalAnswerInStore
-            console.log(array);
+            //console.log(array);
         }
     });
 }
@@ -279,7 +280,7 @@ function gradingExam(examCode) {
         });
     });
     bam_nop_bai.innerHTML = `Số câu đúng : ${numberOfCorrectSentences}/${i}`
-    var scores = numberOfCorrectSentences / i * 10;
+    scores = numberOfCorrectSentences / i * 10;
     tongDiem.innerHTML = `Tổng điểm: ${scores.toFixed(2)}`
     tongDiem2.innerHTML = `Tổng điểm: ${scores.toFixed(2)}`
 }
@@ -292,6 +293,11 @@ nop_bai.onclick = () => {
     time_count.innerHTML = "Hoàn thành bài thi";
     $(':radio:not(:checked)').attr('disabled', true); //Cannot allow people can check radio
     gradingExam(examCode);
+    
+    var SinhVien = ListDiemSinhVien.find(x => x.student_code == studentCode);
+    SinhVien.marks.computer_science = scores;
+    var kq = Cap_nhat_Diem_Sinh_vien(SinhVien);
+    console.log(kq)
     localStorage.clear();
 };
 
