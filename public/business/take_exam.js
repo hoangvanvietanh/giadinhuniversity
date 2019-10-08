@@ -19,8 +19,10 @@ function createTheExam(examCode) {
     examList.forEach(exam => {
         if (exam.exam_code == examCode) {
             ma_de.innerHTML = exam.exam_code; //Get code of the exam
-            chu_de.innerHTML = exam.topic; //Get the exam topic
             thoi_gian.innerHTML = exam.time + " phút"; //Get the time of the exam
+            mon_hoc.innerHTML = exam.subject;
+            hoc_ky.innerHTML = exam.semester;
+            ngay_lam.innerHTML = Get_date_now();
             var time = localStorage.getItem("timeCount");
             if (time != undefined) {
                 timeCount = localStorage.getItem("timeCount");
@@ -291,10 +293,17 @@ nop_bai.onclick = () => {
     gradingExam(examCode);
 
     var SinhVien = ListDiemSinhVien.find(x => x.student_code == studentCode);
-    SinhVien.marks.computer_science = scores;
-    var kq = Cap_nhat_Diem_Sinh_vien(SinhVien);
-    console.log(kq)
-    createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, chu_de.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`)
+    
+    var duLieu = {};
+    duLieu.exam_code = examCode;
+    duLieu.subject = mon_hoc.innerHTML;
+    duLieu.semester = hoc_ky.innerHTML;
+    duLieu.date  = ngay_lam.innerHTML;
+    duLieu.exam_score = scores;
+
+    SinhVien.marks.push(duLieu);
+    Cap_nhat_Diem_Sinh_vien(SinhVien);
+    createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`,ngay_lam.innerHTML)
     localStorage.clear();
 };
 
@@ -464,7 +473,7 @@ function xoa_dau(str) {
     return str;
 }
 
-function createReport(name, stu_code, class_name, faculty, id_card, gender, dob, pob, exam_code, topic, results, score) {
+function createReport(name, stu_code, class_name, faculty, id_card, gender, dob, pob, exam_code, topic, results, score,date) {
     var doc = new jsPDF({
         unit: 'pt',
         orientation: 'p',
@@ -521,7 +530,7 @@ function createReport(name, stu_code, class_name, faculty, id_card, gender, dob,
 
     doc.setFont('times')
     doc.setFontType('normal')
-    doc.text(50, 350, `Topic                    : ${xoa_dau(topic)}`)
+    doc.text(50, 350, `Subject                  : ${xoa_dau(topic)}`)
 
     doc.setFont('times')
     doc.setFontType('normal')
@@ -530,10 +539,6 @@ function createReport(name, stu_code, class_name, faculty, id_card, gender, dob,
     doc.setFont('times')
     doc.setFontType('normal')
     doc.text(50, 390, `Total score            : ${score} point`)
-
-
-    var today = new Date();
-    var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
 
     doc.setFont('times')
     doc.setFontType('normal')

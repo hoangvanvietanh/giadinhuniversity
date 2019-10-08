@@ -40,3 +40,10 @@ function Cap_nhat_Diem_Sinh_vien(Sinh_vien) {
     return Kq
 }
 
+function Get_date_now()
+{
+    var today = new Date();
+    var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    return date;
+}
+

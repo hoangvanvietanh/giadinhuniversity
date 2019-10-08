@@ -33,6 +33,9 @@ dong_y.onclick = () => {
     if (checkExamCode(examCode.value) == true) {
         ma_de_thi.innerHTML = theExam.exam_code;
         chu_de.innerHTML = theExam.topic;
+        mon_hoc.innerHTML = theExam.subject;
+        ngay_lam.innerHTML = Get_date_now();
+        hoc_ky.innerHTML = theExam.semester;
         thoi_gian.innerHTML = theExam.time + " phút";
         so_cau_hoi.innerHTML = theExam.question_list.length + " câu";
         document.getElementById("nhap_ma_de").classList.add('hidden');
