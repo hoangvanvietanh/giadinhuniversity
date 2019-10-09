@@ -7,6 +7,7 @@ const app = express();
 
 // Passport Config
 require('./config/passport')(passport);
+//require('./config/passportForAdmin')(passport);
 
 // EJS
 app.set('view engine', 'ejs');
@@ -41,6 +42,7 @@ app.use(function(req, res, next) {
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));
+app.use('/admin', require('./routes/admin.js'));
 
 const PORT = process.env.PORT || 5000;
 

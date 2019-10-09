@@ -7,7 +7,6 @@ const User = require('../models/User');
 const { forwardAuthenticated } = require('../config/auth');
 
 // Login Page
-//router.get('/login2', forwardAuthenticated, (req, res) => res.render('login2'));
 
 router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 
@@ -80,11 +79,11 @@ router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 
 // Login
 router.post('/login', (req, res, next) => {
-  passport.authenticate('local', {
-    successRedirect: '/exam/manage_exam',
-    failureRedirect: '/users/login',
-    failureFlash: true
-  })(req, res, next);
+    passport.authenticate('local', {
+      successRedirect: '/exam/manage_exam',
+      failureRedirect: '/users/login',
+      failureFlash: true
+    })(req, res, next);
 });
 
 // router.post('/login2', (req, res, next) => {
