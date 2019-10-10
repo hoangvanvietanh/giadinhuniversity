@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        #Cau_hoi_chon,
+        #list_cau_hoi {
+            float: left;
+            width: 100%;
+            height: 500px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid black;
+            overflow: scroll;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>Tạo đề thi</h4>
+                <div>Mã đề: </div>
+                <input type="text" />
+                <div id="Cau_hoi_chon">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h4>Thư viện câu hỏi</h4>
+                <div id="list_cau_hoi">
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <button type="button" class="btn btn-primary" id="click">xem</button>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+        <script src="/business/data.js"></script>
+    <script>
+        var a = [];
+        var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
+        var questionList = [];
+        var htmlQuestion = "";
+        var i = 0;
+        var listABC = ["A", "B", "C", "D", "E", "F"];
+        examList.forEach(exam => {
+            exam.question_list.forEach(content => {
+                i++;
+                var  keys = Object.keys(localStorage),
+                i = keys.length;
+
+            while (i--) {
+                var question = localStorage.getItem(keys[i]);
+                if(question == content.question)
+                {
+                    console.log(content.question);
+                }
+            }
+                htmlQuestion += `
+                <div onclick="moveButton(this,'${content.question.replace(/"/g, "dauNhay")}')" >
+                            <tbody width="100%">
+                                <tr>
+                                    <td><b>Câu hỏi: ${content.question} </b></td>
+                                    </br>
+                                </tr>
+                                <input type="hidden" id="CH${i}" value = "${content.question}">
+                `
+                for (var k = 0; k < content.answer_list.length; k++) {
+                    if (content.answer_list[k] == content.correct_answer) {
+                        htmlQuestion += `
+            <tr>
+            <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
+            </tr>
+            `
+                    }
+                    else {
+                        htmlQuestion += `
+            <tr>
+            <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
+            </tr>
+            `
+                    }
+                }
+                htmlQuestion += "</tbody></br></div>";
+
+            })
+        });
+        list_cau_hoi.innerHTML = htmlQuestion;
+        //console.log(examList)
+        click.onclick = () => {
+            console.log(CH1.value);
+        }
+        var i = 0;
+        function moveButton(elem, value) {
+            var cauHoi = value.replace(new RegExp('dauNhay', 'g'), '"');
+            if ($(elem).parent().attr("id") == "Cau_hoi_chon") {
+                $(elem).detach().appendTo('#list_cau_hoi');
+                //console.log("bo chon");
+                deleteIteamStorage(cauHoi)
+                
+            }
+            else {
+                $(elem).detach().appendTo('#Cau_hoi_chon');
+                i++;
+                //console.log(cauHoi);
+                localStorage.setItem(i, cauHoi);
+            }
+        }
+
+        function allStorage() {
+            var values = [],
+                keys = Object.keys(localStorage),
+                i = keys.length;
+
+            while (i--) {
+                values.push(localStorage.getItem(keys[i]));
+            }
+
+            return values;
+        }
+
+        function deleteIteamStorage(value) {
+            var  keys = Object.keys(localStorage),
+                i = keys.length;
+
+            while (i--) {
+                var question = localStorage.getItem(keys[i]);
+                if(question == value)
+                {
+                    localStorage.removeItem(keys[i]);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

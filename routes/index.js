@@ -31,4 +31,28 @@ router.get('/admin/home', ensureAuthenticatedAdmin, (req, res) =>
   })
 );
 
+router.get('/admin/exam', ensureAuthenticatedAdmin, (req, res) =>
+  res.render('adexam', {
+    user: req.user
+  })
+);
+
+router.get('/admin/question', ensureAuthenticatedAdmin, (req, res) =>
+  res.render('adquestion', {
+    user: req.user
+  })
+);
+
+router.get('/admin/createExam', ensureAuthenticatedAdmin, (req, res) =>
+  res.render('formCreateExam', {
+    user: req.user
+  })
+);
+
+router.get('/admin/createQuestion', ensureAuthenticatedAdmin, (req, res) =>
+  res.render('formCreateQuestion', {
+    user: req.user
+  })
+);
+
 module.exports = router;
