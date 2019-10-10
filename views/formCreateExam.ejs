@@ -25,6 +25,39 @@
 </head>
 
 <body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+            <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+                aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+                <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                    <li class="nav-item active">
+    
+                        <a class="nav-link" href="#">
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item avatar">
+                        <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img src="" id="imageid" class="rounded-circle z-depth-0" alt="avatar image"
+                                height="35">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                            aria-labelledby="navbarDropdownMenuLink-55">
+                            <a class="dropdown-item" href="#">Tài khoản</a>
+                            <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--/.Navbar -->
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6">
@@ -55,9 +88,10 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
         <script src="/business/data.js"></script>
+        <script src="/business/admin.js"></script>
     <script>
         var a = [];
-        var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
+        //var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
         var questionList = [];
         var htmlQuestion = "";
         var i = 0;

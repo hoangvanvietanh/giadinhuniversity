@@ -2,6 +2,15 @@ var examCode = document.getElementById("exam_code");
 var studentCode = localStorage.getItem("student_code");
 var theExam;
 
+checkExamAlready();
+
+function checkExamAlready()
+{
+    if(localStorage.getItem("timeCount")!=undefined && localStorage.getItem("student_code")==studentCode)
+    {
+        document.location.href = "/exam/take_exam";
+    }
+}
 
 function checkExamCode(examCode) {
     var flag = 0;

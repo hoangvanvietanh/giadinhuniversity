@@ -293,17 +293,18 @@ nop_bai.onclick = () => {
     gradingExam(examCode);
 
     var SinhVien = ListDiemSinhVien.find(x => x.student_code == studentCode);
-    
+
     var duLieu = {};
     duLieu.exam_code = examCode;
     duLieu.subject = mon_hoc.innerHTML;
     duLieu.semester = hoc_ky.innerHTML;
-    duLieu.date  = ngay_lam.innerHTML;
+    duLieu.date = ngay_lam.innerHTML;
     duLieu.exam_score = scores;
-
     SinhVien.marks.push(duLieu);
+    //console.log(duLieu)
+    post("/exam/take_exam", duLieu);
     Cap_nhat_Diem_Sinh_vien(SinhVien);
-    createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`,ngay_lam.innerHTML)
+    createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
     localStorage.clear();
 };
 
@@ -473,7 +474,7 @@ function xoa_dau(str) {
     return str;
 }
 
-function createReport(name, stu_code, class_name, faculty, id_card, gender, dob, pob, exam_code, topic, results, score,date) {
+function createReport(name, stu_code, class_name, faculty, id_card, gender, dob, pob, exam_code, topic, results, score, date) {
     var doc = new jsPDF({
         unit: 'pt',
         orientation: 'p',
@@ -555,13 +556,43 @@ btnLogout.onclick = () => {
     if (check != "Hoàn thành bài thi") {
         var logout = confirm("Bạn chưa hoàn thành bài thi, thoát ra đồng nghĩa với nộp bài, bạn có chắc chắn không ?");
         if (logout) {
+            if (submit == false) {
+                nop_bai.click();
+            }
             location.href = "/users/logout";
         }
     }
     else {
+        if (submit == false) {
+            nop_bai.click();
+        }
         location.href = "/users/logout";
     }
 }
 window.addEventListener('beforeunload', (event) => {
     event.returnValue = `Bạn đang làm bài thi, cố ý tắt sẽ đồng nghĩa nộp bài, bạn có chắc muốn làm điều đó`;
 });
+
+
+function post(path, params, method = 'post') {
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    const form = document.createElement('form');
+    form.method = method;
+    form.action = path;
+
+    for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+            const hiddenField = document.createElement('input');
+            hiddenField.type = 'hidden';
+            hiddenField.name = key;
+            hiddenField.value = params[key];
+
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}

@@ -80,7 +80,7 @@ router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 // Login
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
-      successRedirect: '/exam/manage_exam',
+      successRedirect: '/users/home',
       failureRedirect: '/users/login',
       failureFlash: true
     })(req, res, next);

@@ -6,22 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>homeAdmin</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Navigation-with-Search.css">
     <link rel="stylesheet" href="/css/adexam.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
-        <div class="container"><a class="navbar-brand" href="#">Gia Dinh University</a><button class="navbar-toggler"
-                data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span
-                    class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <form class="form-inline mr-auto" target="_self">
-                    <div class="form-group"><label for="search-field"></label></div>
-                </form><a class="btn btn-light action-button" role="button" href="#">Logot</a>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+            <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+                aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+                <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                    <li class="nav-item active">
+    
+                        <a class="nav-link" href="#">
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item avatar">
+                        <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img src="" id="imageid" class="rounded-circle z-depth-0" alt="avatar image"
+                                height="35">
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                            aria-labelledby="navbarDropdownMenuLink-55">
+                            <a class="dropdown-item" href="#">Tài khoản</a>
+                            <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
+        <!--/.Navbar -->
     <div class="container">
         <div class="row">
             <div class="col">
@@ -40,15 +61,8 @@
                                 <th>Trạng thái</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr id="noiDung">
-                                <td>123</td>
-                                <td>Tin học văn phòng</td>
-                                <td>10</td>
-                                <td>3</td>
-                                <td>10/7/1998</td>
-                                <td>open</td>
-                            </tr>
+                        <tbody id="noiDung">
+                            
                         </tbody>
                     </table>
                 </div><button class="btn btn-primary btn-lg btnThemDe" id="btnCreateExam" type="button">Tạo đề
@@ -58,6 +72,8 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/business/data.js"></script>
+    <script src="/business/admin.js"></script>
     <script>
         btnCreateExam.onclick = () => {
             document.location.href = "/admin/createExam";
@@ -65,8 +81,8 @@
 
         var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
         var html = "";
-        examList.forEach(exam => {
-            exam.question_list.forEach(content => {
+        examList.forEach(content => {
+            
                 html +=`<tr>
                                 <td>${content.exam_code}</td>
                                 <td>${content.subject}</td>
@@ -75,7 +91,7 @@
                                 <td>${content.date_created}</td>
                                 <td>${content.status}</td>
                             </tr>`     
-            });
+            
         });
         noiDung.innerHTML = html;
     </script>

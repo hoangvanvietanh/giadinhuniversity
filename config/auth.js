@@ -1,21 +1,19 @@
 module.exports = {
   ensureAuthenticated: function (req, res, next) {
     if (req.isAuthenticated()) {
+      if (req.user.role == "admin") {
+        return res.redirect('/admin/home');
+      }
       return next();
     }
-    req.flash('error_msg', 'Please log in to view that resource');
+    req.flash('error_msg', 'Vui lòng đăng nhập {-.~}');
     res.redirect('/users/login');
   },
   forwardAuthenticated: function (req, res, next) {
     if (!req.isAuthenticated()) {
       return next();
     }
-
-    // if (req.isAuthenticated() && req.user.role == "admin") {
-    //   res.redirect('/admin/home');
-    // }
-
-    res.redirect('/exam/manage_exam');
+    res.redirect('/users/home');
   },
   takeExamAuthenticated: function (req, res, next) {
     if (!req.isAuthenticated()) {

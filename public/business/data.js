@@ -1,4 +1,5 @@
 var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
+//var Dia_chi_Dich_vu = "http://localhost:1200"
 var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
 var ListDiemSinhVien = Doc_Danh_sach_Diem_Sinh_vien().Danh_sach_Diem_Sinh_vien;
 

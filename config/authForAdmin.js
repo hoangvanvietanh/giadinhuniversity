@@ -3,7 +3,7 @@ module.exports = {
     if (req.isAuthenticated() && req.user.role == "admin") {
       return next();
     }
-    req.flash('error_msg', 'Please log in to view that resource');
+    req.flash('error_msg', 'Vui lòng đăng nhập {-.~}');
     res.redirect('/users/login');
   },
   forwardAuthenticatedAdmin: function(req, res, next) {
