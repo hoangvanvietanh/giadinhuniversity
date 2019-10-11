@@ -28,8 +28,8 @@
             </ul>
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item avatar">
-                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
                         <img src="/img/<%= user.student_code %>.jpg" class="rounded-circle z-depth-0" alt="avatar image"
                             height="35">
                     </a>
@@ -108,7 +108,7 @@
                             <tr>
                                 <% for(var i=0; i<user.marks.length; i++) { var j = 0; %>
                             <tr>
-                                    <td><%=  j = i+1 %></td>
+                                <td><%=  j = i+1 %></td>
                                 <td><%= user.marks[i].subject %></td>
                                 <td><%= user.marks[i].exam_score %></td>
                                 <td><%= user.marks[i].semester %></td>
@@ -125,19 +125,64 @@
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/business/login.js"></script>
     <script>
+
+        loginNewUser();
+        logoutOldUser();
         
+        function loginNewUser() {
+            var key = Math.random().toString(36).substring(7);
+            var dsNhatKy = Doc_Danh_sach_Nhat_ky();
+            var nhatKy = {};
+            for (var i = 0; i < dsNhatKy.length; i++) {
+                if (dsNhatKy[i].student_code == `<%= user.student_code %>`) {
+                    if (dsNhatKy[i].status == "active" && dsNhatKy[i].keyConnect != localStorage.getItem("keyConnect")) {
+                        nhatKy.student_code = dsNhatKy[i].student_code;
+                        nhatKy.status = "anotherUserLogin";
+                        localStorage.setItem("keyConnect", key);
+                        nhatKy.keyConnect = key;
+                        Ghi_nhat_ky(nhatKy);
+                    }
+                    else if(dsNhatKy[i].status == "offline")
+                    {
+                        nhatKy.student_code = dsNhatKy[i].student_code;
+                        nhatKy.status = "active";
+                        localStorage.setItem("keyConnect", key);
+                        nhatKy.keyConnect = key;
+                        Ghi_nhat_ky(nhatKy);
+                    }
+                }
+            }
+        }
+
+        function logoutOldUser() {
+            var dsNhatKy = Doc_Danh_sach_Nhat_ky();
+            var nhatKy = {};
+            var keyLocal = localStorage.getItem("keyConnect");
+            for (var i = 0; i < dsNhatKy.length; i++) {
+                if (dsNhatKy[i].student_code == `<%= user.student_code %>`) {
+                    if (dsNhatKy[i].status == "anotherUserLogin" && dsNhatKy[i].keyConnect != keyLocal) {
+                        nhatKy.student_code = dsNhatKy[i].student_code;
+                        nhatKy.status = "active";
+                        nhatKy.keyConnect = dsNhatKy[i].keyConnect;
+                        Ghi_nhat_ky(nhatKy);
+                        localStorage.removeItem("keyConnect");
+                        document.location.href = "/users/logout";
+                    }
+                }
+            }
+
+        }
 
 
-    checkExamAlready();
+        checkExamAlready();
 
-function checkExamAlready()
-{
-    if(localStorage.getItem("timeCount")!=undefined && localStorage.getItem("student_code")==`<%= user.student_code %>`)
-    {
-        document.location.href = "/exam/take_exam";
-    }
-}
+        function checkExamAlready() {
+            if (localStorage.getItem("timeCount") != undefined && localStorage.getItem("student_code") == `<%= user.student_code %>`) {
+                document.location.href = "/exam/take_exam";
+            }
+        }
     </script>
 </body>
 
