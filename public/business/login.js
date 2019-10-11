@@ -1,4 +1,5 @@
-var Dia_chi_Dich_vu = "http://localhost:1200"
+var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
+//var Dia_chi_Dich_vu = "http://localhost:1200"
 
 function Doc_Danh_sach_Nhat_ky() {
     var Du_lieu = {}
