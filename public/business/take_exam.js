@@ -551,27 +551,49 @@ function createReport(name, stu_code, class_name, faculty, id_card, gender, dob,
 
 
 startTimer(); //start time count down
-btnLogout.onclick = () => {
-    var check = time_count.innerHTML;
-    if (check != "Hoàn thành bài thi") {
-        var logout = confirm("Bạn chưa hoàn thành bài thi, thoát ra đồng nghĩa với nộp bài, bạn có chắc chắn không ?");
-        if (logout) {
+function logoutInExam(studentCode) {
+    btnLogout.onclick = () => {
+        var check = time_count.innerHTML;
+        if (check != "Hoàn thành bài thi") {
+            var logout = confirm("Bạn chưa hoàn thành bài thi, thoát ra đồng nghĩa với nộp bài, bạn có chắc chắn không ?");
+            if (logout) {
+                if (submit == false) {
+                    nop_bai.click();
+                }
+                lougout(studentCode);
+            }
+        }
+        else {
             if (submit == false) {
                 nop_bai.click();
             }
-            location.href = "/users/logout";
+            lougout(studentCode);
         }
-    }
-    else {
-        if (submit == false) {
-            nop_bai.click();
-        }
-        location.href = "/users/logout";
     }
 }
-window.addEventListener('beforeunload', (event) => {
-    event.returnValue = `Bạn đang làm bài thi, cố ý tắt sẽ đồng nghĩa nộp bài, bạn có chắc muốn làm điều đó`;
-});
+
+
+function lougout(studentCode) {
+
+    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
+    var nhatKy = {};
+    if (dsNhatKy != undefined) {
+        for (var i = 0; i < dsNhatKy.length; i++) {
+            if (dsNhatKy[i].student_code == studentCode) {
+                nhatKy.student_code = dsNhatKy[i].student_code;
+                nhatKy.status = "offline";
+                nhatKy.keyConnect = "";
+                dsNhatKy[i] = nhatKy;
+                Ghi_nhat_ky(nhatKy);
+                localStorage.removeItem("keyConnect");
+                document.location.href = "/users/logout";
+            }
+        }
+    }
+}
+// window.addEventListener('beforeunload', (event) => {
+//     event.returnValue = `Bạn đang làm bài thi, cố ý tắt sẽ đồng nghĩa nộp bài, bạn có chắc muốn làm điều đó`;
+// });
 
 
 function post(path, params, method = 'post') {

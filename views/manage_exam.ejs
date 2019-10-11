@@ -150,12 +150,13 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/data.js"></script>
     <script src="/business/manage_exam.js"></script>
+    <script src="/business/home.js"></script>
     <script>
         localStorage.setItem("student_code", test_student_code.value)
-        //console.log(user.student_code);
-        bat_dau_thi.onclick = () => {
-            document.location.href = "take_exam";
-        }
+        loginNewUser('<%= user.student_code %>');
+        getConnectionWebSocket('<%= user.student_code %>');
+        logoutOldUser('<%= user.student_code %>');
+        lougout('<%= user.student_code %>');
     </script>
 </body>
 

@@ -54,3 +54,7 @@ dong_y.onclick = () => {
         thong_bao.innerHTML = "Mã đề không tồn tại"
     }
 }
+
+bat_dau_thi.onclick = () => {
+    document.location.href = "take_exam";
+}
