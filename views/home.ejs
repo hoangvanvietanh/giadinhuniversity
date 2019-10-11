@@ -166,6 +166,7 @@
                         nhatKy.status = "anotherUserLogin";
                         localStorage.setItem("keyConnect", key);
                         nhatKy.keyConnect = key;
+                        dsNhatKy[i] = nhatKy;
                         Ghi_nhat_ky(nhatKy);
                     }
                     else if (dsNhatKy[i].status == "offline") {
@@ -173,6 +174,7 @@
                         nhatKy.status = "active";
                         localStorage.setItem("keyConnect", key);
                         nhatKy.keyConnect = key;
+                        dsNhatKy[i] = nhatKy;
                         Ghi_nhat_ky(nhatKy);
                     }
                 }
