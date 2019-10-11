@@ -130,8 +130,8 @@
         loginNewUser();
         // navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister() } })
         // window.WebSocket = window.WebSocket || window.MozWebSocket;
-
-        var connection = new WebSocket('ws://dv-webtracnghiem.herokuapp.com');
+        var host = location.origin.replace(/^http/, 'ws')
+        var connection = new WebSocket(host);
 
         connection.onopen = function (message) {
             //console.log("Mo ket noi");
