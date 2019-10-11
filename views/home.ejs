@@ -127,10 +127,34 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/login.js"></script>
     <script>
-
         loginNewUser();
-        logoutOldUser();
-        
+        // navigator.serviceWorker.getRegistrations().then(function (registrations) { for (let registration of registrations) { registration.unregister() } })
+        // window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+        var connection = new WebSocket('ws://dv-webtracnghiem.herokuapp.com');
+
+        connection.onopen = function (message) {
+            //console.log("Mo ket noi");
+            connection.send('<%= user.student_code %>');
+        };
+
+        connection.onmessage = function (message) {
+            try {
+                //console.log(message)
+                var mssv = JSON.parse(message.data).data
+                if (mssv == '<%= user.student_code %>') {
+                    console.log("ok")
+                    logoutOldUser();
+                }
+            } catch (error) {
+
+            }
+
+        };
+
+        // loginNewUser();
+        //logoutOldUser();
+
         function loginNewUser() {
             var key = Math.random().toString(36).substring(7);
             var dsNhatKy = Doc_Danh_sach_Nhat_ky();
@@ -144,8 +168,7 @@
                         nhatKy.keyConnect = key;
                         Ghi_nhat_ky(nhatKy);
                     }
-                    else if(dsNhatKy[i].status == "offline")
-                    {
+                    else if (dsNhatKy[i].status == "offline") {
                         nhatKy.student_code = dsNhatKy[i].student_code;
                         nhatKy.status = "active";
                         localStorage.setItem("keyConnect", key);
