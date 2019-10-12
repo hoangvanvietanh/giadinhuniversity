@@ -299,7 +299,7 @@ nop_bai.onclick = () => {
     duLieu.subject = mon_hoc.innerHTML;
     duLieu.semester = hoc_ky.innerHTML;
     duLieu.date = ngay_lam.innerHTML;
-    duLieu.exam_score = scores;
+    duLieu.exam_score = scores.toFixed(2);
     SinhVien.marks.push(duLieu);
     //console.log(duLieu)
     post("/exam/take_exam", duLieu);
