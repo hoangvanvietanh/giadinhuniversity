@@ -89,6 +89,10 @@
         btnDSCauHoi.onclick = () => {
             document.location.href = "/admin/question";
         }
+        if(imageExists(`/img/<%= user.student_code %>.jpg`) == false)
+        {
+            document.getElementById("imageid").src="/img/andanh.png";
+        }
     </script>
 </body>
 

@@ -4,65 +4,171 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>taoCauHoi</title>
+    <title>formCreateExam</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Contact-Form-Clean.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
+    <style>
+        .input {}
+    </style>
 </head>
 
 <body>
     <!--Navbar -->
     <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
-            <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
-                aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
-                <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
-                    <li class="nav-item active">
-    
-                        <a class="nav-link" href="#">
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav ml-auto nav-flex-icons">
-                    <li class="nav-item avatar">
-                        <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                            <img src="" id="imageid" class="rounded-circle z-depth-0" alt="avatar image"
-                                height="35">
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
-                            aria-labelledby="navbarDropdownMenuLink-55">
-                            <a class="dropdown-item" href="#">Tài khoản</a>
-                            <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <!--/.Navbar -->
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="" id="imageid" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
     <div class="container">
-            <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/question">Câu hỏi</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tạo câu hỏi</li>
-                    </ol>
-                </nav>
-        <h2 class="text-center">Tạo câu hỏi</h2>
-        <div class="text-center">
-            <h5 class="text-center">Câu hỏi</h5><textarea></textarea>
-            <h5>Câu trả lời 1</h5><input type="text">
-            <h5>Câu trả lời 2</h5><input type="text">
-            <h5>Câu trả lời 3</h5><input type="text">
-            <h5>Câu trả lời 4</h5><input type="text"><button class="btn btn-primary" type="button">Button</button></div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item"><a href="/admin/question">Câu hỏi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tạo câu hỏi</li>
+            </ol>
+        </nav>
+        <h4 class="text-center">Tạo câu hỏi</h4>
+        <div class="row">
+            <div class="col">
+                <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;" id="subject">
+                            <optgroup label="Chọn môn học">
+                                <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
+                                <option value="Tiếng anh">Tiếng anh</option>
+                                <option value="Toán cao cấp">Toán cao cấp</option>
+                            </optgroup>
+                        </select></div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col">
+                <div class="group" style="margin-bottom: 45px;"><input id="question" class="input" type="text"
+                        required /><span class="highlight"></span><span class="bar"></span><label class="label">Câu
+                        hỏi</label></div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="group" style="margin-bottom: 45px;"><input id="answer1" class="input" type="text"
+                        required /><span class="highlight"></span><span class="bar"></span><label class="label">Câu trả
+                        lời 1</label>
+                </div>
+                <div class="group" style="margin-bottom: 45px;"><input id="answer2" class="input" type="text"
+                        required /><span class="highlight"></span><span class="bar"></span><label class="label">Câu trả
+                        lời 3</label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="group" style="margin-bottom: 45px;"><input id="answer3" class="input" type="text"
+                        required /><span class="highlight"></span><span class="bar"></span><label class="label">Câu trả
+                        lời 2</label>
+                </div>
+                <div class="group"><input id="answer4" class="input" type="text" required /><span
+                        class="highlight"></span><span class="bar"></span><label class="label">Câu trả lời 4</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <form style="margin-top: 8px;">
+                        <div class="field"><select class="form-control"
+                                style="border: none;border-bottom: 1px solid #757575;" id="correctAnswer">
+                                <optgroup label="Câu trả lời đúng">
+                                    <option value="1" selected> Câu trả lời 1</option>
+                                    <option value="2">Câu trả lời 2</option>
+                                    <option value="3">Câu trả lời 3</option>
+                                    <option value="4">Câu trả lời 4</option>
+                                </optgroup>
+                            </select></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary" style="width: 100%;" id="btnCreateQuestion">Tạo câu hỏi</button>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
+    <script src="/business/data.js"></script>
     <script src="/business/admin.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script>
+        btnCreateQuestion.onclick = () => {
+            var getSubject = document.getElementById("subject").value;
+            var correctAnswer = document.getElementById("correctAnswer").value;
+
+            var answer1 = document.getElementById("answer1").value;
+            var answer2 = document.getElementById("answer2").value;
+            var answer3 = document.getElementById("answer3").value;
+            var answer4 = document.getElementById("answer4").value;
+
+            var question = document.getElementById("question").value;
+            var answerList = [answer1, answer2, answer3, answer4];
+
+            var questionInList = {}
+            questionInList.question = question;
+            questionInList.answer_list = answerList;
+            questionInList.correct_answer = correctAnswer;
+
+            var questionList = [questionInList]
+            var libraryQuestion = {}
+
+            libraryQuestion.question_list = questionList;
+            libraryQuestion.subject = getSubject;
+            var checkSubjectAlready = false;
+            questionListOfData.forEach(data => {
+                if (data.subject == getSubject) {
+                    data.question_list.push(questionInList)
+                    libraryQuestion.question_list = data.question_list;
+                    //console.log(libraryQuestion)
+                    Them_Cau_hoi(libraryQuestion);
+                    checkSubjectAlready = true;
+                }
+
+            })
+            if(checkSubjectAlready==false)
+            {
+                Them_Cau_hoi_Mon_moi(libraryQuestion);
+            }
+
+            document.location.href = "/admin/question"
+        }
+        if (imageExists(`/img/<%= user.student_code %>.jpg`) == false) {
+            document.getElementById("imageid").src = "/img/andanh.png";
+        }
+    </script>
 </body>
 
 </html>

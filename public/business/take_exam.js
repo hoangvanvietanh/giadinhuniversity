@@ -306,6 +306,10 @@ nop_bai.onclick = () => {
     Cap_nhat_Diem_Sinh_vien(SinhVien);
     createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
     localStorage.clear();
+    alert("Bạn có 10 giây để xem lại đáp án đúng trước khi logout");
+    setTimeout(function(){ 
+    document.location.href = "/users/logout"
+    }, 10000);
 };
 
 var flag2 = 0;

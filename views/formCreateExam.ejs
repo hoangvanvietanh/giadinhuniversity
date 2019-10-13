@@ -81,12 +81,21 @@
                                <label class="label">Mã đề</label>
                         </div>
 
-                        <div class="group">
-                            <input class="input" type="text" id="subject" required>
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                               <label class="label">Môn học</label>
-                        </div>
+                        <div class="row">
+                                <div class="col">
+                                    <form style="margin-top: 8px;">
+                                        <div class="field"><select class="form-control"
+                                                style="border: none;border-bottom: 1px solid #757575;" id="subject"
+                                                onchange="chooseSubject()">
+                                                <optgroup label="Chọn môn học">
+                                                    <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
+                                                    <option value="Tiếng anh">Tiếng anh</option>
+                                                    <option value="Toán cao cấp">Toán cao cấp</option>
+                                                </optgroup>
+                                            </select></div>
+                                    </form>
+                                </div>
+                            </div>
 
 
                         <div class="group">
@@ -171,8 +180,23 @@
                         </div>
 
 
-                        <button style="width: 100%;margin-top: 15px" type="button" class="btn btn-primary">Tìm
-                            kiếm</button>
+                        <!-- <button style="width: 100%;margin-top: 15px" type="button" class="btn btn-primary">Tìm
+                            kiếm</button> -->
+                        <div class="row">
+                            <div class="col">
+                                <form style="margin-top: 8px;">
+                                    <div class="field"><select class="form-control"
+                                            style="border: none;border-bottom: 1px solid #757575;" id="mySelect"
+                                            onchange="chooseSubject()">
+                                            <optgroup label="Chọn môn học">
+                                                <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
+                                                <option value="Tiếng anh">Tiếng anh</option>
+                                                <option value="Toán cao cấp">Toán cao cấp</option>
+                                            </optgroup>
+                                        </select></div>
+                                </form>
+                            </div>
+                        </div>
 
                         <button style="width: 100%;margin-top: 30px" type="button" id="buttonAddExam"
                             class="btn btn-primary">Tạo đề
@@ -193,24 +217,29 @@
     <script src="/business/admin.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
+        
         var a = [];
         var questionList = [];
-        var htmlQuestion = "";
         var i = 0;
         var listABC = ["A", "B", "C", "D", "E", "F"];
-        questionListOfData.forEach(data => {
-            data.question_list.forEach(content => {
-                i++;
-                var keys = Object.keys(localStorage),
-                    i = keys.length;
+        chooseSubject();
+        function chooseSubject() {
+            var htmlQuestion = "";
+            var subject = document.getElementById("mySelect").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        i++;
+                        var keys = Object.keys(localStorage),
+                            i = keys.length;
 
-                while (i--) {
-                    var question = localStorage.getItem(keys[i]);
-                    if (question == content.question) {
-                        //console.log(content.question);
-                    }
-                }
-                htmlQuestion += `
+                        while (i--) {
+                            var question = localStorage.getItem(keys[i]);
+                            if (question == content.question) {
+                                //console.log(content.question);
+                            }
+                        }
+                        htmlQuestion += `
                 <div onclick="moveButton(this,'${content.question.replace(/"/g, "dauNhay")}')" >
                             <tbody width="100%">
                                 <tr>
@@ -219,28 +248,29 @@
                                 </tr>
                                 <input type="hidden" id="CH${i}" value = "${content.question}">
                 `
-                for (var k = 0; k < content.answer_list.length; k++) {
-                    if (content.answer_list[k] == content.correct_answer) {
-                        htmlQuestion += `
+                        for (var k = 0; k < content.answer_list.length; k++) {
+                            if (content.answer_list[k] == content.correct_answer) {
+                                htmlQuestion += `
             <tr>
             <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
             </tr>
             `
-                    }
-                    else {
-                        htmlQuestion += `
+                            }
+                            else {
+                                htmlQuestion += `
             <tr>
             <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
             </tr>
             `
-                    }
+                            }
+                        }
+                        htmlQuestion += "</tbody></br></div>";
+
+                    });
                 }
-                htmlQuestion += "</tbody></br></div>";
-
             });
-        });
-        list_cau_hoi.innerHTML = htmlQuestion;
-
+            list_cau_hoi.innerHTML = htmlQuestion;
+        }
         var i = 0;
         function moveButton(elem, value) {
             var cauHoi = value.replace(new RegExp('dauNhay', 'g'), '"');
@@ -299,7 +329,7 @@
                     break;
                 }
             }
-            createExam(examCode,timeOfExam,subject,topic,status,semester,listQuestionOfExam);
+            createExam(examCode, timeOfExam, subject, topic, status, semester, listQuestionOfExam);
         }
 
         function createListQuestionForExam() {
@@ -335,9 +365,8 @@
 
         }
 
-        if(imageExists(`/img/<%= user.student_code %>.jpg`) == false)
-        {
-            document.getElementById("imageid").src="/img/andanh.png";
+        if (imageExists(`/img/<%= user.student_code %>.jpg`) == false) {
+            document.getElementById("imageid").src = "/img/andanh.png";
         }
     </script>
 </body>
