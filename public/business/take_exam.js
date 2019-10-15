@@ -31,15 +31,26 @@ function createTheExam(examCode) {
                 timeCount = exam.time; //Set time count down
             }
 
+            if(timeCount==exam.time)
+            {
+                 exam.question_list.sort(function (a, b) {
+                    return 0.5 - Math.random()
+                });
+                //localStorage.setItem("listQuestionRandom",JSON.stringify(exam.question_list));
+            }
+            
             //Create the questions for the exam
             tongCauHoi.innerHTML = `Tổng: ${exam.question_list.length}`
             tongCauHoi2.innerHTML = `${exam.question_list.length} câu`
-            exam.question_list.sort(function (a, b) {
-                return 0.5 - Math.random()
-            });
-            //console.log(item)
+            var examListQuestion = exam.question_list;
+
+            if(localStorage.getItem("listQuestionRandom")!= undefined && timeCount!=exam.time)
+            {
+                examListQuestion = JSON.parse(localStorage.getItem("listQuestionRandom"))
+            }
+
             var totalAnswerInStore = 0;
-            exam.question_list.forEach(content => {
+            examListQuestion.forEach(content => {
                 var deBai = content.question.split("_")
                 var store_Anser;
                 var checkAnswer = 0;
@@ -68,9 +79,12 @@ function createTheExam(examCode) {
                 if (store_Anser == null) {
                     checkAnswer++;
                 }
-                content.answer_list.sort(function (a, b) {
-                    return 0.5 - Math.random()
-                });
+                if (timeCount==exam.time) {
+                    content.answer_list.sort(function (a, b) {
+                        return 0.5 - Math.random()
+                    });
+                }
+
                 for (var k = 0; k < content.answer_list.length; k++) {
                     //console.log("=>" + store_Anser + "--" + content.answer_list[k] + "<-")
                     if (store_Anser == content.answer_list[k]) {
@@ -98,6 +112,13 @@ function createTheExam(examCode) {
             <tr>
             <input type="hidden" id="Cau_${j}" value="${content.correct_answer}">
         </tr><tbody>`;
+
+
+
+
+
+
+                
 
                 if (checkAnswer != 0) {
 
@@ -212,6 +233,10 @@ function createTheExam(examCode) {
                     }
                 }
             });
+            if(timeCount==exam.time)
+            {
+                localStorage.setItem("listQuestionRandom",JSON.stringify(exam.question_list));
+            }
             soCauLam.innerHTML = `Số câu đã làm: ${totalAnswerInStore}`
             cauDaLam = totalAnswerInStore
             //console.log(array);
@@ -307,8 +332,8 @@ nop_bai.onclick = () => {
     createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
     localStorage.clear();
     alert("Bạn có 10 giây để xem lại đáp án đúng trước khi logout");
-    setTimeout(function(){ 
-    document.location.href = "/users/logout"
+    setTimeout(function () {
+        document.location.href = "/users/logout"
     }, 10000);
 };
 
