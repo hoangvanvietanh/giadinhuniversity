@@ -11,6 +11,7 @@ var cauDaLam = 0;
 var submit = false;
 var array = [];
 var scores = 0;
+var l = 1;
 soCauLam.innerHTML = `Số câu đã làm: 0`
 createTheExam(examCode);
 
@@ -31,21 +32,19 @@ function createTheExam(examCode) {
                 timeCount = exam.time; //Set time count down
             }
 
-            if(timeCount==exam.time)
-            {
-                 exam.question_list.sort(function (a, b) {
+            if (timeCount == exam.time) {
+                exam.question_list.sort(function (a, b) {
                     return 0.5 - Math.random()
                 });
                 //localStorage.setItem("listQuestionRandom",JSON.stringify(exam.question_list));
             }
-            
+
             //Create the questions for the exam
             tongCauHoi.innerHTML = `Tổng: ${exam.question_list.length}`
             tongCauHoi2.innerHTML = `${exam.question_list.length} câu`
             var examListQuestion = exam.question_list;
 
-            if(localStorage.getItem("listQuestionRandom")!= undefined && timeCount!=exam.time)
-            {
+            if (localStorage.getItem("listQuestionRandom") != undefined && timeCount != exam.time) {
                 examListQuestion = JSON.parse(localStorage.getItem("listQuestionRandom"))
             }
 
@@ -79,7 +78,7 @@ function createTheExam(examCode) {
                 if (store_Anser == null) {
                     checkAnswer++;
                 }
-                if (timeCount==exam.time) {
+                if (timeCount == exam.time) {
                     content.answer_list.sort(function (a, b) {
                         return 0.5 - Math.random()
                     });
@@ -112,137 +111,41 @@ function createTheExam(examCode) {
             <tr>
             <input type="hidden" id="Cau_${j}" value="${content.correct_answer}">
         </tr><tbody>`;
-
-
-
-
-
-
                 
-
                 if (checkAnswer != 0) {
-
-                    if (j < 10) {
-                        if (j % 3 == 0) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label>
-            </br>`
-                        } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label>`
-                        }
-
-                    } else if (j % 3 == 0 && j > 10 && j < 100) {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
-                        <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
-                        <label for="${j}TAIP" class="check">
-                          <svg width="18px" height="18px" viewBox="0 0 18 18">
-                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                            <polyline points="1 9 7 14 15 4"></polyline>
-                          </svg>
-                        </label></br>`
+                    if (j == l) {
+                        l = l +3;
+                        htmlTienDo += `<tr><td style="padding: 0;"> ${createCheckBoxNotCheckedHTML(j)} </td>`
+                    }
+                    else if (j % 3 == 0) {
+                        htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxNotCheckedHTML(j)} </td></tr>`
                     } else {
-                        if (j % 2 != 0 && j >= 100) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label></br>`
-                        } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}">
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label>`
-                        }
-
+                        htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxNotCheckedHTML(j)} </td>`
                     }
                 }
                 else {
                     array.push(`${j}`);
                     totalAnswerInStore++;
-                    if (j < 10) {
-                        if (j % 3 == 0) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label></br>`
-                        } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu 0${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label>`
-                        }
-
-                    } else if (j % 3 == 0 && j > 10 && j < 100) {
-                        htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
-                        <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
-                        <label for="${j}TAIP" class="check">
-                          <svg width="18px" height="18px" viewBox="0 0 18 18">
-                            <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                            <polyline points="1 9 7 14 15 4"></polyline>
-                          </svg>
-                        </label></br>`
+                    if (j == l) {
+                        l = l +3;
+                        htmlTienDo += `<tr><td style="padding: 0;"> ${createCheckBoxCheckedHTML(j)} </td>`
+                    }
+                    else if (j % 3 == 0) {
+                        htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxCheckedHTML(j)} </td></tr>`
                     } else {
-                        if (j % 2 != 0 && j >= 100) {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label></br>`
-                        } else {
-                            htmlTienDo += `<a id="${j}TA" href="#${j}CH">Câu ${j} :</a>
-                            <input type="checkbox" class="cbx"  id="${j}TAIP" style="display: none;" readonly="readonly" value="${j}" checked>
-                            <label for="${j}TAIP" class="check">
-                              <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
-                                <polyline points="1 9 7 14 15 4"></polyline>
-                              </svg>
-                            </label>`
-                        }
-
+                        htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxCheckedHTML(j)} </td>`
                     }
                 }
             });
-            if(timeCount==exam.time)
-            {
-                localStorage.setItem("listQuestionRandom",JSON.stringify(exam.question_list));
+            if (timeCount == exam.time) {
+                localStorage.setItem("listQuestionRandom", JSON.stringify(exam.question_list));
             }
-            soCauLam.innerHTML = `Số câu đã làm: ${totalAnswerInStore}`
-            cauDaLam = totalAnswerInStore
-            //console.log(array);
+            soCauLam.innerHTML = `Số câu đã làm: ${totalAnswerInStore}`;
+            cauDaLam = totalAnswerInStore;
         }
     });
 }
+
 
 
 //*****Change javascript to html with innerHTML************
@@ -310,6 +213,23 @@ function gradingExam(examCode) {
 
 //*****Submit exam*******************
 nop_bai.onclick = () => {
+
+    var checkTime = time_count.innerHTML;
+        if (checkTime != "Hoàn thành bài thi") {
+            var logout = confirm("Bạn vẫn còn thời gian làm bài, bạn có chắc chắc muốn nộp bài ?");
+            if (logout) {
+                nopBaiThi();
+            }
+        }
+        else {
+            nopBaiThi();
+        }
+
+    
+};
+
+function nopBaiThi()
+{
     submit = true;
     sessionStorage.removeItem("time");
     status++;
@@ -318,7 +238,6 @@ nop_bai.onclick = () => {
     gradingExam(examCode);
 
     var SinhVien = ListDiemSinhVien.find(x => x.student_code == studentCode);
-
     var duLieu = {};
     duLieu.exam_code = examCode;
     duLieu.subject = mon_hoc.innerHTML;
@@ -326,16 +245,25 @@ nop_bai.onclick = () => {
     duLieu.date = ngay_lam.innerHTML;
     duLieu.exam_score = scores.toFixed(2);
     SinhVien.marks.push(duLieu);
-    //console.log(duLieu)
     post("/exam/take_exam", duLieu);
     Cap_nhat_Diem_Sinh_vien(SinhVien);
     createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
-    localStorage.clear();
-    alert("Bạn có 10 giây để xem lại đáp án đúng trước khi logout");
-    setTimeout(function () {
-        document.location.href = "/users/logout"
-    }, 10000);
-};
+
+    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
+    var nhatKy = {};
+    if (dsNhatKy != undefined) {
+        for (var i = 0; i < dsNhatKy.length; i++) {
+            if (dsNhatKy[i].student_code == studentCode) {
+                nhatKy.student_code = dsNhatKy[i].student_code;
+                nhatKy.status = "offline";
+                nhatKy.keyConnect = "";
+                dsNhatKy[i] = nhatKy;
+                Ghi_nhat_ky(nhatKy);
+            }
+        }
+    }
+    alert("Bạn có 10 giây kể từ lúc thông báo này để xem lại đáp án đúng trước khi tự động logout");
+}
 
 var flag2 = 0;
 //*********************Can click on tag "tr" on table ************************************
@@ -579,47 +507,8 @@ function createReport(name, stu_code, class_name, faculty, id_card, gender, dob,
 }
 
 
-startTimer(); //start time count down
-function logoutInExam(studentCode) {
-    btnLogout.onclick = () => {
-        var check = time_count.innerHTML;
-        if (check != "Hoàn thành bài thi") {
-            var logout = confirm("Bạn chưa hoàn thành bài thi, thoát ra đồng nghĩa với nộp bài, bạn có chắc chắn không ?");
-            if (logout) {
-                if (submit == false) {
-                    nop_bai.click();
-                }
-                lougout(studentCode);
-            }
-        }
-        else {
-            if (submit == false) {
-                nop_bai.click();
-            }
-            lougout(studentCode);
-        }
-    }
-}
+startTimer();
 
-
-function lougout(studentCode) {
-
-    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
-    var nhatKy = {};
-    if (dsNhatKy != undefined) {
-        for (var i = 0; i < dsNhatKy.length; i++) {
-            if (dsNhatKy[i].student_code == studentCode) {
-                nhatKy.student_code = dsNhatKy[i].student_code;
-                nhatKy.status = "offline";
-                nhatKy.keyConnect = "";
-                dsNhatKy[i] = nhatKy;
-                Ghi_nhat_ky(nhatKy);
-                localStorage.removeItem("keyConnect");
-                document.location.href = "/users/logout";
-            }
-        }
-    }
-}
 // window.addEventListener('beforeunload', (event) => {
 //     event.returnValue = `Bạn đang làm bài thi, cố ý tắt sẽ đồng nghĩa nộp bài, bạn có chắc muốn làm điều đó`;
 // });
@@ -627,8 +516,6 @@ function lougout(studentCode) {
 
 function post(path, params, method = 'post') {
 
-    // The rest of this code assumes you are not using a library.
-    // It can be made less wordy if you use one.
     const form = document.createElement('form');
     form.method = method;
     form.action = path;
@@ -646,4 +533,62 @@ function post(path, params, method = 'post') {
 
     document.body.appendChild(form);
     form.submit();
+}
+
+
+
+function createCheckBoxCheckedHTML(stt) {
+    var html = "";
+    if(stt<10)
+    {
+        html = `<a id="${stt}TA" href="#${stt}CH">Câu 0${stt} : </a>
+    <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" checked>
+    <label for="${stt}TAIP" class="check">
+      <svg width="18px" height="18px" viewBox="0 0 18 18">
+        <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+        <polyline points="1 9 7 14 15 4"></polyline>
+      </svg>
+    </label>`;
+    }
+    else
+    {
+        html = `<a id="${stt}TA" href="#${stt}CH">Câu ${stt} : </a>
+    <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" checked>
+    <label for="${stt}TAIP" class="check">
+      <svg width="18px" height="18px" viewBox="0 0 18 18">
+        <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+        <polyline points="1 9 7 14 15 4"></polyline>
+      </svg>
+    </label>`;
+    }
+    
+    return html;
+}
+
+function createCheckBoxNotCheckedHTML(stt) {
+    var html = "";
+    if(stt<10)
+    {
+        html = `<a id="${stt}TA" href="#${stt}CH">Câu 0${stt} : </a>
+    <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" >
+    <label for="${stt}TAIP" class="check">
+      <svg width="18px" height="18px" viewBox="0 0 18 18">
+        <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+        <polyline points="1 9 7 14 15 4"></polyline>
+      </svg>
+    </label>`;
+    }
+    else
+    {
+        html = `<a id="${stt}TA" href="#${stt}CH">Câu ${stt} : </a>
+    <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" >
+    <label for="${stt}TAIP" class="check">
+      <svg width="18px" height="18px" viewBox="0 0 18 18">
+        <path d="M1,9 L1,3.5 C1,2 2,1 3.5,1 L14.5,1 C16,1 17,2 17,3.5 L17,14.5 C17,16 16,17 14.5,17 L3.5,17 C2,17 1,16 1,14.5 L1,9 Z"></path>
+        <polyline points="1 9 7 14 15 4"></polyline>
+      </svg>
+    </label>`;
+    }
+    
+    return html;
 }

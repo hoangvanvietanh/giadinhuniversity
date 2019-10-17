@@ -1,6 +1,16 @@
 var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
 //var Dia_chi_Dich_vu = "http://localhost:1200"
 
+var studentCode = localStorage.getItem("student_code");
+createSocket(studentCode);
+
+function createSocket(studentCode) {
+    loginNewUser(studentCode);
+    getConnectionWebSocket(studentCode);
+    logoutOldUser(studentCode);
+}
+
+
 function Doc_Danh_sach_Nhat_ky() {
     var Du_lieu = {}
     var Xu_ly_HTTP = new XMLHttpRequest()
@@ -105,33 +115,36 @@ function logoutOldUser(studentCode) {
             }
         }
     }
-
-
 }
 
-function lougout(studentCode) {
-    btnLogout.onclick = () => {
-        var dsNhatKy = Doc_Danh_sach_Nhat_ky();
-        var nhatKy = {};
-        if (dsNhatKy != undefined) {
-            for (var i = 0; i < dsNhatKy.length; i++) {
-                if (dsNhatKy[i].student_code == studentCode) {
-                    nhatKy.student_code = dsNhatKy[i].student_code;
-                    nhatKy.status = "offline";
-                    nhatKy.keyConnect = "";
-                    dsNhatKy[i] = nhatKy;
-                    Ghi_nhat_ky(nhatKy);
-                    localStorage.removeItem("keyConnect");
-                    document.location.href = "/users/logout";
-                }
+function logout(studentCode) {
+    var dsNhatKy = Doc_Danh_sach_Nhat_ky();
+    var nhatKy = {};
+    if (dsNhatKy != undefined) {
+        for (var i = 0; i < dsNhatKy.length; i++) {
+            if (dsNhatKy[i].student_code == studentCode) {
+                nhatKy.student_code = dsNhatKy[i].student_code;
+                nhatKy.status = "offline";
+                nhatKy.keyConnect = "";
+                dsNhatKy[i] = nhatKy;
+                Ghi_nhat_ky(nhatKy);
+                localStorage.clear();
+                document.location.href = "/users/logout";
             }
         }
-
     }
 }
 
-function checkExamAlready() {
-    if (localStorage.getItem("timeCount") != undefined && localStorage.getItem("student_code") == `<%= user.student_code %>`) {
+function checkExamAlready(studentCode) {
+    if (localStorage.getItem("timeCount") != undefined && localStorage.getItem("student_code") == studentCode) {
         document.location.href = "/exam/take_exam";
     }
 }
+
+$(document).keydown(function (event) {
+    if (event.keyCode == 123) { // Prevent F12
+        return false;
+    } else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) { // Prevent Ctrl+Shift+I        
+        return false;
+    }
+});

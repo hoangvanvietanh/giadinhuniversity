@@ -1,60 +1,91 @@
-var examCode = document.getElementById("exam_code");
-var studentCode = localStorage.getItem("student_code");
-var theExam;
-
-checkExamAlready();
-
-function checkExamAlready()
-{
-    if(localStorage.getItem("timeCount")!=undefined && localStorage.getItem("student_code")==studentCode)
-    {
-        document.location.href = "/exam/take_exam";
-    }
-}
-
-function checkExamCode(examCode) {
-    var flag = 0;
+function createListExam(studentClass) {
+    var html = "";
+    var j = 0;
     examList.forEach(exam => {
-        if (exam.exam_code == examCode) {
-            theExam = exam;
-            localStorage.setItem("exam_code", exam.exam_code)
-            flag++;
+        for (var i = 0; i < exam.class_take_exam.length; i++) {
+
+            if (exam.class_take_exam[i] == studentClass) {
+                j++;
+                html += `<li class="header">Bài thi ${j}</li>
+        <li class="grey">
+            <div>
+                <p style="float: left;margin-bottom: 5px;"> Mã đề :</p>
+                <p style="float: right;margin-bottom: 5px;">${exam.exam_code}</p>
+                <div style="clear: both;"></div>
+            </div>
+        </li>
+        <li class="grey">
+            <div>
+                <p style="float: left;margin-bottom: 5px;"> Môn học:</p>
+                <p style="float: right;margin-bottom: 5px;">${exam.subject}</p>
+                <div style="clear: both;"></div>
+            </div>
+        </li>
+        <li class="grey">
+            <div>
+                <p style="float: left;margin-bottom: 5px;"> Học kỳ:</p>
+                <p style="float: right;margin-bottom: 5px;">${exam.semester}</p>
+                <div style="clear: both;"></div>
+            </div>
+        </li>
+        <li class="grey">
+            <div>
+                <p style="float: left;margin-bottom: 5px;"> Ngày làm:</p>
+                <p style="float: right;margin-bottom: 5px;" >${Get_date_now()}</p>
+                <div style="clear: both;"></div>
+            </div>
+        </li>
+        <li class="grey">
+            <div>
+                <p style="float: left;margin-bottom: 5px;"> Thời gian:</p>
+                <p style="float: right;margin-bottom: 5px;" >${exam.time}</p>
+                <div style="clear: both;"></div>
+            </div>
+        </li>
+        <li class="grey">
+            <div>
+                <p style="float: left;margin-bottom: 5px;"> Số câu hỏi:</p>
+                <p style="float: right;margin-bottom: 5px;">${exam.question_list.length}</p>
+                <div style="clear: both;"></div>
+            </div>
+        </li>
+        <li class="grey">
+
+            <button type="button" class="btn btn-primary" onclick="takeExam(${exam.exam_code})"
+                style="width: 100%;font-size: 30px;background-color: #214a80"><strong>Bắt đầu bài thi ${j}</strong> </button>
+            
+        </li>`
+            }
         }
-
-    })
-    if (flag != 0) {
-        return true;
-    } else {
-        return false;
+    });
+    if (j == 0) {
+        html = "Bạn không có bất cứ kỳ thi nào"
     }
+    thongTinDeThi.innerHTML = html;
 }
 
-function getInfoStudent(studentCode) {
-    var theStudent;
-    studentsList.forEach(student => {
-        if (student.student_code == studentCode) {
-            theStudent = student;
-        }
-    })
-    return theStudent;
-}
-dong_y.onclick = () => {
-    if (checkExamCode(examCode.value) == true) {
-        ma_de_thi.innerHTML = theExam.exam_code;
-        chu_de.innerHTML = theExam.topic;
-        mon_hoc.innerHTML = theExam.subject;
-        ngay_lam.innerHTML = Get_date_now();
-        hoc_ky.innerHTML = theExam.semester;
-        thoi_gian.innerHTML = theExam.time + " phút";
-        so_cau_hoi.innerHTML = theExam.question_list.length + " câu";
-        document.getElementById("nhap_ma_de").classList.add('hidden');
-        document.getElementById("thong_tin").classList.remove('hidden');
-
-    } else {
-        thong_bao.innerHTML = "Mã đề không tồn tại"
-    }
-}
-
-bat_dau_thi.onclick = () => {
+function takeExam(examCode) {
+    localStorage.setItem("exam_code", examCode);
     document.location.href = "take_exam";
+}
+
+function lougout(studentCode) {
+    btnLogout.onclick = () => {
+        console.log("Vao")
+        var dsNhatKy = Doc_Danh_sach_Nhat_ky();
+        var nhatKy = {};
+        if (dsNhatKy != undefined) {
+            for (var i = 0; i < dsNhatKy.length; i++) {
+                if (dsNhatKy[i].student_code == studentCode) {
+                    nhatKy.student_code = dsNhatKy[i].student_code;
+                    nhatKy.status = "offline";
+                    nhatKy.keyConnect = "";
+                    dsNhatKy[i] = nhatKy;
+                    Ghi_nhat_ky(nhatKy);
+                    localStorage.clear();
+                    document.location.href = "/users/logout";
+                }
+            }
+        }
+    }
 }

@@ -17,33 +17,43 @@
     </style>
 </head>
 
-<body>
-    <header class="fixed-top" style="background-color: #003262;position: fixed;">
-        <div class="row">
-            <div class="col-lg-3">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <!-- <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#thong_tin_thi_sinh" id="btn_thong_tin_thi_sinh">Hiện thông tin thí sinh</button> -->
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 43%;">
+                <li class="nav-item active">
+                    <h1 id="time_count" class="text-center" style="color: white"></h1>
+                </li>
 
-                    </div>
-                    <div class="col-lg-5">
-                        <button type="button" class="btn btn-primary" style="display: none" data-toggle="modal"
-                            data-target="#myModal" id="btn_tien_do">Tiến độ</button>
-                    </div>
-                </div>
-
-                <div></div>
-            </div>
-            <div class="col-lg-6">
-                <h1 id="time_count" class="text-center" style="color: white"></h1>
-            </div>
-            <div class="col-lg-3">
-                <a name="" id="btnLogout" style="float:right;color: white;margin: 8px;" class="btn" href="#"
-                    role="button">Thoát <i class="fa fa-sign-out" aria-hidden="true"></i> </a>
-            </div>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/<%= user.student_code %>.jpg" class="rounded-circle z-depth-0" alt="avatar image"
+                            height="35">
+                    </a>
+                    <!-- <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <button type="button" class="dropdown-item" id="btnLogout">Đăng xuất</button>
+                    </div> -->
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary" style="display: none;width:100%;margin-top: 2%;"
+                        data-toggle="modal" data-target="#myModal" id="btn_tien_do">Tiến độ</button>
+                </li>
+            </ul>
         </div>
-    </header>
-    <div class="container-fluid" style="margin-top:65px">
+    </nav>
+    <!--/.Navbar -->
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 col-lg-2 collapse in show" id="thong_tin_thi_sinh">
                 <div class="row">
@@ -143,8 +153,13 @@
                             <p style="float: right;margin-bottom: 5px;" id="tongCauHoi"></p>
                             <div style="clear: both;"></div>
                         </div>
-                        <div class="col-sm-12">
-                            <div id="tien_do" class="tiendo"></div>
+                        <div class="tiendo">
+                            <table style="display: contents;"
+                                class="table table-striped table-inverse table-responsive">
+                                <tbody id="tien_do">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -163,6 +178,7 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="btnLogout">
         <div id="editor"></div>
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -196,16 +212,10 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/data.js"></script>
+    <script src="/business/home.js"></script>
     <script src="/business/take_exam.js"></script>
     <script src="/js/jspdf.min.js"></script>
-    <script src="/business/home.js"></script>
-    <script>
-        localStorage.setItem("student_code", '<%= user.student_code %>')
-        loginNewUser('<%= user.student_code %>');
-        getConnectionWebSocket('<%= user.student_code %>');
-        logoutOldUser('<%= user.student_code %>');
-        logoutInExam('<%= user.student_code %>');
-    </script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
     <script>

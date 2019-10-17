@@ -5,7 +5,7 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { ensureAuthenticatedAdmin, forwardAuthenticatedAdmin } = require('../config/authForAdmin');
 
 // Welcome Page
- router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
+router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
 router.get('/users', forwardAuthenticated, (req, res) => res.render('login'));
 
@@ -68,12 +68,15 @@ router.get('/admin/createQuestion', ensureAuthenticatedAdmin, (req, res) =>
 
 router.post('/exam/take_exam', (req, res, next) => {
   ListStudents.forEach(student => {
-    if(student.student_code == req.user.student_code)
-    {
+    if (student.student_code == req.user.student_code) {
       student.marks.push(req.body);
-      //console.log(student)
     }
-  });(req, res, next);
+  });
+  setTimeout(function () {
+    req.logout();
+    res.redirect('/users/login');
+  }, 10000);
+
 });
 
 module.exports = router;

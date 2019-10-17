@@ -11,15 +11,48 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/manage_exam.css">
     <link rel="stylesheet" href="/css/login.css">
-    </style>
     <style>
+        .scrollListExam {
+            height: 500px;
+            overflow: scroll;
+        }
     </style>
 </head>
 
-<body background="/img/backgroundGDU.jpg" style="background-size:cover;">
-    <div id="thong_tin" style="background: hsla(84,100%,100%,0.8)" class="container hidden">
-        <div style="text-align:center;"><img src="/img/logoGDU.png" alt="Smiley face" width="10%" height="10%"></div>
-        <h2 style="text-align:center" id="chu_de"></h2>
+<body>
+    <!--Navbar background="/img/backgroundGDU.jpg" style="background-size:cover;" -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/<%= user.student_code %>.jpg" class="rounded-circle z-depth-0" alt="avatar image"
+                            height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng xuất</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+
+    <div id="thong_tin" style="background: hsla(84,100%,100%,0.8)" class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/users/home">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Đề thi</li>
+            </ol>
+        </nav>
         <div class="columns">
             <ul class="price">
                 <li class="header">Thông tin thí sinh</li>
@@ -74,77 +107,13 @@
                 </li>
             </ul>
         </div>
+        <input type="hidden" id="btnLogout">
+        <div class="columns scrollListExam">
 
-        <div class="columns">
-            <ul class="price">
-                <li class="header">Thông tin bài thi</li>
-                <li class="grey">
-                    <div>
-                        <p style="float: left;margin-bottom: 5px;"> Mã đề :</p>
-                        <p style="float: right;margin-bottom: 5px;" id="ma_de_thi"></p>
-                        <div style="clear: both;"></div>
-                    </div>
-                </li>
-                <li class="grey">
-                    <div>
-                        <p style="float: left;margin-bottom: 5px;"> Môn học:</p>
-                        <p style="float: right;margin-bottom: 5px;" id="mon_hoc"></p>
-                        <div style="clear: both;"></div>
-                    </div>
-                </li>
-                <li class="grey">
-                    <div>
-                        <p style="float: left;margin-bottom: 5px;"> Học kỳ:</p>
-                        <p style="float: right;margin-bottom: 5px;" id="hoc_ky"></p>
-                        <div style="clear: both;"></div>
-                    </div>
-                </li>
-                <li class="grey">
-                    <div>
-                        <p style="float: left;margin-bottom: 5px;"> Ngày làm:</p>
-                        <p style="float: right;margin-bottom: 5px;" id="ngay_lam"></p>
-                        <div style="clear: both;"></div>
-                    </div>
-                </li>
-                <li class="grey">
-                    <div>
-                        <p style="float: left;margin-bottom: 5px;"> Thời gian:</p>
-                        <p style="float: right;margin-bottom: 5px;" id="thoi_gian"></p>
-                        <div style="clear: both;"></div>
-                    </div>
-                </li>
-                <li class="grey">
-                    <div>
-                        <p style="float: left;margin-bottom: 5px;"> Số câu hỏi:</p>
-                        <p style="float: right;margin-bottom: 5px;" id="so_cau_hoi"></p>
-                        <div style="clear: both;"></div>
-                    </div>
-                </li>
-                <li class="grey">
+            <ul class="price" id="thongTinDeThi">
 
-                    <button type="button" class="btn btn-primary"
-                        style="width: 100%;height: 100px;font-size: 30px;background-color: #214a80"
-                        id="bat_dau_thi"><strong>Bắt đầu thi</strong> </button>
-                </li>
             </ul>
         </div>
-    </div>
-
-    <div class="login-dark" id="nhap_ma_de">
-        <div class="form" style="background-color:hsla(84,100%,100%,0.8);">
-            <div class="illustration"><img src="/img/logoGDU.png" alt="Smiley face" width="100%" height="100%"></div>
-            <label id="thong_bao" style="color: red;text-align: center"></label>
-            <div class="form-group"><input class="form-control" style="color: black;" id="exam_code" type="text"
-                    name="student_code" placeholder="Nhập mã đề"></div>
-            <div class="form-group"><button class="btn btn-primary btn-block" style="background-color: #214a80"
-                    id="dong_y" type="submit">Đồng ý</button>
-                <input id="test_student_code" type="hidden" value=<%= user.student_code %>>
-            </div>
-            <a name="" id="" href="/users/home" style="margin-left: 20%" role="button"><b>Quay về trang chủ</b></a>
-        </div>
-    </div>
-
-    </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -152,15 +121,14 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/data.js"></script>
-    <script src="/business/manage_exam.js"></script>
     <script src="/business/home.js"></script>
+    <script src="/business/manage_exam.js"></script>
+    
     <script>
-        localStorage.setItem("student_code", test_student_code.value)
-        loginNewUser('<%= user.student_code %>');
-        getConnectionWebSocket('<%= user.student_code %>');
-        logoutOldUser('<%= user.student_code %>');
-        lougout('<%= user.student_code %>');
+        createListExam('<%= user.student_class.class_name %>')
     </script>
+
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
     <script>

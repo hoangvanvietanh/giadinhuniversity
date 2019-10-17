@@ -67,7 +67,34 @@
                         </select></div>
                 </form>
             </div>
+            <div class="col">
+                <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;" id="correctAnswer">
+                            <optgroup label="Câu trả lời đúng">
+                                <option value="1" selected> Câu trả lời 1 đúng</option>
+                                <option value="2">Câu trả lời 2 đúng</option>
+                                <option value="3">Câu trả lời 3 đúng</option>
+                                <option value="4">Câu trả lời 4 đúng</option>
+                            </optgroup>
+                        </select></div>
+                </form>
+            </div>
+            <div class="col">
+                <form style="margin-top: 8px;">
+                    <div class="field"><select class="form-control"
+                            style="border: none;border-bottom: 1px solid #757575;" id="levelOfQuestion">
+                            <optgroup label="Chọn mức độ câu hỏi">
+                                <option value="1" selected> Dễ</option>
+                                <option value="2">Trung bình</option>
+                                <option value="3">Khó</option>
+                                <option value="4">Cực khó</option>
+                            </optgroup>
+                        </select></div>
+                </form>
+            </div>
         </div>
+        
         <div class="row">
 
             <div class="col">
@@ -97,21 +124,8 @@
                         class="highlight"></span><span class="bar"></span><label class="label">Câu trả lời 4</label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <form style="margin-top: 8px;">
-                        <div class="field"><select class="form-control"
-                                style="border: none;border-bottom: 1px solid #757575;" id="correctAnswer">
-                                <optgroup label="Câu trả lời đúng">
-                                    <option value="1" selected> Câu trả lời 1</option>
-                                    <option value="2">Câu trả lời 2</option>
-                                    <option value="3">Câu trả lời 3</option>
-                                    <option value="4">Câu trả lời 4</option>
-                                </optgroup>
-                            </select></div>
-                    </form>
-                </div>
-            </div>
+            
+           
         </div>
         <button type="button" class="btn btn-primary" style="width: 100%;" id="btnCreateQuestion">Tạo câu hỏi</button>
     </div>
@@ -127,7 +141,7 @@
         btnCreateQuestion.onclick = () => {
             var getSubject = document.getElementById("subject").value;
             var correctAnswer = document.getElementById("correctAnswer").value;
-
+            var levelOfQuestion = document.getElementById("levelOfQuestion").value;
             var answer1 = document.getElementById("answer1").value;
             var answer2 = document.getElementById("answer2").value;
             var answer3 = document.getElementById("answer3").value;
@@ -140,6 +154,7 @@
             questionInList.question = question;
             questionInList.answer_list = answerList;
             questionInList.correct_answer = correctAnswer;
+            questionInList.level_question = levelOfQuestion;
 
             var questionList = [questionInList]
             var libraryQuestion = {}

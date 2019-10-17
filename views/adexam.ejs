@@ -65,6 +65,7 @@
                                 <th>Học kỳ</th>
                                 <th>Ngày tạo</th>
                                 <th>Trạng thái</th>
+                                <th>Chỉnh sửa</th>
                             </tr>
                         </thead>
                         <tbody id="noiDung">
@@ -97,6 +98,7 @@
                                 <td>${content.semester}</td>
                                 <td>${content.date_created}</td>
                                 <td>${content.status}</td>
+                                <td><button class="btn btn-primary btn-lg btnThemDe" onclick="buttonEdit(${content.exam_code})" type="button">+</button></td>
                             </tr>`
 
         });
@@ -113,6 +115,11 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-150192457-1');
+
+
+        function buttonEdit(examCode) {
+            console.log(examCode)
+        }
     </script>
 
 </body>
