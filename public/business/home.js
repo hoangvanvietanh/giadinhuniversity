@@ -136,7 +136,8 @@ function logout(studentCode) {
 }
 
 function checkExamAlready(studentCode) {
-    if (localStorage.getItem("timeCount") != undefined && localStorage.getItem("student_code") == studentCode) {
+    if (localStorage.getItem("timeCount") != undefined && localStorage.getItem("student_code") == studentCode || localStorage.getItem("listQuestionRandom") != undefined) {
+        openFullscreen();
         document.location.href = "/exam/take_exam";
     }
 }
@@ -148,3 +149,16 @@ $(document).keydown(function (event) {
         return false;
     }
 });
+
+var elem = document.documentElement;
+function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.mozRequestFullScreen) { /* Firefox */
+        elem.mozRequestFullScreen();
+    } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE/Edge */
+        elem.msRequestFullscreen();
+    }
+}

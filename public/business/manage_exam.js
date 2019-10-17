@@ -65,13 +65,13 @@ function createListExam(studentClass) {
 }
 
 function takeExam(examCode) {
+    //openFullscreen();
     localStorage.setItem("exam_code", examCode);
     document.location.href = "take_exam";
 }
 
 function lougout(studentCode) {
     btnLogout.onclick = () => {
-        console.log("Vao")
         var dsNhatKy = Doc_Danh_sach_Nhat_ky();
         var nhatKy = {};
         if (dsNhatKy != undefined) {
@@ -89,3 +89,7 @@ function lougout(studentCode) {
         }
     }
 }
+
+
+
+    

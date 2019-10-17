@@ -1,8 +1,9 @@
 var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
 //var Dia_chi_Dich_vu = "http://localhost:1200"
-var questionListOfData = Doc_Danh_sach_De_thi().Danh_sach_Cau_hoi;
+var questionListOfData = Doc_Thu_vien_Cau_hoi().Danh_sach_Cau_hoi;
 
-function Doc_Danh_sach_De_thi() {
+
+function Doc_Thu_vien_Cau_hoi() {
     var Du_lieu = {}
     var Xu_ly_HTTP = new XMLHttpRequest()
     var Tham_so = `Ma_so_Xu_ly=Doc_Danh_sach_Cau_hoi`

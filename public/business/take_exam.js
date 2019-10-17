@@ -17,10 +17,12 @@ createTheExam(examCode);
 
 //***Create the exam**********************
 function createTheExam(examCode) {
+
     examList.forEach(exam => {
         if (exam.exam_code == examCode) {
             ma_de.innerHTML = exam.exam_code; //Get code of the exam
             thoi_gian.innerHTML = exam.time + " phút"; //Get the time of the exam
+            localStorage.setItem("timeOfExam", exam.time +":0");
             mon_hoc.innerHTML = exam.subject;
             hoc_ky.innerHTML = exam.semester;
             ngay_lam.innerHTML = Get_date_now();
@@ -33,6 +35,16 @@ function createTheExam(examCode) {
             }
 
             if (timeCount == exam.time) {
+                $(window).on('load', function () {
+                    $('#modelId').modal('show');
+                });
+                $(document).ready(function () {
+                    $("#modelId").modal({
+                        show: false,
+                        backdrop: 'static'
+                    });
+
+                });
                 exam.question_list.sort(function (a, b) {
                     return 0.5 - Math.random()
                 });
@@ -111,10 +123,10 @@ function createTheExam(examCode) {
             <tr>
             <input type="hidden" id="Cau_${j}" value="${content.correct_answer}">
         </tr><tbody>`;
-                
+
                 if (checkAnswer != 0) {
                     if (j == l) {
-                        l = l +3;
+                        l = l + 3;
                         htmlTienDo += `<tr><td style="padding: 0;"> ${createCheckBoxNotCheckedHTML(j)} </td>`
                     }
                     else if (j % 3 == 0) {
@@ -127,7 +139,7 @@ function createTheExam(examCode) {
                     array.push(`${j}`);
                     totalAnswerInStore++;
                     if (j == l) {
-                        l = l +3;
+                        l = l + 3;
                         htmlTienDo += `<tr><td style="padding: 0;"> ${createCheckBoxCheckedHTML(j)} </td>`
                     }
                     else if (j % 3 == 0) {
@@ -215,21 +227,25 @@ function gradingExam(examCode) {
 nop_bai.onclick = () => {
 
     var checkTime = time_count.innerHTML;
-        if (checkTime != "Hoàn thành bài thi") {
-            var logout = confirm("Bạn vẫn còn thời gian làm bài, bạn có chắc chắc muốn nộp bài ?");
-            if (logout) {
-                nopBaiThi();
-            }
-        }
-        else {
+    if (checkTime != "Hoàn thành bài thi") {
+        var logout = confirm("Bạn vẫn còn thời gian làm bài, bạn có chắc chắc muốn nộp bài ?");
+        if (logout) {
             nopBaiThi();
         }
+        else {
+            setTimeout(function () {
+                openFullscreen();
+            }, 1000);
+        }
+    }
+    else {
+        nopBaiThi();
+    }
 
-    
+
 };
 
-function nopBaiThi()
-{
+function nopBaiThi() {
     submit = true;
     sessionStorage.removeItem("time");
     status++;
@@ -275,7 +291,7 @@ $('#noi_dung_thi tr').click(function () {
         var idQues = contentAnswer.name.split("_");
         var ans = contentAnswer.value.toString().slice(2);
         var ques = document.getElementById(idQues[1] + idQues[0]).textContent.slice(8).trim();
-
+        //openFullscreen();
         if (typeof (Storage) !== "undefined") {
             // Store
             localStorage.setItem(ques, ans);
@@ -505,9 +521,21 @@ function createReport(name, stu_code, class_name, faculty, id_card, gender, dob,
     doc.save(`${name}-${stu_code}.pdf`);
 
 }
+if ( localStorage.getItem("timeCount") != undefined) {
+    setTimeout(function () {
+        openFullscreen();
+    }, 500);
+    startTimer();
+}
+
+noiQuyThi.onclick = () => {
+    openFullscreen();
+    startTimer();
+}
 
 
-startTimer();
+
+
 
 // window.addEventListener('beforeunload', (event) => {
 //     event.returnValue = `Bạn đang làm bài thi, cố ý tắt sẽ đồng nghĩa nộp bài, bạn có chắc muốn làm điều đó`;
@@ -539,8 +567,7 @@ function post(path, params, method = 'post') {
 
 function createCheckBoxCheckedHTML(stt) {
     var html = "";
-    if(stt<10)
-    {
+    if (stt < 10) {
         html = `<a id="${stt}TA" href="#${stt}CH">Câu 0${stt} : </a>
     <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" checked>
     <label for="${stt}TAIP" class="check">
@@ -550,8 +577,7 @@ function createCheckBoxCheckedHTML(stt) {
       </svg>
     </label>`;
     }
-    else
-    {
+    else {
         html = `<a id="${stt}TA" href="#${stt}CH">Câu ${stt} : </a>
     <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" checked>
     <label for="${stt}TAIP" class="check">
@@ -561,14 +587,13 @@ function createCheckBoxCheckedHTML(stt) {
       </svg>
     </label>`;
     }
-    
+
     return html;
 }
 
 function createCheckBoxNotCheckedHTML(stt) {
     var html = "";
-    if(stt<10)
-    {
+    if (stt < 10) {
         html = `<a id="${stt}TA" href="#${stt}CH">Câu 0${stt} : </a>
     <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" >
     <label for="${stt}TAIP" class="check">
@@ -578,8 +603,7 @@ function createCheckBoxNotCheckedHTML(stt) {
       </svg>
     </label>`;
     }
-    else
-    {
+    else {
         html = `<a id="${stt}TA" href="#${stt}CH">Câu ${stt} : </a>
     <input type="checkbox" class="cbx"  id="${stt}TAIP" style="display: none;" readonly="readonly" value="${stt}" >
     <label for="${stt}TAIP" class="check">
@@ -589,6 +613,6 @@ function createCheckBoxNotCheckedHTML(stt) {
       </svg>
     </label>`;
     }
-    
+
     return html;
 }
