@@ -66,6 +66,12 @@ router.get('/admin/createQuestion', ensureAuthenticatedAdmin, (req, res) =>
   })
 );
 
+router.get('/admin/addClassToExam', ensureAuthenticatedAdmin, (req, res) =>
+  res.render('adAddClassToExam', {
+    user: req.user
+  })
+);
+
 router.post('/exam/take_exam', (req, res, next) => {
   ListStudents.forEach(student => {
     if (student.student_code == req.user.student_code) {

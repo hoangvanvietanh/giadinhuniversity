@@ -87,7 +87,7 @@
             document.location.href = "/admin/createExam";
         }
 
-        var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
+        //var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
         var html = "";
         examList.forEach(content => {
 
@@ -118,7 +118,8 @@
 
 
         function buttonEdit(examCode) {
-            console.log(examCode)
+            localStorage.setItem("examCode",examCode);
+            document.location.href ="/admin/addClassToExam";
         }
     </script>
 
