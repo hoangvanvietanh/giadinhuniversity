@@ -4,7 +4,8 @@ const ListStudents = require('../models/User');
 const ListExams = require('../models/Exam');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { ensureAuthenticatedAdmin, forwardAuthenticatedAdmin } = require('../config/authForAdmin');
-var Dia_chi_Dich_vu = "http://localhost:1200"
+var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/";
+//var Dia_chi_Dich_vu = "http://localhost:1200";
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const bcrypt = require('bcryptjs');
 
