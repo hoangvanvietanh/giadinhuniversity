@@ -1,7 +1,7 @@
-function createListExam(studentClass) {
+function createListExam(studentClass,listExam) {
     var html = "";
     var j = 0;
-    examList.forEach(exam => {
+    listExam.forEach(exam => {
         for (var i = 0; i < exam.class_take_exam.length; i++) {
 
             if (exam.class_take_exam[i] == studentClass) {
@@ -51,7 +51,7 @@ function createListExam(studentClass) {
         </li>
         <li class="grey">
 
-            <button type="button" class="btn btn-primary" onclick="takeExam(${exam.exam_code})"
+            <button type="button" class="btn btn-primary" onclick="takeExam('${exam.exam_code}')"
                 style="width: 100%;font-size: 30px;background-color: #214a80"><strong>Bắt đầu bài thi ${j}</strong> </button>
             
         </li>`
@@ -88,6 +88,13 @@ function lougout(studentCode) {
             }
         }
     }
+}
+
+function Get_date_now()
+{
+    var today = new Date();
+    var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    return date;
 }
 
 

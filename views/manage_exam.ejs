@@ -32,13 +32,14 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="/img/<%= user.student_code %>.jpg" class="rounded-circle z-depth-0" alt="avatar image"
-                            height="35">
+                        <img src="/img/<%= user.student_code %>.jpg" onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
+                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
                         <a class="dropdown-item" href="#">Tài khoản</a>
-                        <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng xuất</button>
+                        <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng
+                            xuất</button>
                     </div>
                 </li>
             </ul>
@@ -115,17 +116,18 @@
             </ul>
         </div>
     </div>
+    <input type="hidden" id="idListExam"" value="<%=examList%>">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
-    <script src="/business/data.js"></script>
     <script src="/business/home.js"></script>
     <script src="/business/manage_exam.js"></script>
-    
+
     <script>
-        createListExam('<%= user.student_class.class_name %>')
+        createListExam('<%=user.student_class.class_name %>',JSON.parse(idListExam.value));
+        document.getElementById("idListExam").remove();
     </script>
 
 

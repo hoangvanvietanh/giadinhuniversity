@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Thư viện câu hỏi</title>
+    <title>Quản lý chuyên ngành</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/adquestion.css">
 </head>
@@ -46,25 +46,22 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Câu hỏi</li>
+                <li class="breadcrumb-item active" aria-current="page">Chuyên ngành</li>
             </ol>
         </nav>
 
         <div class="row">
             <div class="col">
                 <div>
-                    <h3 class="text-center">Danh sách câu hỏi</h3>
+                    <h3 class="text-center">Danh sách chuyên ngành</h3>
                 </div>
                 <div class="row">
                     <div class="col">
                         <form style="margin-top: 8px;">
                             <div class="field"><select class="form-control"
-                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="mySelect"
-                                    onchange="chooseSubject()">
-                                    <optgroup label="Chọn môn học">
-                                        <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
-                                        <option value="Tiếng anh">Tiếng anh</option>
-                                        <option value="Toán cao cấp">Toán cao cấp</option>
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="myFaculty"
+                                    onchange="chooseFaculty()">
+                                    <optgroup label="Chọn khoa" id="list_faculty">
                                     </optgroup>
                                 </select></div>
                         </form>
@@ -74,20 +71,19 @@
                     <table class="table fixed_header">
                         <thead>
                             <tr>
-                                <th colspan="2">Câu hỏi</th>
-                                <th>Câu trả lời 1</th>
-                                <th>Câu trả lời 2</th>
-                                <th>Câu trả lời 3</th>
-                                <th>Câu trả lời 4</th>
+                                <th>Chuyên ngành</th>
+                                <th>Số lớp</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
                             </tr>
                         </thead>
-                        <tbody id="noiDung">
+                        <tbody id="list_class">
 
 
                         </tbody>
                     </table>
-                </div><button class="btn btn-primary btn-lg btnThemDe" id="btnQuestionPage" type="button">Tạo câu
-                    hỏi</button>
+                </div><button class="btn btn-primary btn-lg" style="width: 100%;" id="btnAddClass" type="button">Tạo lớp
+                    học</button>
             </div>
         </div>
     </div>
@@ -96,32 +92,56 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
-        chooseSubject();
-        function chooseSubject() {
-            var htmlListQuestion = "";
-            var subject = document.getElementById("mySelect").value;
-            questionListOfData.forEach(data => {
-                data.question_list.forEach(content => {
-                    if (data.subject == subject) {
-                        htmlListQuestion += `<tr>
-                                <td colspan="2" class="scroll">${content.question}</td>
-                                
-                                `
-                        content.answer_list.forEach(answer => {
-                            htmlListQuestion += `<td>${answer}</td>`
-                        })
-                        htmlListQuestion += `</tr>`;
-                        //console.log(data)
-                    }
-                })
-            })
-            noiDung.innerHTML = htmlListQuestion;
-        }
+        var htmlListFaculty = "<option value='Tất cả' >Tất cả</option>";
+        listClass.forEach(clas => {
+            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`
+        })
+        list_faculty.innerHTML = htmlListFaculty;
 
-        btnQuestionPage.onclick = () => {
-            document.location.href = "/admin/createQuestion";
+        chooseFaculty();
+        function chooseFaculty() {
+            
+            var htmlListClass = "";
+            listClass.forEach(clas => {
+                if (clas.faculty == myFaculty.value) {
+                    clas.list_major.forEach(classInList => {
+                        var countClass = 0;
+                        clas.list_class.forEach(cla => {
+                            if (cla.major == classInList.major_name) {
+                                countClass++;
+                            }
+                        })
+                        htmlListClass += `<tr>
+                                <td>${classInList.major_name}</td>
+                                <td>${countClass}</td>
+                                <td>${classInList.date_created}</td>
+                                <td>${classInList.status}</td>`
+                        htmlListClass += `</tr>`
+                    })
+                    list_class.innerHTML = htmlListClass;
+                }
+                if (myFaculty.value == "Tất cả") { 
+                    clas.list_major.forEach(classInList => {
+                        var countClass = 0;
+                        clas.list_class.forEach(cla => {
+                            if (cla.major == classInList.major_name) {
+                                countClass++;
+                            }
+                        })
+                        htmlListClass += `<tr>
+                                <td>${classInList.major_name}</td>
+                                <td>${countClass}</td>
+                                <td>${classInList.date_created}</td>
+                                <td>${classInList.status}</td>`
+                        htmlListClass += `</tr>`
+                    })
+                    list_class.innerHTML = htmlListClass;
+                }
+            })
         }
-    
+        btnAddClass.onclick = () => {
+            //document.location.href = "/admin/createQuestion";
+        }
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>

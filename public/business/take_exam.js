@@ -12,17 +12,21 @@ var submit = false;
 var array = [];
 var scores = 0;
 var l = 1;
+var examTake = {};
+var totalNumberOfSentences = 0; //A number of total question
+var SinhVien = JSON.parse(idUser.value);
 soCauLam.innerHTML = `Số câu đã làm: 0`
-createTheExam(examCode);
-
+createTheExam(examCode, JSON.parse(idListExam.value));
 //***Create the exam**********************
-function createTheExam(examCode) {
+function createTheExam(examCode, listExam) {
 
-    examList.forEach(exam => {
+    listExam.forEach(exam => {
         if (exam.exam_code == examCode) {
+            examTake = exam;
+            totalNumberOfSentences = exam.question_list.length; //Get length of answer system
             ma_de.innerHTML = exam.exam_code; //Get code of the exam
             thoi_gian.innerHTML = exam.time + " phút"; //Get the time of the exam
-            localStorage.setItem("timeOfExam", exam.time +":0");
+            localStorage.setItem("timeOfExam", exam.time + ":0");
             mon_hoc.innerHTML = exam.subject;
             hoc_ky.innerHTML = exam.semester;
             ngay_lam.innerHTML = Get_date_now();
@@ -170,53 +174,49 @@ soCauLam2.innerHTML = `0 /`
 //Create grading function
 var i = 0;
 var numberOfCorrectSentences = 0;
-function gradingExam(examCode) {
+
+function gradingExam(examCode, exam) {
     //A number of correct answers
-    var totalNumberOfSentences = 0; //A number of total question
+    //Get the question
+    exam.question_list.forEach(question => {
+        //Get the exam with the code
 
-    //Get the exam
-    examList.forEach(exam => {
-        //Get the question
-        exam.question_list.forEach(question => {
-            //Get the exam with the code
-            if (exam.exam_code == examCode) {
-                i++;
-                totalNumberOfSentences = question.length; //Get length of answer system
-                var radios = document.getElementsByName(`CH_${i}`); //Get the answer
-                var correctAnswer = document.getElementById(`Cau_${i}`); //Get results
-                var answer = "";
+        i++;
+        
+        var radios = document.getElementsByName(`CH_${i}`); //Get the answer
+        var correctAnswer = document.getElementById(`Cau_${i}`); //Get results
+        var answer = "";
 
-                for (var j = 0, length = radios.length; j < length; j++) {
-                    var flag = 0;
+        for (var j = 0, length = radios.length; j < length; j++) {
+            var flag = 0;
 
 
-                    var valueChecked = radios[j].value.split("_"); //Get value of radio checked
-                    //*****Check radio checked*****
-                    if (radios[j].checked) {
+            var valueChecked = radios[j].value.split("_"); //Get value of radio checked
+            //*****Check radio checked*****
+            if (radios[j].checked) {
 
-                        answer = valueChecked[1];
-                        //********Check correct sentence**********
-                        if (correctAnswer.value == valueChecked[1].trim()) {
-                            // $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "green"); //Change color with id tag "td" of correct sentence 
-                            $("a#" + `${i}TA`).css("color", "green"); //Change color tag "a" of correct sentence
-                            numberOfCorrectSentences++;
-                            flag++;
-                        }
-                    }
-
-                    //**********Check incorrect sentence***********
-                    if (valueChecked[1] == correctAnswer.value && flag == 0) {
-                        $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "#96f23a") //Change color with id tag "td" of incorrect sentce
-                        $("a#" + `${i}TA`).css("color", "red"); //Change color tag "a" of incorrect sentence
-                    }
+                answer = valueChecked[1];
+                //********Check correct sentence**********
+                if (correctAnswer.value == valueChecked[1].trim()) {
+                    // $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "green"); //Change color with id tag "td" of correct sentence 
+                    $("a#" + `${i}TA`).css("color", "green"); //Change color tag "a" of correct sentence
+                    numberOfCorrectSentences++;
+                    flag++;
                 }
-                //console.log(dap_an_dung.value + dap_an_tra_loi)
-
-                // if (dap_an_dung.value == dap_an_tra_loi) {
-                //     cauDung++; //count the correct sentence
-                // }
             }
-        });
+
+            //**********Check incorrect sentence***********
+            if (valueChecked[1] == correctAnswer.value && flag == 0) {
+                $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "#96f23a") //Change color with id tag "td" of incorrect sentce
+                $("a#" + `${i}TA`).css("color", "red"); //Change color tag "a" of incorrect sentence
+            }
+        }
+        //console.log(dap_an_dung.value + dap_an_tra_loi)
+
+        // if (dap_an_dung.value == dap_an_tra_loi) {
+        //     cauDung++; //count the correct sentence
+        // }
+
     });
     bam_nop_bai.innerHTML = `Số câu đúng : ${numberOfCorrectSentences}/${i}`
     scores = numberOfCorrectSentences / i * 10;
@@ -230,7 +230,7 @@ nop_bai.onclick = () => {
     if (checkTime != "Hoàn thành bài thi") {
         var logout = confirm("Bạn vẫn còn thời gian làm bài, bạn có chắc chắc muốn nộp bài ?");
         if (logout) {
-            nopBaiThi();
+            nopBaiThi(SinhVien);
         }
         else {
             setTimeout(function () {
@@ -239,31 +239,28 @@ nop_bai.onclick = () => {
         }
     }
     else {
-        nopBaiThi();
+        nopBaiThi(SinhVien);
     }
-
-
 };
 
-function nopBaiThi() {
+
+function nopBaiThi(SinhVien) {
     submit = true;
     sessionStorage.removeItem("time");
     status++;
     time_count.innerHTML = "Hoàn thành bài thi";
     $(':radio:not(:checked)').attr('disabled', true); //Cannot allow people can check radio
-    gradingExam(examCode);
+    gradingExam(examCode, examTake);
 
-    var SinhVien = ListDiemSinhVien.find(x => x.student_code == studentCode);
     var duLieu = {};
     duLieu.exam_code = examCode;
     duLieu.subject = mon_hoc.innerHTML;
     duLieu.semester = hoc_ky.innerHTML;
     duLieu.date = ngay_lam.innerHTML;
     duLieu.exam_score = scores.toFixed(2);
-    SinhVien.marks.push(duLieu);
+
     post("/exam/take_exam", duLieu);
-    Cap_nhat_Diem_Sinh_vien(SinhVien);
-    createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${i}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
+    createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${totalNumberOfSentences}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
 
     var dsNhatKy = Doc_Danh_sach_Nhat_ky();
     var nhatKy = {};
@@ -288,14 +285,18 @@ $('#noi_dung_thi tr').click(function () {
         //****Click td can selected radio*******************
         $(this).find('td input:radio').prop('checked', true);
         var contentAnswer = $(this).find('td input:radio')[0];
-        var idQues = contentAnswer.name.split("_");
-        var ans = contentAnswer.value.toString().slice(2);
-        var ques = document.getElementById(idQues[1] + idQues[0]).textContent.slice(8).trim();
-        //openFullscreen();
-        if (typeof (Storage) !== "undefined") {
-            // Store
-            localStorage.setItem(ques, ans);
+        if (contentAnswer != undefined) {
+            var idQues = contentAnswer.name.split("_");
+            var ans = contentAnswer.value.toString().slice(2);
+            var ques = document.getElementById(idQues[1] + idQues[0]).textContent.slice(8).trim();
+            //openFullscreen();
+            if (typeof (Storage) !== "undefined") {
+                // Store
+                localStorage.setItem(ques, ans);
+            }
         }
+
+
         //*****Change color when click tag "tr" on table********
         // $(this)
         //     .closest("tr")
@@ -521,7 +522,7 @@ function createReport(name, stu_code, class_name, faculty, id_card, gender, dob,
     doc.save(`${name}-${stu_code}.pdf`);
 
 }
-if ( localStorage.getItem("timeCount") != undefined) {
+if (localStorage.getItem("timeCount") != undefined) {
     setTimeout(function () {
         openFullscreen();
     }, 500);
@@ -615,4 +616,14 @@ function createCheckBoxNotCheckedHTML(stt) {
     }
 
     return html;
+}
+
+document.getElementById("idListExam").remove();
+document.getElementById("idUser").remove();
+
+function Get_date_now()
+{
+    var today = new Date();
+    var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+    return date;
 }

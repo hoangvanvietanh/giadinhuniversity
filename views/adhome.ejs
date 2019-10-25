@@ -32,7 +32,7 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="" id="imageid" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
@@ -45,8 +45,13 @@
     </nav>
     <!--/.Navbar -->
     <div class="container">
-        <button type="button" id="btnDSDeThi" class="btn btn-primary">Danh sach de thi</button>
-        <button type="button" id="btnDSCauHoi" class="btn btn-primary">Danh sach cau hoi</button>
+        <button type="button" id="btnDSDeThi" class="btn btn-primary">Danh sách đề thi</button>
+        <button type="button" id="btnDSCauHoi" class="btn btn-primary">Danh sách câu hỏi</button>
+        <button type="button" id="btnDSUsers" class="btn btn-primary">Danh sách sinh viên</button>
+        <button type="button" id="btnDSClass" class="btn btn-primary">Danh sách lớp học</button>
+        <button type="button" id="btnDSFaculty" class="btn btn-primary">Danh sách khoa</button>
+        <button type="button" id="btnDSMajor" class="btn btn-primary">Danh sách chuyên ngành</button>
+        <button type="button" id="btnDSSubject" class="btn btn-primary">Danh sách môn học</button>
     </div>
 
     <!-- Optional JavaScript -->
@@ -55,26 +60,7 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/dataForAdmin.js"></script>
-    <script src="/business/admin.js"></script>
     <script>
-
-        // if(imageExists(`/img/<%= user.student_code %>.jpg`) == false)
-        // {
-        //     document.getElementById("imageid").src="/img/123.jpg";
-        // }
-
-
-        // function imageExists(image_url) {
-
-        //     var http = new XMLHttpRequest();
-
-        //     http.open('HEAD', image_url, false);
-        //     http.send();
-
-        //     return http.status != 404;
-
-        // }
-
         btnDSDeThi.onclick = () => {
             document.location.href = "/admin/exam";
         }
@@ -82,8 +68,25 @@
         btnDSCauHoi.onclick = () => {
             document.location.href = "/admin/question";
         }
-        if (imageExists(`/img/<%= user.student_code %>.jpg`) == false) {
-            document.getElementById("imageid").src = "/img/andanh.png";
+
+        btnDSUsers.onclick = () => {
+            document.location.href = "/admin/users";
+        }
+
+        btnDSClass.onclick = () => {
+            document.location.href = "/admin/class";
+        }
+
+        btnDSFaculty.onclick = () => {
+            document.location.href = "/admin/faculty";
+        }
+
+        btnDSMajor.onclick = () => {
+            document.location.href = "/admin/major";
+        }
+
+        btnDSSubject.onclick = () => {
+            document.location.href = "/admin/subject";
         }
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->

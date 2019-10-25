@@ -33,7 +33,7 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="" id="imageid" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
@@ -58,7 +58,7 @@
             <div class="col">
                 <form style="margin-top: 8px;">
                     <div class="field"><select class="form-control"
-                            style="border: none;border-bottom: 1px solid #757575;" id="subject">
+                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="subject">
                             <optgroup label="Chọn môn học">
                                 <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
                                 <option value="Tiếng anh">Tiếng anh</option>
@@ -70,7 +70,7 @@
             <div class="col">
                 <form style="margin-top: 8px;">
                     <div class="field"><select class="form-control"
-                            style="border: none;border-bottom: 1px solid #757575;" id="correctAnswer">
+                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="correctAnswer">
                             <optgroup label="Câu trả lời đúng">
                                 <option value="1" selected> Câu trả lời 1 đúng</option>
                                 <option value="2">Câu trả lời 2 đúng</option>
@@ -83,7 +83,7 @@
             <div class="col">
                 <form style="margin-top: 8px;">
                     <div class="field"><select class="form-control"
-                            style="border: none;border-bottom: 1px solid #757575;" id="levelOfQuestion">
+                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="levelOfQuestion">
                             <optgroup label="Chọn mức độ câu hỏi">
                                 <option value="1" selected> Dễ</option>
                                 <option value="2">Trung bình</option>
@@ -124,8 +124,6 @@
                         class="highlight"></span><span class="bar"></span><label class="label">Câu trả lời 4</label>
                 </div>
             </div>
-            
-           
         </div>
         <button type="button" class="btn btn-primary" style="width: 100%;" id="btnCreateQuestion">Tạo câu hỏi</button>
     </div>
@@ -134,8 +132,6 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/Studious-selectbox.js"></script>
-    <script src="/business/data.js"></script>
-    <script src="/business/admin.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
         btnCreateQuestion.onclick = () => {
@@ -178,9 +174,7 @@
 
             document.location.href = "/admin/question"
         }
-        if (imageExists(`/img/<%= user.student_code %>.jpg`) == false) {
-            document.getElementById("imageid").src = "/img/andanh.png";
-        }
+       
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>

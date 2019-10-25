@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -22,13 +23,14 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="/img/<%= user.student_code %>.jpg" class="rounded-circle z-depth-0" alt="avatar image"
-                            height="35">
+                        <img src="/img/<%= user.student_code %>.jpg" onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
+                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
                         <a class="dropdown-item" href="#">Tài khoản</a>
-                        <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng xuất</button>
+                        <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng
+                            xuất</button>
                     </div>
                 </li>
             </ul>
@@ -36,7 +38,8 @@
     </nav>
     <!--/.Navbar -->
     <div class="container">
-            <a name="" id="" class="btn btn-primary" href="/exam/manage_exam" style="width: 100%;" role="button">Tham gia thi</a>
+        <a name="" id="" class="btn btn-primary" href="/exam/manage_exam" style="width: 100%;" role="button">Tham gia
+            thi</a>
         <div class="row">
             <div class="col-sm-5">
                 <div>
@@ -95,7 +98,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <% for(var i=0; i<user.marks.length; i++) { var j = 0; %>
+                                <% if(user.marks != undefined){ for(var i=0; i<user.marks.length; i++) { var j = 0; %>
                             <tr>
                                 <td><%=  j = i+1 %></td>
                                 <td><%= user.marks[i].subject %></td>
@@ -103,7 +106,7 @@
                                 <td><%= user.marks[i].semester %></td>
                                 <td><%= user.marks[i].date %></td>
                             </tr>
-                            <% } %>
+                            <% } }%>
                         </tbody>
                     </table>
                 </div>
@@ -116,7 +119,9 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/home.js"></script>
     <script>
-    checkExamAlready('<%= user.student_code %>');
+    
+        checkExamAlready('<%= user.student_code %>');
+        
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>

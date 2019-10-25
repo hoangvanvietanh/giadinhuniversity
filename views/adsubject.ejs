@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Quản lý khoa</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/adquestion.css">
+</head>
+
+<body>
+    <!--Navbar -->
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+        <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+            aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+            <ul class="navbar-nav mr-auto" style="position: absolute;left: 50%;">
+                <li class="nav-item active">
+
+                    <a class="nav-link" href="#">
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                        aria-labelledby="navbarDropdownMenuLink-55">
+                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="/users/logout">Đăng xuất</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!--/.Navbar -->
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Môn học</li>
+            </ol>
+        </nav>
+
+        <div class="row">
+            <div class="col">
+                <div>
+                    <h3 class="text-center">Danh sách môn học</h3>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0" id="myFaculty"
+                                    onchange="chooseFaculty()">
+                                    <optgroup label="Chọn khoa" id="list_faculty">
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="myMajor"
+                                    onchange="chooseMajor()">
+                                    <optgroup label="Chọn môn chuyên ngành" id="list_major">
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table fixed_header">
+                        <thead>
+                            <tr>
+                                <th>Môn học</th>
+                                <th>Số tính chỉ</th>
+                                <th>Số lớp đang học</th>
+                                <th>Số lớp hoàn thành</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list_subject">
+
+
+                        </tbody>
+                    </table>
+                </div><button class="btn btn-primary btn-lg" style="width: 100%;" id="btnAddFaculty" type="button">Tạo môn học mới</button>
+            </div>
+        </div>
+    </div>
+    <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/business/dataForAdmin.js"></script>
+    <script>
+
+        var htmlListFaculty = "<option value='Tất cả' >Tất cả</option>";
+        listClass.forEach(clas => {
+            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`;
+        })
+        list_faculty.innerHTML = htmlListFaculty;
+
+
+        chooseFaculty();
+        function chooseFaculty() {
+            var htmlListMajor = "<option value='Tất cả' >Tất cả</option>";
+            listClass.forEach(major => {
+                if (major.faculty == myFaculty.value) {
+                    major.list_major.forEach(major => {
+                        htmlListMajor += `<option value="${major.major_name}" >${major.major_name}</option>`
+                    })
+                }
+            })
+            list_major.innerHTML = htmlListMajor;
+            chooseMajor();
+        }
+
+        function chooseMajor() {
+            var htmlSubject = "";
+            listSubject.forEach(subject => {
+                if (myFaculty.value == "Tất cả" && myMajor.value == "Tất cả") {
+                    var classFinished = 0;
+                    var classUnfinished = 0;
+                    subject.list_class_studying.forEach(clas => {
+                        if (clas.status == "finished") {
+                            classFinished++;
+                        }
+                        else {
+                            classUnfinished++;
+                        }
+                    })
+                    htmlSubject += `<tr>
+                                <td>${subject.subject_name}</td>
+                                <td>${subject.credits}</td>
+                                <td>${classFinished}</td>
+                                <td>${classUnfinished}</td>`
+                    htmlSubject += `</tr>`
+                }
+                else {
+                    if (subject.faculty == "All") {
+                        var classFinished = 0;
+                        var classUnfinished = 0;
+                        subject.list_class_studying.forEach(clas => {
+                            if (clas.status == "finished") {
+                                classFinished++;
+                            }
+                            else {
+                                classUnfinished++;
+                            }
+                        })
+                        htmlSubject += `<tr>
+                                <td>${subject.subject_name}</td>
+                                <td>${subject.credits}</td>
+                                <td>${classFinished}</td>
+                                <td>${classUnfinished}</td>`
+                        htmlSubject += `</tr>`
+                    }
+                    else {
+                        subject.faculty.forEach(facultyName => {
+                            if (facultyName == myFaculty.value) {
+                                subject.major.forEach(majorName => {
+                                    if (majorName == myMajor.value || myMajor.value == "Tất cả") {
+                                        var classFinished = 0;
+                                        var classUnfinished = 0;
+                                        subject.list_class_studying.forEach(clas => {
+                                            if (clas.status == "finished") {
+                                                classFinished++;
+                                            }
+                                            else {
+                                                classUnfinished++;
+                                            }
+                                        })
+                                        htmlSubject += `<tr>
+                                <td>${subject.subject_name}</td>
+                                <td>${subject.credits}</td>
+                                <td>${classFinished}</td>
+                                <td>${classUnfinished}</td>`
+                                        htmlSubject += `</tr>`
+                                    }
+                                })
+                            }
+                        })
+                    }
+                }
+            })
+
+            list_subject.innerHTML = htmlSubject;
+        }
+
+
+
+
+
+        btnAddFaculty.onclick = () => {
+            //document.location.href = "/admin/createQuestion";
+        }
+       
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-150192457-1');
+    </script>
+
+</body>
+
+</html>

@@ -55,7 +55,16 @@ function getConnectionWebSocket(studentCode) {
 
     };
 }
+function imageExists(image_url) {
 
+    var http = new XMLHttpRequest();
+
+    http.open('HEAD', image_url, false);
+    http.send();
+
+    return http.status != 404;
+
+}
 
 function checkKeyConnect() {
     if (localStorage.getItem("keyConnect") != undefined) {
@@ -72,8 +81,10 @@ function loginNewUser(studentCode) {
     var key = checkKeyConnect();
     var nhatKy = {};
     if (dsNhatKy != undefined) {
+        var flag = 0;
         for (var i = 0; i < dsNhatKy.length; i++) {
             if (dsNhatKy[i].student_code == studentCode) {
+                flag++;
                 if ((dsNhatKy[i].status == "active" || dsNhatKy[i].status == "anotherUserLogin") && dsNhatKy[i].keyConnect != localStorage.getItem("keyConnect")) {
                     nhatKy.student_code = dsNhatKy[i].student_code;
                     nhatKy.status = "anotherUserLogin";
@@ -91,6 +102,14 @@ function loginNewUser(studentCode) {
                     Ghi_nhat_ky(nhatKy);
                 }
             }
+        }
+
+        if (flag == 0) {
+            nhatKy.student_code = studentCode;
+            nhatKy.status = "active";
+            localStorage.setItem("keyConnect", key);
+            nhatKy.keyConnect = key;
+            Ghi_nhat_ky(nhatKy);
         }
     }
 
@@ -118,9 +137,11 @@ function logoutOldUser(studentCode) {
 }
 
 function logout(studentCode) {
+    console.log("ok")
     var dsNhatKy = Doc_Danh_sach_Nhat_ky();
     var nhatKy = {};
     if (dsNhatKy != undefined) {
+        var flag = 0;
         for (var i = 0; i < dsNhatKy.length; i++) {
             if (dsNhatKy[i].student_code == studentCode) {
                 nhatKy.student_code = dsNhatKy[i].student_code;
@@ -130,7 +151,16 @@ function logout(studentCode) {
                 Ghi_nhat_ky(nhatKy);
                 localStorage.clear();
                 document.location.href = "/users/logout";
+                flag++;
             }
+        }
+        if (flag == 0) {
+            nhatKy.student_code = studentCode;
+            nhatKy.status = "offline";
+            nhatKy.keyConnect = "";
+            Ghi_nhat_ky(nhatKy);
+            localStorage.clear();
+            document.location.href = "/users/logout";
         }
     }
 }
@@ -162,3 +192,51 @@ function openFullscreen() {
         elem.msRequestFullscreen();
     }
 }
+
+
+
+
+//var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
+//var Dia_chi_Dich_vu = "http://localhost:1200"
+// var examList = Doc_Danh_sach_De_thi().Danh_sach_De_thi;
+
+// function Doc_Danh_sach_De_thi() {
+//     var Du_lieu = {}
+//     var Xu_ly_HTTP = new XMLHttpRequest()
+//     var Tham_so = `Ma_so_Xu_ly=Doc_Danh_sach_De_thi`
+//     var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
+//     Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
+//     Xu_ly_HTTP.send("")
+//     var Chuoi_JSON = Xu_ly_HTTP.responseText
+//     if (Chuoi_JSON != "")
+//         Du_lieu = JSON.parse(Chuoi_JSON)
+//     return Du_lieu
+// }
+
+// function Doc_Danh_sach_Diem_Sinh_vien() {
+//     var Du_lieu = {}
+//     var Xu_ly_HTTP = new XMLHttpRequest()
+//     var Tham_so = `Ma_so_Xu_ly=Doc_Danh_sach_Diem_Sinh_vien`
+//     var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
+//     Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
+//     Xu_ly_HTTP.send("")
+//     var Chuoi_JSON = Xu_ly_HTTP.responseText
+//     if (Chuoi_JSON != "")
+//         Du_lieu = JSON.parse(Chuoi_JSON)
+//     return Du_lieu
+// }
+
+// function Cap_nhat_Diem_Sinh_vien(Sinh_vien) {
+//     var Kq = ""
+//     var Xu_ly_HTTP = new XMLHttpRequest()
+//     var Tham_so = `Ma_so_Xu_ly=Cap_nhat_Diem_Sinh_vien`
+//     var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
+//     Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
+//     var Chuoi_goi = JSON.stringify(Sinh_vien)
+//     Xu_ly_HTTP.send(Chuoi_goi)
+//     Kq = Xu_ly_HTTP.responseText
+//     return Kq
+// }
+
+
+

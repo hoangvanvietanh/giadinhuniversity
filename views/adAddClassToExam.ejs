@@ -64,7 +64,7 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="" id="imageid" class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        <img src="/img/andanh.png" class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
@@ -105,7 +105,7 @@
                             <div class="col">
                                 <form style="margin-top: 8px;">
                                     <div class="field"><select class="form-control"
-                                            style="border: none;border-bottom: 1px solid #757575;" id="subject"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="subject"
                                             onchange="chooseSubject()">
                                             <optgroup label="Chọn môn học">
                                                 <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
@@ -129,7 +129,7 @@
                         <form style="margin-top: 8px;">
                             <div class="field">
                                 <select id="semester" class="form-control input"
-                                    style="border: none;border-bottom: 1px solid #757575;">
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
                                     <optgroup label="Chọn học kỳ">
                                         <option value="1" selected="">Học kì 1</option>
                                         <option value="2">Học kì 2</option>
@@ -196,20 +196,16 @@
                             <div class="col">
                                 <form style="margin-top: 8px;">
                                     <div class="field"><select class="form-control"
-                                            style="border: none;border-bottom: 1px solid #757575;" id="mySelect"
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="mySelect"
                                             onchange="chooseClass()">
-                                            <optgroup label="Chọn khoa">
-                                                <option value="Công nghệ thông tin" selected>Công nghệ thông tin
-                                                </option>
-                                                <option value="Kinh tế">Kinh tế</option>
-                                                <option value="Tài chính ngân hàng">Tài chính ngân hàng</option>
+                                            <optgroup label="Chọn khoa" id="list_faculty">
                                             </optgroup>
                                         </select></div>
                                 </form>
                             </div>
                         </div>
                         <div id="list_class"></div>
-                        <button style="width: 100%;margin-top: 30px" type="button" id="buttonAddExam"
+                        <button style="width: 100%;margin-top: 30px" type="button" id="buttonUpdateExam"
                             class="btn btn-primary">Cập nhật lớp tham gia</button>
 
                     </div>
@@ -219,38 +215,28 @@
             </div>
         </div>
     </div>
-
+    <input type="hidden" id="idListExam" value="<%=examList%>">
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/Studious-selectbox.js"></script>
-    <script src="/business/data.js"></script>
-    <script src="/business/admin.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
-        var listClassOfDB = Doc_Danh_sach_Lop_Hoc().Danh_sach_Lop_hoc;
-        var listClass = listClassOfDB;
-        chooseClass();
-        function chooseClass() {
-            var htmlListClass = "";
-            listClass.forEach(clas => {
-                if (clas.faculty == mySelect.value) {
-                    clas.list_class.forEach(x => {
-                        htmlListClass += `<div onclick="moveButton(this,'${x.class_name}')" >${x.class_name}
-                                </div>`
-                    })
-
-                    list_class.innerHTML = htmlListClass;
-
-                }
-            })
-        }
-
-
+        var classChoose = [];
         var listABC = ["A", "B", "C", "D", "E", "F"];
+        var examUpdate = {};
+        var examList = JSON.parse(idListExam.value);
+
+        var htmlListFaculty = "";
+        listClass.forEach(clas => {
+            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`
+        })
+        list_faculty.innerHTML = htmlListFaculty;
+
+
         examList.forEach(exam => {
             if (exam.exam_code == localStorage.getItem("examCode")) {
-                console.log(exam)
+                examUpdate = exam;
                 examCode.value = exam.exam_code;
                 timeOfExam.value = exam.time;
                 subject.value = exam.subject;
@@ -299,16 +285,52 @@
 
 
                 exam.class_take_exam.forEach(classInExam => {
+                    classChoose.push(classInExam);
                     htmlListLopThamGia += `<div onclick="moveButton(this,'${classInExam}')" >${classInExam}
                                 </div>`
                 })
+                localStorage.setItem("classChoose", JSON.stringify(classChoose));
                 Cau_hoi_chon.innerHTML = htmlQuestion;
                 list_lop_tham_gia.innerHTML = htmlListLopThamGia;
             }
         })
 
+        chooseClass();
 
-        var i = 0;
+
+        buttonUpdateExam.onclick = () =>{
+            examUpdate.class_take_exam = JSON.stringify(classChoose);
+            examUpdate.question_list = JSON.stringify(examUpdate.question_list);
+            //console.log(examUpdate)
+            //Cap_nhat_De_thi(examUpdate);
+            post("/admin/updateExam", examUpdate);
+            localStorage.clear();
+            //document.location.href = "/admin/exam";
+        }
+
+        function chooseClass() {
+            var htmlListClass = "";
+            listClass.forEach(clas => {
+                if (clas.faculty == mySelect.value) {
+                    clas.list_class.forEach(classInList => {
+                        var checkClassAdready = false;
+                        classChoose.forEach(className => {
+                            if (classInList.class_name == className) {
+                                checkClassAdready = true;
+                            }
+                        })
+                        if (checkClassAdready == false) {
+                            htmlListClass += `<div onclick="moveButton(this,'${classInList.class_name}')" >${classInList.class_name}
+                                </div>`
+                        }
+                    })
+                    list_class.innerHTML = htmlListClass;
+                }
+            })
+
+        }
+
+
         function moveButton(elem, value) {
             if ($(elem).parent().attr("id") == "list_lop_tham_gia") {
                 $(elem).detach().appendTo('#list_class');
@@ -316,25 +338,19 @@
             }
             else {
                 $(elem).detach().appendTo('#list_lop_tham_gia');
-                i++;
-                localStorage.setItem(i, value);
+                classChoose.push(value);
+                localStorage.setItem("classChoose", JSON.stringify(classChoose));
             }
         }
 
 
         function deleteIteamStorage(value) {
-            var keys = Object.keys(localStorage),
-                i = keys.length;
-
-            while (i--) {
-                var question = localStorage.getItem(keys[i]);
-                if (question == value) {
-                    localStorage.removeItem(keys[i]);
+            for (var i = 0; i < classChoose.length; i++) {
+                if (classChoose[i] == value) {
+                    classChoose.splice(i, 1);
                 }
             }
-        }
-        if (imageExists(`/img/<%= user.student_code %>.jpg`) == false) {
-            document.getElementById("imageid").src = "/img/andanh.png";
+            localStorage.setItem("classChoose", JSON.stringify(classChoose));
         }
     </script>
 </body>
