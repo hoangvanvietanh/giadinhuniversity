@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-
+const bodyParser = require('body-parser');
 const app = express();
 
 // Passport Config
@@ -13,7 +13,8 @@ require('./config/passport')(passport);
 app.set('view engine', 'ejs');
 
 // Express body parser
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true, parameterLimit: 50000 }));
 
 // Express session
 app.use(
