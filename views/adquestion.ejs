@@ -59,12 +59,24 @@
                     <div class="col">
                         <form style="margin-top: 8px;">
                             <div class="field"><select class="form-control"
-                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="mySelect"
+                                    style="border: none;border-bottom: 1px solid #757575;" id="subject"
                                     onchange="chooseSubject()">
-                                    <optgroup label="Chọn môn học">
-                                        <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
-                                        <option value="Tiếng anh">Tiếng anh</option>
-                                        <option value="Toán cao cấp">Toán cao cấp</option>
+                                    <optgroup label="Chọn môn học" id="list_subject">
+
+                                    </optgroup>
+                                </select></div>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form style="margin-top: 8px;">
+                            <div class="field"><select class="form-control"
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="levelOfQuestion" onchange="chooseLevel()">
+                                    <optgroup label="Chọn mức độ câu hỏi">
+                                        <option value="1" selected> Dễ</option>
+                                        <option value="2">Trung bình</option>
+                                        <option value="3">Khó</option>
+                                        <option value="4">Cực khó</option>
                                     </optgroup>
                                 </select></div>
                         </form>
@@ -96,32 +108,76 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
+        var htmlListSubject = "";
+        listSubject.forEach(subject => {
+            htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+        })
+        list_subject.innerHTML = htmlListSubject;
         chooseSubject();
-        function chooseSubject() {
+
+        function chooseLevel() {
             var htmlListQuestion = "";
-            var subject = document.getElementById("mySelect").value;
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
             questionListOfData.forEach(data => {
-                data.question_list.forEach(content => {
-                    if (data.subject == subject) {
-                        htmlListQuestion += `<tr>
+                if (data.subject == subject) {
+                    console.log(subject+"---"+data.subject)
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            htmlListQuestion += `<tr>
                                 <td colspan="2" class="scroll">${content.question}</td>
                                 
                                 `
-                        content.answer_list.forEach(answer => {
-                            htmlListQuestion += `<td>${answer}</td>`
-                        })
-                        htmlListQuestion += `</tr>`;
-                        //console.log(data)
-                    }
-                })
-            })
+                            content.answer_list.forEach(answer => {
+                                if (answer == content.correct_answer) {
+                                    htmlListQuestion += `<td><b>${answer}</b></td>`
+                                }
+                                else {
+                                    htmlListQuestion += `<td>${answer}</td>`
+                                }
+                            })
+                            htmlListQuestion += `</tr>`;
+
+                        }
+                    });
+                }
+            });
+            noiDung.innerHTML = htmlListQuestion;
+        }
+        function chooseSubject() {
+            var htmlListQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            htmlListQuestion += `<tr>
+                                <td colspan="2" class="scroll">${content.question}</td>
+                                
+                                `
+                            content.answer_list.forEach(answer => {
+                                if (answer == content.correct_answer) {
+                                    htmlListQuestion += `<td><b>${answer}</b></td>`
+                                }
+                                else {
+                                    htmlListQuestion += `<td>${answer}</td>`
+                                }
+
+                            })
+                            htmlListQuestion += `</tr>`;
+                        }
+
+                    });
+                }
+            });
             noiDung.innerHTML = htmlListQuestion;
         }
 
         btnQuestionPage.onclick = () => {
             document.location.href = "/admin/createQuestion";
         }
-    
+
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>

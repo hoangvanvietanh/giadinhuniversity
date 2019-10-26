@@ -7,6 +7,9 @@
     <title>Quản lý chuyên ngành</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/adquestion.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
 </head>
 
 <body>
@@ -59,8 +62,8 @@
                     <div class="col">
                         <form style="margin-top: 8px;">
                             <div class="field"><select class="form-control"
-                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="myFaculty"
-                                    onchange="chooseFaculty()">
+                                    style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                    id="myFaculty" onchange="chooseFaculty()">
                                     <optgroup label="Chọn khoa" id="list_faculty">
                                     </optgroup>
                                 </select></div>
@@ -82,25 +85,98 @@
 
                         </tbody>
                     </table>
-                </div><button class="btn btn-primary btn-lg" style="width: 100%;" id="btnAddClass" type="button">Tạo lớp
-                    học</button>
+                </div><button type="button" class="btn btn-primary" style="width: 100%;" 
+                    data-toggle="modal" data-target=".bd-example-modal-xl">Tạo chuyên ngành</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="my-modal-title">Tạo khoa</h3>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col">
+                            <form style="margin-top: 8px;">
+                                <div class="field"><select class="form-control"
+                                        style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                        id="myFacultyModal">
+                                        <optgroup label="Chọn khoa" id="list_faculty_modal">
+                                        </optgroup>
+                                    </select></div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="group" style="margin-bottom: 45px;"><input id="majorName" class="input"
+                                    type="text" required /><span class="highlight"></span><span
+                                    class="bar"></span><label class="label">Tên chuyên ngành</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="cntr">
+                                <label for="rdo-1" class="btn-radio">
+                                    <input type="radio" id="rdo-1" name="status" value="close">
+                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                        <circle cx="10" cy="10" r="9"></circle>
+                                        <path
+                                            d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                            class="inner"></path>
+                                        <path
+                                            d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                            class="outer"></path>
+                                    </svg>
+                                    <span>Trạng thái đóng</span>
+                                </label>
+                                <label for="rdo-2" class="btn-radio">
+                                    <input type="radio" id="rdo-2" name="status" value="open" checked>
+                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                        <circle cx="10" cy="10" r="9"></circle>
+                                        <path
+                                            d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                            class="inner"></path>
+                                        <path
+                                            d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                            class="outer"></path>
+                                    </svg>
+                                    <span>Trạng thái mở</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateMajor">Đồng
+                        ý</button>
+                </div>
             </div>
         </div>
     </div>
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
         var htmlListFaculty = "<option value='Tất cả' >Tất cả</option>";
+        var htmlListFacultyModal ="";
         listClass.forEach(clas => {
-            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`
+            htmlListFaculty += `<option value="${clas.faculty}" >${clas.faculty}</option>`;
+            htmlListFacultyModal += `<option value="${clas.faculty}" >${clas.faculty}</option>`;
         })
         list_faculty.innerHTML = htmlListFaculty;
+        list_faculty_modal.innerHTML = htmlListFacultyModal;
 
         chooseFaculty();
         function chooseFaculty() {
-            
+
             var htmlListClass = "";
             listClass.forEach(clas => {
                 if (clas.faculty == myFaculty.value) {
@@ -120,7 +196,7 @@
                     })
                     list_class.innerHTML = htmlListClass;
                 }
-                if (myFaculty.value == "Tất cả") { 
+                if (myFaculty.value == "Tất cả") {
                     clas.list_major.forEach(classInList => {
                         var countClass = 0;
                         clas.list_class.forEach(cla => {
@@ -139,8 +215,31 @@
                 }
             })
         }
-        btnAddClass.onclick = () => {
-            //document.location.href = "/admin/createQuestion";
+        btnCreateMajor.onclick = () => {
+            var major = {}
+            var status = "";
+            var radios = document.getElementsByName('status');
+
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    status = radios[i].value;
+                    break;
+                }
+            }
+            major.major_name = majorName.value;
+            major.status = status;
+            major.date_created = Get_date_now();
+            var khoa = {}
+            listClass.forEach(x=>{
+                if(x.faculty==myFacultyModal.value)
+                {
+                    x.list_major.push(major);
+                    khoa  = x;
+                }
+            })
+            
+            Cap_nhat_Khoa(khoa);
+            document.location.href = "/admin/major";
         }
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -4,7 +4,7 @@ function createListExam(studentClass,listExam) {
     listExam.forEach(exam => {
         for (var i = 0; i < exam.class_take_exam.length; i++) {
 
-            if (exam.class_take_exam[i] == studentClass) {
+            if (exam.class_take_exam[i] == studentClass && exam.status != "close") {
                 j++;
                 html += `<li class="header">Bài thi ${j}</li>
         <li class="grey">

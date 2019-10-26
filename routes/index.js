@@ -150,6 +150,34 @@ router.post('/admin/users', (req, res) => {
   //console.log(user);
 });
 
+router.post('/admin/updateUsers', (req, res) => {
+  var updateUser = {};
+  ListStudents.forEach(user => {
+    if (user.student_code == req.body.studentCode) {
+      user.full_name = req.body.fullName;
+      user.student_code = req.body.studentCode;
+      user.identity_card_number = req.body.identityCardNumber;
+      user.sex = req.body.sex;
+      user.date_of_birth = req.body.dateOfBirth;
+      user.place_of_birth = req.body.placeOfBirth;
+      user.address = req.body.address;
+      user.status = req.body.studentStatus;
+      updateUser = user;
+    }
+  })
+
+
+  var Xu_ly_HTTP = new XMLHttpRequest()
+  var Tham_so = `Ma_so_Xu_ly=Cap_nhat_Sinh_vien`
+  var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
+  Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
+  var Chuoi_goi = JSON.stringify(updateUser)
+  Xu_ly_HTTP.send(Chuoi_goi)
+  Kq = Xu_ly_HTTP.responseText
+  res.redirect('/admin/users');
+
+});
+
 router.post('/admin/createExam', (req, res, next) => {
   req.body.question_list = JSON.parse(req.body.question_list);
   req.body.class_take_exam = [];
@@ -171,10 +199,15 @@ router.post('/admin/updateExam', (req, res, next) => {
   req.body.question_list = JSON.parse(req.body.question_list);
   req.body.class_take_exam = JSON.parse(req.body.class_take_exam)
 
-  ListExams.forEach(x=>{
-    if(x.exam_code==req.body.exam_code)
-    {
-      x.class_take_exam = req.body.class_take_exam;
+  ListExams.forEach(examUpdate => {
+    if (examUpdate.exam_code == req.body.exam_code) {
+      examUpdate.class_take_exam = req.body.class_take_exam;
+      examUpdate.question_list = req.body.question_list;
+      examUpdate.topic = req.body.topic;
+      examUpdate.time = req.body.time;
+      examUpdate.semester = req.body.semester;
+      examUpdate.status = req.body.status;
+      examUpdate.subject = req.body.subject;
     }
   })
   var Kq = ""
@@ -186,7 +219,7 @@ router.post('/admin/updateExam', (req, res, next) => {
   Xu_ly_HTTP.send(Chuoi_goi)
   Kq = Xu_ly_HTTP.responseText
 
-  
+
   res.redirect('/admin/exam');
 });
 

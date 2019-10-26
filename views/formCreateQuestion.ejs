@@ -58,11 +58,9 @@
             <div class="col">
                 <form style="margin-top: 8px;">
                     <div class="field"><select class="form-control"
-                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="subject">
-                            <optgroup label="Chọn môn học">
-                                <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
-                                <option value="Tiếng anh">Tiếng anh</option>
-                                <option value="Toán cao cấp">Toán cao cấp</option>
+                            style="border: none;border-bottom: 1px solid #757575;" id="subject">
+                            <optgroup label="Chọn môn học" id="list_subject">
+
                             </optgroup>
                         </select></div>
                 </form>
@@ -83,7 +81,8 @@
             <div class="col">
                 <form style="margin-top: 8px;">
                     <div class="field"><select class="form-control"
-                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="levelOfQuestion">
+                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                            id="levelOfQuestion">
                             <optgroup label="Chọn mức độ câu hỏi">
                                 <option value="1" selected> Dễ</option>
                                 <option value="2">Trung bình</option>
@@ -94,7 +93,7 @@
                 </form>
             </div>
         </div>
-        
+
         <div class="row">
 
             <div class="col">
@@ -102,7 +101,13 @@
                         required /><span class="highlight"></span><span class="bar"></span><label class="label">Câu
                         hỏi</label></div>
             </div>
-
+            <div class="col">
+                <div class="form-group">
+                    <img src="https://dv-media-vietanh.herokuapp.com/<%= user.student_code %>.png"
+                        id="Th_Hinh_Xem_truoc" style="width:10rem" />
+                    <input id="Th_file" type="file" onchange="Xem_truoc_Media()" accept="image/png" />
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -134,6 +139,12 @@
     <script src="/js/Studious-selectbox.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
+        var htmlListSubject = "";
+        listSubject.forEach(subject => {
+            htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+        })
+        list_subject.innerHTML = htmlListSubject;
+
         btnCreateQuestion.onclick = () => {
             var getSubject = document.getElementById("subject").value;
             var correctAnswer = document.getElementById("correctAnswer").value;
@@ -146,10 +157,36 @@
             var question = document.getElementById("question").value;
             var answerList = [answer1, answer2, answer3, answer4];
 
+            var randomForImage = Math.floor(Math.random() * 100000);
+            var Chuoi_nhi_phan = "";
+            var Ten_Hinh = "";
+            Chuoi_nhi_phan = Th_Hinh_Xem_truoc.src;
             var questionInList = {}
-            questionInList.question = question;
+            if (Chuoi_nhi_phan.length > 1000) {
+                questionInList.question = question + "_" + randomForImage +".png";
+                Ten_Hinh = `${randomForImage}.png`;
+            }
+            else {
+                questionInList.question = question;
+            }
+            
+            if(correctAnswer == 1)
+            {
+                questionInList.correct_answer = answerList[0];
+            }
+            else if(correctAnswer == 2)
+            {
+                questionInList.correct_answer = answerList[1];
+            }
+            else if(correctAnswer == 3)
+            {
+                questionInList.correct_answer = answerList[2];
+            }
+            else
+            {
+                questionInList.correct_answer = answerList[3];
+            }
             questionInList.answer_list = answerList;
-            questionInList.correct_answer = correctAnswer;
             questionInList.level_question = levelOfQuestion;
 
             var questionList = [questionInList]
@@ -164,6 +201,10 @@
                     libraryQuestion.question_list = data.question_list;
                     //console.log(libraryQuestion)
                     Them_Cau_hoi(libraryQuestion);
+                    if (Chuoi_nhi_phan.length > 1000) {
+                        var Doi_tuong = { "Ten": Ten_Hinh, "Chuoi_nhi_phan": Chuoi_nhi_phan }
+                        Kq = Ghi_Media(Doi_tuong)
+                    }
                     checkSubjectAlready = true;
                 }
 
@@ -174,7 +215,7 @@
 
             document.location.href = "/admin/question"
         }
-       
+
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>

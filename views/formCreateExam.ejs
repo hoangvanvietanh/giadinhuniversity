@@ -85,12 +85,10 @@
                             <div class="col">
                                 <form style="margin-top: 8px;">
                                     <div class="field"><select class="form-control"
-                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;" id="subject"
+                                            style="border: none;border-bottom: 1px solid #757575;" id="subject"
                                             onchange="chooseSubject()">
-                                            <optgroup label="Chọn môn học">
-                                                <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
-                                                <option value="Tiếng anh">Tiếng anh</option>
-                                                <option value="Toán cao cấp">Toán cao cấp</option>
+                                            <optgroup label="Chọn môn học" id="list_subject">
+
                                             </optgroup>
                                         </select></div>
                                 </form>
@@ -186,12 +184,13 @@
                             <div class="col">
                                 <form style="margin-top: 8px;">
                                     <div class="field"><select class="form-control"
-                                            style="border: none;border-bottom: 1px solid #757575;" id="mySelect"
-                                            onchange="chooseSubject()">
-                                            <optgroup label="Chọn môn học">
-                                                <option value="Tin học văn phòng" selected>Tin học văn phòng</option>
-                                                <option value="Tiếng anh">Tiếng anh</option>
-                                                <option value="Toán cao cấp">Toán cao cấp</option>
+                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
+                                            id="levelOfQuestion" onchange="chooseLevel()">
+                                            <optgroup label="Chọn mức độ câu hỏi">
+                                                <option value="1" selected> Dễ</option>
+                                                <option value="2">Trung bình</option>
+                                                <option value="3">Khó</option>
+                                                <option value="4">Cực khó</option>
                                             </optgroup>
                                         </select></div>
                                 </form>
@@ -216,29 +215,37 @@
     <script src="/js/Studious-selectbox.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
+        var htmlListSubject = "";
+        listSubject.forEach(subject => {
+            htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+        })
+        list_subject.innerHTML = htmlListSubject;
 
         var a = [];
         var questionList = [];
         var i = 0;
         var listABC = ["A", "B", "C", "D", "E", "F"];
         chooseSubject();
-        function chooseSubject() {
+
+        function chooseLevel() {
             var htmlQuestion = "";
-            var subject = document.getElementById("mySelect").value;
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
             questionListOfData.forEach(data => {
                 if (data.subject == subject) {
                     data.question_list.forEach(content => {
-                        i++;
-                        var keys = Object.keys(localStorage),
-                            i = keys.length;
+                        if (content.level_question == level) {
+                            i++;
+                            var keys = Object.keys(localStorage),
+                                i = keys.length;
 
-                        while (i--) {
-                            var question = localStorage.getItem(keys[i]);
-                            if (question == content.question) {
-                                //console.log(content.question);
+                            while (i--) {
+                                var question = localStorage.getItem(keys[i]);
+                                if (question == content.question) {
+                                    //console.log(content.question);
+                                }
                             }
-                        }
-                        htmlQuestion += `
+                            htmlQuestion += `
                 <div onclick="moveButton(this,'${content.question.replace(/"/g, "dauNhay")}')" >
                             <tbody width="100%">
                                 <tr>
@@ -247,23 +254,79 @@
                                 </tr>
                                 <input type="hidden" id="CH${i}" value = "${content.question}">
                 `
-                        for (var k = 0; k < content.answer_list.length; k++) {
-                            if (content.answer_list[k] == content.correct_answer) {
-                                htmlQuestion += `
+                            for (var k = 0; k < content.answer_list.length; k++) {
+                                if (content.answer_list[k] == content.correct_answer) {
+                                    htmlQuestion += `
             <tr>
             <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
             </tr>
             `
-                            }
-                            else {
-                                htmlQuestion += `
+                                }
+                                else {
+                                    htmlQuestion += `
             <tr>
             <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
             </tr>
             `
+                                }
                             }
+                            htmlQuestion += "</tbody></br></div>";
                         }
-                        htmlQuestion += "</tbody></br></div>";
+
+
+                    });
+                }
+            });
+            list_cau_hoi.innerHTML = htmlQuestion;
+        }
+
+
+        function chooseSubject() {
+            var htmlQuestion = "";
+            var subject = document.getElementById("subject").value;
+            var level = document.getElementById("levelOfQuestion").value;
+            questionListOfData.forEach(data => {
+                if (data.subject == subject) {
+                    data.question_list.forEach(content => {
+                        if (content.level_question == level) {
+                            i++;
+                            var keys = Object.keys(localStorage),
+                                i = keys.length;
+
+                            while (i--) {
+                                var question = localStorage.getItem(keys[i]);
+                                if (question == content.question) {
+                                    //console.log(content.question);
+                                }
+                            }
+                            htmlQuestion += `
+                <div onclick="moveButton(this,'${content.question.replace(/"/g, "dauNhay")}')" >
+                            <tbody width="100%">
+                                <tr>
+                                    <td><b>Câu hỏi: ${content.question} </b></td>
+                                    </br>
+                                </tr>
+                                <input type="hidden" id="CH${i}" value = "${content.question}">
+                `
+                            for (var k = 0; k < content.answer_list.length; k++) {
+                                if (content.answer_list[k] == content.correct_answer) {
+                                    htmlQuestion += `
+            <tr>
+            <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
+            </tr>
+            `
+                                }
+                                else {
+                                    htmlQuestion += `
+            <tr>
+            <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
+            </tr>
+            `
+                                }
+                            }
+                            htmlQuestion += "</tbody></br></div>";
+                        }
+
 
                     });
                 }

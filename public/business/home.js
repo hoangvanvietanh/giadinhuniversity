@@ -1,5 +1,6 @@
 var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/"
 //var Dia_chi_Dich_vu = "http://localhost:1200"
+var Dia_chi_Media = "https://dv-media-vietanh.herokuapp.com/"
 
 var studentCode = localStorage.getItem("student_code");
 createSocket(studentCode);
@@ -10,6 +11,16 @@ function createSocket(studentCode) {
     logoutOldUser(studentCode);
 }
 
+function Ghi_Media(Hinh) {
+    console.log("ok ghi")
+    var Xu_ly_HTTP = new XMLHttpRequest()
+    var Dia_chi_Xu_ly = `${Dia_chi_Media}`
+    Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
+    var Chuoi_Goi = JSON.stringify(Hinh)
+    Xu_ly_HTTP.send(Chuoi_Goi)
+    var Chuoi_KQ = Xu_ly_HTTP.responseText
+    return Chuoi_KQ
+}
 
 function Doc_Danh_sach_Nhat_ky() {
     var Du_lieu = {}

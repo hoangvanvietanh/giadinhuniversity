@@ -74,7 +74,7 @@ function createTheExam(examCode, listExam) {
                 if (deBai.length == 2) {
                     html += `<tbody class="form"  width="100%"> <tr>
             <td id="${j}CH"><b> Câu ${j}: ${deBai[0]} </b></br>
-            <img src="${deBai[1]}" alt="" height=25% width=50%></img></b>
+            <img src="https://dv-media-vietanh.herokuapp.com/${deBai[1]}" alt="" height=25% width=50%></img></b>
             </td>
             `
                     store_Anser = localStorage.getItem(deBai[0])

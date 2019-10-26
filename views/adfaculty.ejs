@@ -7,6 +7,9 @@
     <title>Quản lý khoa</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/adquestion.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
 </head>
 
 <body>
@@ -71,7 +74,9 @@
 
                         </tbody>
                     </table>
-                </div><button class="btn btn-primary btn-lg" style="width: 100%;" id="btnAddFaculty" type="button">Tạo khoa</button>
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;" id="btnAddFaculty"
+                    data-toggle="modal" data-target=".bd-example-modal-xl">Tạo khoa</button>
             </div>
         </div>
     </div>
@@ -80,102 +85,55 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title" id="my-modal-title">Tạo tài khoản</h3>
+                    <h3 class="modal-title" id="my-modal-title">Tạo khoa</h3>
                     <button class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/users" method="POST">
-                        <div class="row">
-                            <div class="col">
-                                <div class="group" style="margin-bottom: 45px;"><input id="fullName" class="input"
-                                        type="text" name="fullName"  /><span class="highlight"></span><span
-                                        class="bar"></span><label class="label">Họ tên</label>
-                                </div>
-                                <div class="group" style="margin-bottom: 45px;"><input id="identityCardNumber"
-                                        class="input" type="number" name="identityCardNumber"  /><span class="highlight"></span><span
-                                        class="bar"></span><label class="label">Số chứng minh nhân dân</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="group" style="margin-bottom: 45px;"><input id="studentCode" class="input"
-                                        type="number"  name="studentCode"/><span class="highlight"></span><span
-                                        class="bar"></span><label class="label">Mã số sinh viên</label>
-                                </div>
-                                <div class="group"><input id="address" class="input" type="address"  name="address"/><span
-                                        class="highlight"></span><span class="bar"></span><label class="label">Địa
-                                        chỉ</label>
-                                </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="group" style="margin-bottom: 45px;"><input id="facultyName" class="input"
+                                    type="text" required /><span class="highlight"></span><span
+                                    class="bar"></span><label class="label">Tên khoa</label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="group" style="margin-bottom: 45px;"><input id="dateOfBirth" class="input"
-                                        type="date" value="2019-01-01" name="dateOfBirth" /><span class="highlight"></span><span
-                                        class="bar"></span><label class="label">Ngày sinh</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="group" style="margin-bottom: 45px;"><input id="placeOfBirth" class="input"
-                                        type="text" name="placeOfBirth" /><span class="highlight"></span><span
-                                        class="bar"></span><label class="label">Nơi sinh</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div style="margin-top: 8px;">
-                                    <div class="field"><select class="form-control" id="sex" name="sex"
-                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
-                                            <optgroup label="Chọn giới tính">
-                                                <option value="Nam" selected>Nam</option>
-                                                <option value="Nữ">Nữ</option>
-                                            </optgroup>
-                                        </select></div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div style="margin-top: 8px;">
-                                    <div class="field"><select class="form-control" id="studentStatus" name="studentStatus"
-                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
-                                            <optgroup label="Chọn trạng thái">
-                                                <option value="Đăng ký" selected>Đăng ký</option>
-                                                <option value="Đang học">Đang học</option>
-                                                <option value="Bảo lưu">Bảo lưu</option>
-                                            </optgroup>
-                                        </select></div>
-                                </div>
+                        <div class="col">
+                            <div class="cntr">
+                                <label for="rdo-1" class="btn-radio">
+                                    <input type="radio" id="rdo-1" name="status" value="close">
+                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                        <circle cx="10" cy="10" r="9"></circle>
+                                        <path
+                                            d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                            class="inner"></path>
+                                        <path
+                                            d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                            class="outer"></path>
+                                    </svg>
+                                    <span>Trạng thái đóng</span>
+                                </label>
+                                <label for="rdo-2" class="btn-radio">
+                                    <input type="radio" id="rdo-2" name="status" value="open" checked>
+                                    <svg width="20px" height="20px" viewBox="0 0 20 20">
+                                        <circle cx="10" cy="10" r="9"></circle>
+                                        <path
+                                            d="M10,7 C8.34314575,7 7,8.34314575 7,10 C7,11.6568542 8.34314575,13 10,13 C11.6568542,13 13,11.6568542 13,10 C13,8.34314575 11.6568542,7 10,7 Z"
+                                            class="inner"></path>
+                                        <path
+                                            d="M10,1 L10,1 L10,1 C14.9705627,1 19,5.02943725 19,10 L19,10 L19,10 C19,14.9705627 14.9705627,19 10,19 L10,19 L10,19 C5.02943725,19 1,14.9705627 1,10 L1,10 L1,10 C1,5.02943725 5.02943725,1 10,1 L10,1 Z"
+                                            class="outer"></path>
+                                    </svg>
+                                    <span>Trạng thái mở</span>
+                                </label>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <div style="margin-top: 8px;">
-                                    <div class="field"><select class="form-control" name="myFacultyOnModal"
-                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
-                                            id="myFacultyOnModal" onchange="chooseFaculty()">
-                                            <optgroup label="Chọn khoa" id="list_faculty_modal">
-                                            </optgroup>
-                                        </select></div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div style="margin-top: 8px;">
-                                    <div class="field"><select class="form-control" name="myClassOnModal"
-                                            style="border: none;border-bottom: 1px solid #757575;border-radius: 0;"
-                                            id="myClassOnModal" onchange="chooseClass()">
-                                            <optgroup label="Chọn lớp" id="list_class_modal">
-                                            </optgroup>
-                                        </select></div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateAccount">Đồng
-                            ý</button>
-                    </form>
+                    </div>
                 </div>
                 <div class="modal-footer">
-
+                    <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateFaculty">Đồng
+                        ý</button>
                 </div>
             </div>
         </div>
@@ -199,10 +157,28 @@
         })
         list_faculty.innerHTML = htmlListFaculty;
 
-        btnAddFaculty.onclick = () => {
-            //document.location.href = "/admin/createQuestion";
+        btnCreateFaculty.onclick = () => {
+            var khoa = {}
+            var status = "";
+            var radios = document.getElementsByName('status');
+
+            for (var i = 0, length = radios.length; i < length; i++) {
+                if (radios[i].checked) {
+                    status = radios[i].value;
+                    break;
+                }
+            }
+
+            khoa.faculty = facultyName.value;
+            khoa.status = status;
+            khoa.date_created = Get_date_now();
+            khoa.list_major = [];
+            khoa.list_class = [];
+            listClass.push(khoa);
+            Them_Khoa(khoa);
+            document.location.href = "/admin/faculty";
         }
-        
+
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>

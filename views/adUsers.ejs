@@ -106,32 +106,35 @@
         aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="my-modal-title">Tạo tài khoản</h3>
-                    <button class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="/admin/users" method="POST">
+                <form action="/admin/users" method="POST">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="my-modal-title">Tạo tài khoản</h3>
+                        <button class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
                         <div class="row">
                             <div class="col">
                                 <div class="group" style="margin-bottom: 45px;"><input id="fullName" class="input"
-                                        type="text" name="fullName"  /><span class="highlight"></span><span
+                                        type="text" name="fullName" required /><span class="highlight"></span><span
                                         class="bar"></span><label class="label">Họ tên</label>
                                 </div>
                                 <div class="group" style="margin-bottom: 45px;"><input id="identityCardNumber"
-                                        class="input" type="number" name="identityCardNumber"  /><span class="highlight"></span><span
-                                        class="bar"></span><label class="label">Số chứng minh nhân dân</label>
+                                        class="input" type="number" name="identityCardNumber" required /><span
+                                        class="highlight"></span><span class="bar"></span><label class="label">Số chứng
+                                        minh nhân dân</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="group" style="margin-bottom: 45px;"><input id="studentCode" class="input"
-                                        type="number"  name="studentCode"/><span class="highlight"></span><span
+                                        type="number" name="studentCode" required /><span class="highlight"></span><span
                                         class="bar"></span><label class="label">Mã số sinh viên</label>
                                 </div>
-                                <div class="group"><input id="address" class="input" type="address"  name="address"/><span
-                                        class="highlight"></span><span class="bar"></span><label class="label">Địa
+                                <div class="group"><input id="address" class="input" type="address" name="address"
+                                        required /><span class="highlight"></span><span class="bar"></span><label
+                                        class="label">Địa
                                         chỉ</label>
                                 </div>
                             </div>
@@ -139,13 +142,14 @@
                         <div class="row">
                             <div class="col">
                                 <div class="group" style="margin-bottom: 45px;"><input id="dateOfBirth" class="input"
-                                        type="date" value="2019-01-01" name="dateOfBirth" /><span class="highlight"></span><span
-                                        class="bar"></span><label class="label">Ngày sinh</label>
+                                        type="date" value="2019-01-01" name="dateOfBirth" required /><span
+                                        class="highlight"></span><span class="bar"></span><label class="label">Ngày
+                                        sinh</label>
                                 </div>
                             </div>
                             <div class="col">
                                 <div class="group" style="margin-bottom: 45px;"><input id="placeOfBirth" class="input"
-                                        type="text" name="placeOfBirth" /><span class="highlight"></span><span
+                                        type="text" name="placeOfBirth" required /><span class="highlight"></span><span
                                         class="bar"></span><label class="label">Nơi sinh</label>
                                 </div>
                             </div>
@@ -164,7 +168,8 @@
                             </div>
                             <div class="col">
                                 <div style="margin-top: 8px;">
-                                    <div class="field"><select class="form-control" id="studentStatus" name="studentStatus"
+                                    <div class="field"><select class="form-control" id="studentStatus"
+                                            name="studentStatus"
                                             style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
                                             <optgroup label="Chọn trạng thái">
                                                 <option value="Đăng ký" selected>Đăng ký</option>
@@ -197,13 +202,12 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="modal-footer">
                         <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateAccount">Đồng
                             ý</button>
-                    </form>
-                </div>
-                <div class="modal-footer">
-
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -230,7 +234,9 @@
                 if (clas.faculty == myFaculty.value) {
                     htmlListClass = "";
                     clas.list_class.forEach(classInList => {
-                        htmlListClass += `<option value="${classInList.class_name}" >${classInList.class_name + "-" + classInList.major}</option>`
+                        if (classInList.status == "open") {
+                            htmlListClass += `<option value="${classInList.class_name}" >${classInList.class_name + "-" + classInList.major}</option>`
+                        }
                     })
                 }
                 if (clas.faculty == myFacultyOnModal.value) {
@@ -249,7 +255,7 @@
             var htmlListUsers = "";
             studentsList.forEach(student => {
                 //console.log(student)
-                if (student.student_class.class_name == myClass.value) {
+                if (student.student_class.class_name == myClass.value && student.role != "admin") {
                     //console.log(student)
                     htmlListUsers += `<tr>
                                 <td >${student.student_code}</td>
@@ -261,7 +267,7 @@
                                 `
                     htmlListUsers += `</tr>`;
                 }
-                if (myClass.value == "Tất cả") {
+                if (myClass.value == "Tất cả" && student.role != "admin") {
                     //console.log(student)
                     htmlListUsers += `<tr>
                                 <td>${student.student_code}</td>
@@ -302,7 +308,7 @@
             //createAccount();
         }
 
-        
+
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>

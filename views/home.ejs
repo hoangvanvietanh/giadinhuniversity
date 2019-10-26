@@ -8,6 +8,9 @@
     <title>Trang chủ</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
+    <link rel="stylesheet" href="/css/select.css">
+    <link rel="stylesheet" href="/css/Studious-selectbox.css">
 </head>
 
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
@@ -23,12 +26,14 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="/img/<%= user.student_code %>.jpg" onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
+                        <img src="https://dv-media-vietanh.herokuapp.com/<%= user.student_code %>.png"
+                            onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
                             class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
-                        <a class="dropdown-item" href="#">Tài khoản</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-target=".bd-example-modal-xl">Tài
+                            khoản</a>
                         <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng
                             xuất</button>
                     </div>
@@ -112,16 +117,126 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <!-- <form action="/admin/updateUsers" method="POST"> -->
+                <div class="modal-header">
+                    <h3 class="modal-title" id="my-modal-title">Xin chào <%=user.full_name%></h3>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <img src="https://dv-media-vietanh.herokuapp.com/<%= user.student_code %>.png" id="Th_Hinh_Xem_truoc"
+                                    style="width:10rem" />
+                                <input id="Th_file" type="file" onchange="Xem_truoc_Media()" accept="image/png" />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="group" style="margin-bottom: 45px;"><input id="fullName" class="input"
+                                    type="text" name="fullName" value="<%= user.full_name %>" required /><span
+                                    class="highlight"></span><span class="bar"></span><label class="label">Họ
+                                    tên</label>
+                            </div>
+                            <div class="group" style="margin-bottom: 45px;"><input id="identityCardNumber" class="input"
+                                    type="number" name="identityCardNumber" value="<%= user.identity_card_number %>"
+                                    required /><span class="highlight"></span><span class="bar"></span><label
+                                    class="label">Số chứng
+                                    minh nhân dân</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="group" style="margin-bottom: 45px;"><input id="studentCode" class="input"
+                                    type="number" name="studentCode" value="<%= user.student_code %>" required /><span
+                                    class="highlight"></span><span class="bar"></span><label class="label">Mã số sinh
+                                    viên</label>
+                            </div>
+                            <div class="group"><input id="address" class="input" type="address" name="address"
+                                    value="<%= user.address %>" required /><span class="highlight"></span><span
+                                    class="bar"></span><label class="label">Địa
+                                    chỉ</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="group" style="margin-bottom: 45px;"><input id="placeOfBirth" class="input"
+                                    type="text" name="placeOfBirth" value="<%= user.place_of_birth %>" required /><span
+                                    class="highlight"></span><span class="bar"></span><label class="label">Nơi
+                                    sinh</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div style="margin-top: 8px;">
+                                <div class="field"><select class="form-control" id="sex" name="sex"
+                                        style="border: none;border-bottom: 1px solid #757575;border-radius: 0;">
+                                        <optgroup label="Chọn giới tính">
+                                            <option value="Nam" selected>Nam</option>
+                                            <option value="Nữ">Nữ</option>
+                                        </optgroup>
+                                    </select></div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="group" style="margin-bottom: 45px;"><input data-date=""
+                                    data-date-format="DD MMMM YYYY" id="dateOfBirth" class="input" type="date"
+                                    value="2019-01-01" name="dateOfBirth" required /><span
+                                    class="highlight"></span><span class="bar"></span><label class="label">Ngày
+                                    sinh</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnUpdateAccount">Cập
+                        nhật</button>
+                </div>
+                <!-- </form> -->
+            </div>
+        </div>
+    </div>
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/home.js"></script>
+    <script src="/js/Studious-selectbox.js"></script>
     <script>
-    
+        var studentCode = '<%= user.student_code %>';
+        sex.value = '<%= user.sex %>';
+        //dateOfBirth.value = '<%= user.date_of_birth %>';
         checkExamAlready('<%= user.student_code %>');
-        
+        function Xem_truoc_Media() {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                Th_Hinh_Xem_truoc.src = e.target.result;
+                console.log(e.target.result)
+            }
+            reader.readAsDataURL(Th_file.files[0]);
+        }
+
+        btnUpdateAccount.onclick = () => {
+            var Chuoi_nhi_phan = ""
+            var Ten_Hinh = `${studentCode}.png`
+            Chuoi_nhi_phan = Th_Hinh_Xem_truoc.src;
+            var Doi_tuong = { "Ten": Ten_Hinh, "Chuoi_nhi_phan": Chuoi_nhi_phan }
+            Kq = Ghi_Media(Doi_tuong)
+            document.location.href="/users/home";
+        }
     </script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
