@@ -26,6 +26,7 @@ router.get('/admin', ensureAuthenticatedAdmin, (req, res) =>
 router.get('/exam/manage_exam', ensureAuthenticated, (req, res) =>
   res.render('manage_exam', {
     user: req.user,
+    markList: JSON.stringify(req.user.marks),
     examList: JSON.stringify(ListExams)
   }),
 );
@@ -208,19 +209,20 @@ router.post('/admin/updateExam', (req, res, next) => {
       examUpdate.semester = req.body.semester;
       examUpdate.status = req.body.status;
       examUpdate.subject = req.body.subject;
+      var Kq = ""
+      var Xu_ly_HTTP = new XMLHttpRequest()
+      var Tham_so = `Ma_so_Xu_ly=Cap_nhat_De_thi`
+      var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
+      Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
+      var Chuoi_goi = JSON.stringify(examUpdate)
+      Xu_ly_HTTP.send(Chuoi_goi)
+      Kq = Xu_ly_HTTP.responseText
+
+
+      res.redirect('/admin/exam');
     }
   })
-  var Kq = ""
-  var Xu_ly_HTTP = new XMLHttpRequest()
-  var Tham_so = `Ma_so_Xu_ly=Cap_nhat_De_thi`
-  var Dia_chi_Xu_ly = `${Dia_chi_Dich_vu}?${Tham_so}`
-  Xu_ly_HTTP.open("POST", Dia_chi_Xu_ly, false)
-  var Chuoi_goi = JSON.stringify(req.body)
-  Xu_ly_HTTP.send(Chuoi_goi)
-  Kq = Xu_ly_HTTP.responseText
 
-
-  res.redirect('/admin/exam');
 });
 
 router.post('/exam/take_exam', (req, res, next) => {

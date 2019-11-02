@@ -82,6 +82,7 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script>
+        localStorage.clear();
         btnCreateExam.onclick = () => {
             document.location.href = "/admin/createExam";
         }
@@ -114,6 +115,7 @@
 
 
         function buttonEdit(examCode) {
+            localStorage.clear();
             localStorage.setItem("examCode", examCode);
             document.location.href = "/admin/addClassToExam";
         }

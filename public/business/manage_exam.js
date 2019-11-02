@@ -1,62 +1,71 @@
-function createListExam(studentClass,listExam) {
+function createListExam(studentClass, listExam, markList) {
     var html = "";
     var j = 0;
     listExam.forEach(exam => {
-        for (var i = 0; i < exam.class_take_exam.length; i++) {
+        var checkMark = 0;
+        markList.forEach(mark => {
+            if (exam.exam_code == mark.exam_code) {
+                checkMark++;
+            }
 
-            if (exam.class_take_exam[i] == studentClass && exam.status != "close") {
-                j++;
-                html += `<li class="header">Bài thi ${j}</li>
-        <li class="grey">
-            <div>
-                <p style="float: left;margin-bottom: 5px;"> Mã đề :</p>
-                <p style="float: right;margin-bottom: 5px;">${exam.exam_code}</p>
-                <div style="clear: both;"></div>
-            </div>
-        </li>
-        <li class="grey">
-            <div>
-                <p style="float: left;margin-bottom: 5px;"> Môn học:</p>
-                <p style="float: right;margin-bottom: 5px;">${exam.subject}</p>
-                <div style="clear: both;"></div>
-            </div>
-        </li>
-        <li class="grey">
-            <div>
-                <p style="float: left;margin-bottom: 5px;"> Học kỳ:</p>
-                <p style="float: right;margin-bottom: 5px;">${exam.semester}</p>
-                <div style="clear: both;"></div>
-            </div>
-        </li>
-        <li class="grey">
-            <div>
-                <p style="float: left;margin-bottom: 5px;"> Ngày làm:</p>
-                <p style="float: right;margin-bottom: 5px;" >${Get_date_now()}</p>
-                <div style="clear: both;"></div>
-            </div>
-        </li>
-        <li class="grey">
-            <div>
-                <p style="float: left;margin-bottom: 5px;"> Thời gian:</p>
-                <p style="float: right;margin-bottom: 5px;" >${exam.time}</p>
-                <div style="clear: both;"></div>
-            </div>
-        </li>
-        <li class="grey">
-            <div>
-                <p style="float: left;margin-bottom: 5px;"> Số câu hỏi:</p>
-                <p style="float: right;margin-bottom: 5px;">${exam.question_list.length}</p>
-                <div style="clear: both;"></div>
-            </div>
-        </li>
-        <li class="grey">
-
-            <button type="button" class="btn btn-primary" onclick="takeExam('${exam.exam_code}')"
-                style="width: 100%;font-size: 30px;background-color: #214a80"><strong>Bắt đầu bài thi ${j}</strong> </button>
-            
-        </li>`
+        })
+        if (checkMark == 0) {
+            for (var i = 0; i < exam.class_take_exam.length; i++) {
+                if (exam.class_take_exam[i] == studentClass && exam.status != "close") {
+                    j++;
+                    html += `<li class="header">Bài thi ${j}</li>
+            <li class="grey">
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Mã đề :</p>
+                    <p style="float: right;margin-bottom: 5px;">${exam.exam_code}</p>
+                    <div style="clear: both;"></div>
+                </div>
+            </li>
+            <li class="grey">
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Môn học:</p>
+                    <p style="float: right;margin-bottom: 5px;">${exam.subject}</p>
+                    <div style="clear: both;"></div>
+                </div>
+            </li>
+            <li class="grey">
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Học kỳ:</p>
+                    <p style="float: right;margin-bottom: 5px;">${exam.semester}</p>
+                    <div style="clear: both;"></div>
+                </div>
+            </li>
+            <li class="grey">
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Ngày làm:</p>
+                    <p style="float: right;margin-bottom: 5px;" >${Get_date_now()}</p>
+                    <div style="clear: both;"></div>
+                </div>
+            </li>
+            <li class="grey">
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Thời gian:</p>
+                    <p style="float: right;margin-bottom: 5px;" >${exam.time}</p>
+                    <div style="clear: both;"></div>
+                </div>
+            </li>
+            <li class="grey">
+                <div>
+                    <p style="float: left;margin-bottom: 5px;"> Số câu hỏi:</p>
+                    <p style="float: right;margin-bottom: 5px;">${exam.question_list.length}</p>
+                    <div style="clear: both;"></div>
+                </div>
+            </li>
+            <li class="grey">
+    
+                <button type="button" class="btn btn-primary" onclick="takeExam('${exam.exam_code}')"
+                    style="width: 100%;font-size: 30px;background-color: #214a80"><strong>Bắt đầu bài thi ${j}</strong> </button>
+                
+            </li>`
+                }
             }
         }
+
     });
     if (j == 0) {
         html = "Bạn không có bất cứ kỳ thi nào"
@@ -90,8 +99,7 @@ function lougout(studentCode) {
     }
 }
 
-function Get_date_now()
-{
+function Get_date_now() {
     var today = new Date();
     var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return date;
@@ -99,4 +107,3 @@ function Get_date_now()
 
 
 
-    

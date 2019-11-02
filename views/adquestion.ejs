@@ -121,6 +121,7 @@
             var level = document.getElementById("levelOfQuestion").value;
             questionListOfData.forEach(data => {
                 if (data.subject == subject) {
+                    console.log(data)
                     console.log(subject+"---"+data.subject)
                     data.question_list.forEach(content => {
                         if (content.level_question == level) {

@@ -116,7 +116,8 @@
             </ul>
         </div>
     </div>
-    <input type="hidden" id="idListExam"" value="<%=examList%>">
+    <input type="hidden" id="idListExam" value="<%=examList%>">
+    <input type="hidden" id="idListMark" value="<%=markList%>">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
@@ -126,7 +127,7 @@
     <script src="/business/manage_exam.js"></script>
 
     <script>
-        createListExam('<%=user.student_class.class_name %>',JSON.parse(idListExam.value));
+        createListExam('<%=user.student_class.class_name %>',JSON.parse(idListExam.value),JSON.parse(idListMark.value));
         document.getElementById("idListExam").remove();
     </script>
 
