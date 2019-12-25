@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table fixed_header">
+                    <table class="table fixed_header" id="mytable">
                         <thead>
                             <tr>
                                 <th>MSSV</th>
@@ -99,6 +99,7 @@
                     </table>
                 </div><button type="button" class="btn btn-primary" style="width: 100%;" data-toggle="modal"
                     data-target=".bd-example-modal-xl">Tạo tài khoản</button>
+                    <button id="button-a">Create Excel</button>
             </div>
         </div>
     </div>
@@ -206,15 +207,20 @@
                     <div class="modal-footer">
                         <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateAccount">Đồng
                             ý</button>
+                       
                     </div>
                 </form>
             </div>
         </div>
     </div>
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"
+        integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" crossorigin="anonymous"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/Studious-selectbox.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
         var htmlListFaculty = "<option value='Tất cả' >Tất cả</option>";
@@ -319,7 +325,19 @@
 
         gtag('config', 'UA-150192457-1');
     </script>
-
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#button-a").click(function () {
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'test.xlsx');
+        });
+    </script>
 </body>
 
 </html>
