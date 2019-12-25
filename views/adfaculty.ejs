@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="/css/Studious-selectbox.css">
 </head>
 
-<body>
+<body style="min-height: 75rem;padding-top: 3.5rem;">
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1" style="padding: 5px;background-color: #002f69">
         <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,19 +47,32 @@
     <!--/.Navbar -->
     <div class="container">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+            <ol class="breadcrumb" style="padding: 5px;">
                 <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Khoa</li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách khoa</li>
             </ol>
         </nav>
 
         <div class="row">
             <div class="col">
-                <div>
-                    <h3 class="text-center">Danh sách khoa</h3>
+                <div class="row">
+                    <div class="col-6">
+                        <!-- <input type="text" id="search" placeholder="Type to search"> -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" aria-describedby="helpId"
+                                placeholder="Search tất cả dữ liệu......." id="search">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary" style="width: 60%;" id="btnAddFaculty"
+                            data-toggle="modal" data-target=".bd-example-modal-xl">Tạo khoa</button>
+                        <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 39%;">Export
+                            Excel</button>
+
+                    </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table fixed_header">
+                    <table class="table fixed_header" id="mytable">
                         <thead>
                             <tr>
                                 <th>Khoa</th>
@@ -75,8 +88,6 @@
                         </tbody>
                     </table>
                 </div>
-                <button type="button" class="btn btn-primary" style="width: 100%;" id="btnAddFaculty"
-                    data-toggle="modal" data-target=".bd-example-modal-xl">Tạo khoa</button>
             </div>
         </div>
     </div>
@@ -142,6 +153,8 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/Studious-selectbox.js"></script>
+    <script src="/js/xlsx.full.min.js"></script>
+    <script src="/js/FileSaver.js"></script>
     <script src="/business/dataForAdmin.js"></script>
     <script>
         var htmlListFaculty = "";
@@ -189,7 +202,30 @@
 
         gtag('config', 'UA-150192457-1');
     </script>
-
+    <script>
+        var wb = XLSX.utils.table_to_book(document.getElementById('mytable'), { sheet: "Sheet JS" });
+        var wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+        function s2ab(s) {
+            var buf = new ArrayBuffer(s.length);
+            var view = new Uint8Array(buf);
+            for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+        $("#buttonExportExcel").click(function () {
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Danh_sach_khoa.xlsx');
+        });
+    </script>
+    <script>
+        var $rows = $('#list_faculty tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            console.log("ok")
+            $rows.show().filter(function () {
+                var text = xoa_dau($(this).text().replace(/\s+/g, ' ').toLowerCase());
+                return !~text.indexOf(val);
+            }).hide();
+        });
+    </script>
 </body>
 
 </html>

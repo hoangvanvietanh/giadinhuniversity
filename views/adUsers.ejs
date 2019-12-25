@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Danh sách tài khoản</title>
+    <title>Danh sách sinh viên</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/adquestion.css">
     <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="/css/Studious-selectbox.css">
 </head>
 
-<body>
+<body style="min-height: 75rem;padding-top: 3.5rem;">
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="background-color: #002f69">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1" style="padding: 5px;background-color: #002f69">
         <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,17 +47,15 @@
     <!--/.Navbar -->
     <div class="container">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
+            <ol class="breadcrumb" style="padding: 5px;">
                 <li class="breadcrumb-item"><a href="/admin/home">Trang chủ</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Tài khoản</li>
+                <li class="breadcrumb-item active" aria-current="page">Danh sách sinh viên</li>
             </ol>
         </nav>
 
         <div class="row">
             <div class="col">
-                <div>
-                    <h3 class="text-center">Danh sách tài khoản</h3>
-                </div>
+                
                 <div class="row">
                     <div class="col">
                         <form style="margin-top: 8px;">
@@ -80,6 +78,21 @@
                         </form>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-6">
+                        <!-- <input type="text" id="search" placeholder="Type to search"> -->
+                        <div class="form-group">
+                            <input type="text" class="form-control" aria-describedby="helpId"
+                                placeholder="Search tất cả dữ liệu......." id="search">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-primary" style="width: 60%;" data-toggle="modal"
+                            data-target=".bd-example-modal-xl">Tạo tài khoản</button>
+                        <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 39%;">Export
+                            Excel</button>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table fixed_header" id="mytable">
                         <thead>
@@ -97,9 +110,7 @@
 
                         </tbody>
                     </table>
-                </div><button type="button" class="btn btn-primary" style="width: 100%;" data-toggle="modal"
-                    data-target=".bd-example-modal-xl">Tạo tài khoản</button>
-                    <button id="button-a">Create Excel</button>
+                </div>
             </div>
         </div>
     </div>
@@ -207,7 +218,7 @@
                     <div class="modal-footer">
                         <button type="submit" style="width: 100%;" class="btn btn-primary" id="btnCreateAccount">Đồng
                             ý</button>
-                       
+
                     </div>
                 </form>
             </div>
@@ -334,8 +345,19 @@
             for (var i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
             return buf;
         }
-        $("#button-a").click(function () {
-            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'test.xlsx');
+        $("#buttonExportExcel").click(function () {
+            saveAs(new Blob([s2ab(wbout)], { type: "application/octet-stream" }), 'Danh_sach_sinh_vien.xlsx');
+        });
+    </script>
+    <script>
+        var $rows = $('#listUsers tr');
+        $('#search').keyup(function () {
+            var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+            console.log("ok")
+            $rows.show().filter(function () {
+                var text = xoa_dau($(this).text().replace(/\s+/g, ' ').toLowerCase());
+                return !~text.indexOf(val);
+            }).hide();
         });
     </script>
 </body>
