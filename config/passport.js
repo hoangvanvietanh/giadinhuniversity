@@ -81,6 +81,7 @@ module.exports = function (passport) {
         })
         if (checkAddUser == 0) {
           Them_Sinh_vien(user)
+          ListStudents.push(user);
           return done(null, user);
         } else {
           return done(null, user);
