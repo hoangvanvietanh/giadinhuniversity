@@ -21,7 +21,7 @@ createTheExam(examCode, JSON.parse(idListExam.value));
 function createTheExam(examCode, listExam) {
 
     listExam.forEach(exam => {
-        if (exam.exam_code == examCode) {
+        if (exam.exam_code == examCode && exam.for_english == "false") {
             examTake = exam;
             totalNumberOfSentences = exam.question_list.length; //Get length of answer system
             ma_de.innerHTML = exam.exam_code; //Get code of the exam
@@ -65,16 +65,17 @@ function createTheExam(examCode, listExam) {
             }
 
             var totalAnswerInStore = 0;
+            html += "<div class='bailam'> <table class='table'> "
             examListQuestion.forEach(content => {
                 var deBai = content.question.split("_")
                 var store_Anser;
                 var checkAnswer = 0;
                 j++;
-
+                
                 if (deBai.length == 2) {
                     html += `<tbody class="form"  width="100%"> <tr>
             <td id="${j}CH"><b> Câu ${j}: ${deBai[0]} </b></br>
-            <img src="https://dv-media-vietanh.herokuapp.com/${deBai[1]}" alt="" height=25% width=50%></img></b>
+            <img src="/img/${deBai[1]}" alt="" height=25% width=50%></img></b>
             </td>
             `
                     store_Anser = localStorage.getItem(deBai[0])
@@ -127,7 +128,6 @@ function createTheExam(examCode, listExam) {
             <tr>
             <input type="hidden" id="Cau_${j}" value="${content.correct_answer}">
         </tr><tbody>`;
-
                 if (checkAnswer != 0) {
                     if (j == l) {
                         l = l + 3;
@@ -153,15 +153,235 @@ function createTheExam(examCode, listExam) {
                     }
                 }
             });
+            html += "</table></div>"
             if (timeCount == exam.time) {
                 localStorage.setItem("listQuestionRandom", JSON.stringify(exam.question_list));
             }
             soCauLam.innerHTML = `Số câu đã làm: ${totalAnswerInStore}`;
             cauDaLam = totalAnswerInStore;
         }
+        //Create exam for english//////////////////////////////////////////////////////////////////////////////
+        else if (exam.exam_code == examCode && exam.for_english == "true") {
+            examTake = exam;
+            totalNumberOfSentences = 0; //Get length of answer system
+            exam.listening.forEach(lis => {
+                totalNumberOfSentences += lis.question_list.length;
+            })
+            exam.reading.forEach(reading => {
+                totalNumberOfSentences += reading.question_list.length;
+            })
+            ma_de.innerHTML = exam.exam_code; //Get code of the exam
+            thoi_gian.innerHTML = exam.time + " phút"; //Get the time of the exam
+            localStorage.setItem("timeOfExam", exam.time + ":0");
+            mon_hoc.innerHTML = exam.subject;
+            hoc_ky.innerHTML = exam.semester;
+            ngay_lam.innerHTML = Get_date_now();
+            var time = localStorage.getItem("timeCount");
+            if (time != undefined) {
+                timeCount = localStorage.getItem("timeCount");
+            }
+            else {
+                timeCount = exam.time; //Set time count down
+            }
+
+            if (timeCount == exam.time) {
+                $(window).on('load', function () {
+                    $('#modelId').modal('show');
+                });
+                $(document).ready(function () {
+                    $("#modelId").modal({
+                        show: false,
+                        backdrop: 'static'
+                    });
+
+                });
+            }
+
+            //Create the questions for the exam
+            tongCauHoi.innerHTML = `Tổng: ${totalNumberOfSentences}`
+            tongCauHoi2.innerHTML = `${totalNumberOfSentences} câu`
+
+
+            var totalAnswerInStore = 0;
+
+            //create ul for reading
+            var stt_part = 1;
+            exam.reading.forEach(content_listening => {
+                if (stt_part == 1) {
+                    html += `<ul class='nav nav-tabs' id="myTab" role="tablist"><li class="nav-item"><a class='nav-link active' data-toggle='tab' href='#part_reading_${stt_part}' role="tab">Reading ${stt_part}</a></li>`
+                }
+                else {
+                    html += `<li><a class='nav-link' data-toggle='tab' href='#part_reading_${stt_part}'>Reading ${stt_part}</a></li>`
+                }
+                stt_part++;
+            })
+
+            //create ul for listening
+            var stt_part = 1;
+            exam.listening.forEach(content_listening => {
+
+                html += `<li class="nav-item"><a class='nav-link' data-toggle='tab' href='#part_${stt_part}' role="tab">Listening ${stt_part}</a></li>`; stt_part++;
+            })
+
+
+            html += "</ul><div class='tab-content'>"
+
+            //create content for reading
+            var stt_part = 1;
+            exam.reading.forEach(content_listening => {
+                if (stt_part == 1) {
+                    html += `<div id="part_reading_${stt_part}" class="tab-pane fade in active show"> <h3>Part ${stt_part}</h3>`;
+                    html += "<div class='bailam'><table class='table'>" + createQuestionOfListening(content_listening.question_list, exam.time) + "</table></div></div>";
+                }
+                else {
+                    html += `<div id="part_reading_${stt_part}" class="tab-pane fade"> <h3>Part ${stt_part}</h3>`;
+                    if (content_listening.picture.length > 1) {
+                        html += `<div class='w3-content w3-display-container'>`
+                        content_listening.picture.forEach(pic => {
+                            console.log(pic)
+                            html += `<img class='mySlides' src='/img/${pic}' style='width:100%'>`
+                        })
+                        var textSlide = "mySlidesPart" + stt_part;
+                        html += `
+                    <button class='w3-button w3-black w3-display-left' onclick='plusDivs(-1)'>&#10094;</button>
+                    <button class='w3-button w3-black w3-display-right' onclick='plusDivs(1)'>&#10095;</button>
+                  </div>`
+                    }
+                    else {
+                        html += `<img src="/img/readingpart${stt_part}.jpg" alt="" height=50% width=70%></img>`
+                    }
+
+                    html += "<div class='bailam'><table class='table'>" + createQuestionOfListening(content_listening.question_list, exam.time) + "</table></div></div>";
+                }
+                stt_part++;
+                //console.log(html)                
+            })
+            //html+="</div>"
+
+            //create content for listening
+            var stt_part = 1;
+            exam.listening.forEach(content_listening => {
+                if (stt_part == 1) {
+                    html += `<div id="part_${stt_part}" class="tab-pane fade"> <h3>Part ${stt_part}</h3>`;
+                    html += `<audio controls>
+                    <source src="/audio/nghe${stt_part}.mp3" type="audio/mpeg">
+                  </audio>`
+                    html += "<div class='bailam'><table class='table'>" + createQuestionOfListening(content_listening.question_list, exam.time) + "</table></div></div>";
+                }
+                else {
+                    html += `<div id="part_${stt_part}" class="tab-pane fade"> <h3>Part ${stt_part}</h3>`;
+                    html += `<audio controls>
+                    <source src="/audio/nghe${stt_part}.mp3" type="audio/mpeg">
+                  </audio>`
+                    html += "<div class='bailam'><table class='table'>" + createQuestionOfListening(content_listening.question_list, exam.time) + "</table></div></div>";
+                }
+                stt_part++;
+                //console.log(html)                
+            })
+            html += "</div>"
+
+            // if (timeCount == exam.time) {
+            //     localStorage.setItem("listQuestionRandom", JSON.stringify(exam.question_list));
+            // }
+            
+            soCauLam.innerHTML = `Số câu đã làm: ${totalAnswerInStore}`;
+            cauDaLam = totalAnswerInStore;
+        }
     });
 }
 
+function createQuestionOfListening(examListQuestion, time_Count) {
+    var html = "";
+    examListQuestion.forEach(content => {
+        var deBai = content.question.split("_")
+        var store_Anser;
+        var checkAnswer = 0;
+        j++;
+
+        if (deBai.length == 2) {
+            html += `<tbody class="form"  width="100%"> <tr>
+<td id="${j}CH"><b> Câu ${j}: ${deBai[0]} </b></br>
+<img src="/img/${deBai[1]}" alt="" height=25% width=50%></img></b>
+</td>
+`
+            store_Anser = localStorage.getItem(deBai[0])
+            if (store_Anser != null) {
+                store_Anser = store_Anser.trim()
+            }
+        } else {
+            html += `<tbody width="100%"> <tr>
+<td id="${j}CH"><b> Câu ${j}: ${content.question} </b></td>
+`
+            store_Anser = localStorage.getItem(content.question)
+            if (store_Anser != null) {
+                store_Anser = store_Anser.trim()
+            }
+        }
+
+        if (store_Anser == null) {
+            checkAnswer++;
+        }
+        // if (timeCount == time_Count) {
+        //     content.answer_list.sort(function (a, b) {
+        //         return 0.5 - Math.random()
+        //     });
+        // }
+
+        for (var k = 0; k < content.answer_list.length; k++) {
+            //console.log("=>" + store_Anser + "--" + content.answer_list[k] + "<-")
+            if (store_Anser == content.answer_list[k]) {
+
+                html += `
+<tr >
+<td class="inputGroup" style="padding: 0rem;border-top: none;" id="${j}-${k}"><input type="radio" id="CH_${j}-${k}_lb" name="CH_${j}" value="${k}_${
+                    content.answer_list[k]
+                    } " checked> <label style="margin-bottom:1px;" for="CH_${j}-${k}_lb">${content.answer_list[k]}</label> </td>
+</tr>
+`
+            }
+            else {
+                html += `
+<tr >
+<td class="inputGroup" style="padding: 0rem;border-top: none;" id="${j}-${k}"><input type="radio" id="CH_${j}-${k}_lb" name="CH_${j}" value="${k}_${
+                    content.answer_list[k]
+                    }"> <label style="margin-bottom:1px;" for="CH_${j}-${k}_lb">${content.answer_list[k]}</label> </td>
+</tr>
+`
+            }
+
+        }
+        html += `
+<tr>
+<input type="hidden" id="Cau_${j}" value="${content.correct_answer}">
+</tr><tbody>`;
+
+        if (checkAnswer != 0) {
+            if (j == l) {
+                l = l + 3;
+                htmlTienDo += `<tr><td style="padding: 0;"> ${createCheckBoxNotCheckedHTML(j)} </td>`
+            }
+            else if (j % 3 == 0) {
+                htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxNotCheckedHTML(j)} </td></tr>`
+            } else {
+                htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxNotCheckedHTML(j)} </td>`
+            }
+        }
+        else {
+            array.push(`${j}`);
+            //totalAnswerInStore++;
+            if (j == l) {
+                l = l + 3;
+                htmlTienDo += `<tr><td style="padding: 0;"> ${createCheckBoxCheckedHTML(j)} </td>`
+            }
+            else if (j % 3 == 0) {
+                htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxCheckedHTML(j)} </td></tr>`
+            } else {
+                htmlTienDo += `<td style="padding: 0;"> ${createCheckBoxCheckedHTML(j)} </td>`
+            }
+        }
+    });
+    return html;
+}
 
 
 //*****Change javascript to html with innerHTML************
@@ -182,7 +402,7 @@ function gradingExam(examCode, exam) {
         //Get the exam with the code
 
         i++;
-        
+
         var radios = document.getElementsByName(`CH_${i}`); //Get the answer
         var correctAnswer = document.getElementById(`Cau_${i}`); //Get results
         var answer = "";
@@ -211,12 +431,80 @@ function gradingExam(examCode, exam) {
                 $("a#" + `${i}TA`).css("color", "red"); //Change color tag "a" of incorrect sentence
             }
         }
-        //console.log(dap_an_dung.value + dap_an_tra_loi)
+    });
 
-        // if (dap_an_dung.value == dap_an_tra_loi) {
-        //     cauDung++; //count the correct sentence
-        // }
+    exam.reading.forEach(partOfReading => {
+        //Get the exam with the code
+        partOfReading.question_list.forEach(question=>{
+            i++;
 
+        var radios = document.getElementsByName(`CH_${i}`); //Get the answer
+        var correctAnswer = document.getElementById(`Cau_${i}`); //Get results
+        var answer = "";
+
+        for (var j = 0, length = radios.length; j < length; j++) {
+            var flag = 0;
+
+
+            var valueChecked = radios[j].value.split("_"); //Get value of radio checked
+            //*****Check radio checked*****
+            if (radios[j].checked) {
+
+                answer = valueChecked[1];
+                //********Check correct sentence**********
+                if (correctAnswer.value == valueChecked[1].trim()) {
+                    // $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "green"); //Change color with id tag "td" of correct sentence 
+                    $("a#" + `${i}TA`).css("color", "green"); //Change color tag "a" of correct sentence
+                    numberOfCorrectSentences++;
+                    flag++;
+                }
+            }
+
+            //**********Check incorrect sentence***********
+            if (valueChecked[1] == correctAnswer.value && flag == 0) {
+                $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "#96f23a") //Change color with id tag "td" of incorrect sentce
+                $("a#" + `${i}TA`).css("color", "red"); //Change color tag "a" of incorrect sentence
+            }
+        }
+        })
+        
+    });
+
+    exam.listening.forEach(partOfListening => {
+        //Get the exam with the code
+        partOfListening.question_list.forEach(question=>{
+            i++;
+
+        var radios = document.getElementsByName(`CH_${i}`); //Get the answer
+        var correctAnswer = document.getElementById(`Cau_${i}`); //Get results
+        var answer = "";
+
+        for (var j = 0, length = radios.length; j < length; j++) {
+            var flag = 0;
+
+
+            var valueChecked = radios[j].value.split("_"); //Get value of radio checked
+            //*****Check radio checked*****
+            if (radios[j].checked) {
+
+                answer = valueChecked[1];
+                //********Check correct sentence**********
+                if (correctAnswer.value == valueChecked[1].trim()) {
+                    // $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "green"); //Change color with id tag "td" of correct sentence 
+                    $("a#" + `${i}TA`).css("color", "green"); //Change color tag "a" of correct sentence
+                    numberOfCorrectSentences++;
+                    flag++;
+                }
+            }
+
+            //**********Check incorrect sentence***********
+            if (valueChecked[1] == correctAnswer.value && flag == 0) {
+                $("td#" + `${i + "-" + valueChecked[0]}`).css("background-color", "#96f23a") //Change color with id tag "td" of incorrect sentce
+                $("a#" + `${i}TA`).css("color", "red"); //Change color tag "a" of incorrect sentence
+            }
+        }
+        })
+        
     });
     bam_nop_bai.innerHTML = `Số câu đúng : ${numberOfCorrectSentences}/${i}`
     scores = numberOfCorrectSentences / i * 10;
@@ -259,7 +547,7 @@ function nopBaiThi(SinhVien) {
     duLieu.date = ngay_lam.innerHTML;
     duLieu.exam_score = scores.toFixed(2);
 
-    post("/exam/take_exam", duLieu);
+    //post("/exam/take_exam", duLieu);
     createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${totalNumberOfSentences}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
 
     var dsNhatKy = Doc_Danh_sach_Nhat_ky();
@@ -271,7 +559,7 @@ function nopBaiThi(SinhVien) {
                 nhatKy.status = "offline";
                 nhatKy.keyConnect = "";
                 dsNhatKy[i] = nhatKy;
-                Ghi_nhat_ky(nhatKy);
+                //Ghi_nhat_ky(nhatKy);
             }
         }
     }
@@ -621,9 +909,23 @@ function createCheckBoxNotCheckedHTML(stt) {
 document.getElementById("idListExam").remove();
 document.getElementById("idUser").remove();
 
-function Get_date_now()
-{
+function Get_date_now() {
     var today = new Date();
     var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return date;
+}
+
+function plusDivs(n) {
+    showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    if (n > x.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = x.length }
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    x[slideIndex - 1].style.display = "block";
 }

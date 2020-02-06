@@ -69,7 +69,7 @@ table {
 .bailam {
     bottom: 0;
     overflow-y: scroll;
-    height: 85vh;
+    height: 60vh;
 }
 
 .hidden_button {
@@ -238,3 +238,38 @@ table {
     transition: all 0.2s linear;
     transition-delay: 0.15s;
   }
+
+
+  .mySlides {
+    display: none;
+}
+.mySlidesPart1 {
+    display: none;
+}
+.mySlidesPart2 {
+    display: none;
+}
+.mySlidesPart3 {
+    display: none;
+}
+.mySlidesPart4 {
+    display: none;
+}
+.mySlidesPart5 {
+    display: none;
+}
+.mySlidesPart6 {
+    display: none;
+}
+.mySlidesPart7 {
+    display: none;
+}
+.mySlidesPart8 {
+    display: none;
+}
+.mySlidesPart9 {
+    display: none;
+}
+.mySlidesPart10 {
+    display: none;
+}

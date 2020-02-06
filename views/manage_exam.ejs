@@ -127,6 +127,7 @@
     <script src="/business/manage_exam.js"></script>
 
     <script>
+        console.log(idListExam.value)
         createListExam('<%=user.student_class.class_name %>',JSON.parse(idListExam.value),JSON.parse(idListMark.value));
         document.getElementById("idListExam").remove();
     </script>
