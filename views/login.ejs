@@ -27,6 +27,7 @@
                     name="password" placeholder="Nhập mật khẩu"></div>
             <div class="form-group"><button class="btn btn-primary btn-block" id="dang_nhap" type="submit">Đăng
                     nhập</button></div>
+                    <div class="form-group"><a style="width: 100%;" href="/auth/facebook" class="btn btn-primary"><span class="fa fa-facebook"></span>Đăng nhập bằng Facebook</a></div>
         </form>
     </div>
     <!-- Optional JavaScript -->
@@ -37,8 +38,8 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
     <script>
-        dang_nhap.onclick=()=>{
-            localStorage.setItem("student_code",student_code.value)
+        dang_nhap.onclick = () => {
+            localStorage.setItem("student_code", student_code.value)
         }
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -46,7 +47,6 @@
 
         gtag('config', 'UA-150192457-1');
     </script>
-
-</body>
+    </body>
 
 </html>

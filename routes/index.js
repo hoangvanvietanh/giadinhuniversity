@@ -8,13 +8,22 @@ var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/";
 //var Dia_chi_Dich_vu = "http://localhost:1200";
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const bcrypt = require('bcryptjs');
-
+const passport = require('passport');
 // Welcome Page
 router.get('/', forwardAuthenticated, (req, res) => res.render('welcome'));
 
 router.get('/users', forwardAuthenticated, (req, res) => res.render('login'));
 
 router.get('/exam', forwardAuthenticated, (req, res) => res.render('login'));
+
+router.get('/auth/facebook', passport.authenticate('facebook', {scope: ['email']}));
+    // xử lý sau khi user cho phép xác thực với facebook
+    router.get('/auth/facebook/callback',
+        passport.authenticate('facebook', {
+            successRedirect: '/users/home',
+            failureRedirect: '/'
+        })
+    );
 
 //router.get('/admin', ensureAuthenticatedAdmin, (req, res) => res.render('adhome'));
 router.get('/admin', ensureAuthenticatedAdmin, (req, res) =>
@@ -60,6 +69,12 @@ router.get('/admin/exam', ensureAuthenticatedAdmin, (req, res) =>
 
 router.get('/admin/question', ensureAuthenticatedAdmin, (req, res) =>
   res.render('adquestion', {
+    user: req.user
+  })
+);
+
+router.get('/admin/listScores', ensureAuthenticatedAdmin, (req, res) =>
+  res.render('adlistScores', {
     user: req.user
   })
 );
