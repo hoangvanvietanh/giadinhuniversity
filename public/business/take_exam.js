@@ -230,11 +230,11 @@ function createTheExam(examCode, listExam) {
             var stt_part = 1;
             exam.reading.forEach(content_listening => {
                 if (stt_part == 1) {
-                    html += `<div id="part_reading_${stt_part}" class="tab-pane fade in active show"> <h3>Part ${stt_part}</h3>`;
+                    html += `<div id="part_reading_${stt_part}" class="tab-pane fade in active show"> <h3>Reading part ${stt_part}</h3>`;
                     html += "<div class='bailam'><table class='table'>" + createQuestionOfListening(content_listening.question_list, exam.time) + "</table></div></div>";
                 }
                 else {
-                    html += `<div id="part_reading_${stt_part}" class="tab-pane fade"> <h3>Part ${stt_part}</h3>`;
+                    html += `<div id="part_reading_${stt_part}" class="tab-pane fade"> <h3>Reading part ${stt_part}</h3>`;
                     if (content_listening.picture.length > 1) {
                         html += `<div class='w3-content w3-display-container'>`
                         content_listening.picture.forEach(pic => {
@@ -262,14 +262,14 @@ function createTheExam(examCode, listExam) {
             var stt_part = 1;
             exam.listening.forEach(content_listening => {
                 if (stt_part == 1) {
-                    html += `<div id="part_${stt_part}" class="tab-pane fade"> <h3>Part ${stt_part}</h3>`;
+                    html += `<div id="part_${stt_part}" class="tab-pane fade"> <h3>Listening part ${stt_part}</h3>`;
                     html += `<audio controls>
                     <source src="/audio/nghe${stt_part}.mp3" type="audio/mpeg">
                   </audio>`
                     html += "<div class='bailam'><table class='table'>" + createQuestionOfListening(content_listening.question_list, exam.time) + "</table></div></div>";
                 }
                 else {
-                    html += `<div id="part_${stt_part}" class="tab-pane fade"> <h3>Part ${stt_part}</h3>`;
+                    html += `<div id="part_${stt_part}" class="tab-pane fade"> <h3>Listening part ${stt_part}</h3>`;
                     html += `<audio controls>
                     <source src="/audio/nghe${stt_part}.mp3" type="audio/mpeg">
                   </audio>`
@@ -547,7 +547,7 @@ function nopBaiThi(SinhVien) {
     duLieu.date = ngay_lam.innerHTML;
     duLieu.exam_score = scores.toFixed(2);
 
-    //post("/exam/take_exam", duLieu);
+    post("/exam/take_exam", duLieu);
     createReport(SinhVien.full_name, SinhVien.student_code, SinhVien.student_class.class_name, SinhVien.student_class.faculty, SinhVien.identity_card_number, SinhVien.sex, SinhVien.date_of_birth, SinhVien.place_of_birth, examCode, mon_hoc.innerHTML, `${numberOfCorrectSentences}/${totalNumberOfSentences}`, `${scores.toFixed(2)}`, ngay_lam.innerHTML)
 
     var dsNhatKy = Doc_Danh_sach_Nhat_ky();
@@ -559,7 +559,7 @@ function nopBaiThi(SinhVien) {
                 nhatKy.status = "offline";
                 nhatKy.keyConnect = "";
                 dsNhatKy[i] = nhatKy;
-                //Ghi_nhat_ky(nhatKy);
+                Ghi_nhat_ky(nhatKy);
             }
         }
     }
