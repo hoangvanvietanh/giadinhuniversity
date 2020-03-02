@@ -21,7 +21,8 @@
 
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
     <!--Navbar background="/img/backgroundGDU.jpg" style="background-size:cover;" -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1" style="padding: 5px;background-color: #002f69">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark orange lighten-1"
+        style="padding: 5px;background-color: #002f69">
         <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +33,8 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="https://dv-media-vietanh.herokuapp.com/<%= user.student_code %>.png" onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
+                        <img src="https://dv-media-vietanh.herokuapp.com/<%= user.student_code %>.png"
+                            onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
                             class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
@@ -54,6 +56,18 @@
                 <li class="breadcrumb-item active" aria-current="page">Đề thi</li>
             </ol>
         </nav>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="" id="inputExamCode" aria-describedby="helpId"
+                        placeholder="Nhập mã đề thi">
+                </div>
+                <div class="col-sm-6">
+                    <button type="button" style="width: 100%;" class="btn btn-primary" id="btnTakeExam">Đồng ý</button>
+                </div>
+            </div>
+        </div>
+
         <div class="columns">
             <ul class="price">
                 <li class="header">Thông tin thí sinh</li>
@@ -118,6 +132,7 @@
     </div>
     <input type="hidden" id="idListExam" value="<%=examList%>">
     <input type="hidden" id="idListMark" value="<%=markList%>">
+    <input type="hidden" id="classOfUser" value="<%=user.student_class.class_name %>">
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
@@ -125,24 +140,6 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/home.js"></script>
     <script src="/business/manage_exam.js"></script>
-
-    <script>
-        console.log(idListExam.value)
-        createListExam('<%=user.student_class.class_name %>',JSON.parse(idListExam.value),JSON.parse(idListMark.value));
-        document.getElementById("idListExam").remove();
-    </script>
-
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-150192457-1');
-    </script>
-
 </body>
 
 </html>

@@ -1,6 +1,10 @@
+
+createListExam(classOfUser.value,JSON.parse(idListExam.value),JSON.parse(idListMark.value));
+
 function createListExam(studentClass, listExam, markList) {
+    runFirst(listExam)
     var html = "";
-    var j = 0;
+    var countExam = 0;
     listExam.forEach(exam => {
         var checkMark = 0;
         markList.forEach(mark => {
@@ -12,8 +16,8 @@ function createListExam(studentClass, listExam, markList) {
         if (checkMark == 0) {
             for (var i = 0; i < exam.class_take_exam.length; i++) {
                 if (exam.class_take_exam[i] == studentClass && exam.status != "close") {
-                    j++;
-                    html += `<li class="header">Bài thi ${j}</li>
+                    countExam++;
+                    html += `<li class="header">Bài thi ${countExam}</li>
             <li class="grey">
                 <div>
                     <p style="float: left;margin-bottom: 5px;"> Mã đề :</p>
@@ -59,7 +63,7 @@ function createListExam(studentClass, listExam, markList) {
             <li class="grey">
     
                 <button type="button" class="btn btn-primary" onclick="takeExam('${exam.exam_code}')"
-                    style="width: 100%;font-size: 30px;background-color: #214a80"><strong>Bắt đầu bài thi ${j}</strong> </button>
+                    style="width: 100%;font-size: 30px;background-color: #214a80"><strong>Bắt đầu bài thi ${countExam}</strong> </button>
                 
             </li>`
                 }
@@ -67,10 +71,13 @@ function createListExam(studentClass, listExam, markList) {
         }
 
     });
-    if (j == 0) {
+    if (countExam == 0) {
         html = "Bạn không có bất cứ kỳ thi nào"
     }
     thongTinDeThi.innerHTML = html;
+
+    document.getElementById("idListExam").remove();
+    document.getElementById("idListMark").remove();
 }
 
 function takeExam(examCode) {
@@ -104,6 +111,24 @@ function Get_date_now() {
     var date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
     return date;
 }
+
+function runFirst(listExam)
+{
+    btnTakeExam.onclick = () => {
+        console.log(inputExamCode.value)
+        listExam.forEach(exam => {
+            console.log(exam)
+            if(exam.exam_code == inputExamCode.value)
+            {
+                console.log("Vao nè 2")
+                takeExam(inputExamCode.value)
+            }
+        })
+        inputExamCode.value = ""
+        inputExamCode.placeholder = "Mã đề thi không tồn tại"
+    }
+}
+
 
 
 

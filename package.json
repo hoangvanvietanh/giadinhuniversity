@@ -14,6 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@ckeditor/ckeditor5-easy-image": "^16.0.0",
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
     "consolidate": "^0.15.1",

@@ -15,8 +15,11 @@
     <link rel="stylesheet/less" type="text/css" href="/css/less/navs.less">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script type="text/javascript" src="/mathjax/MathJax.js?config=MML_SVG-full"></script>
     <style>
-
+        p {
+            display: inline;
+        }
     </style>
 </head>
 
@@ -40,15 +43,15 @@
                 <li class="nav-item avatar">
                     <a class="nav-link p-0" id="navbarDropdownMenuLink-55" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img src="/img/usertakeexam.png"
-                            onerror="this.onerror=null;this.src='/img/student.png';" id="imageid"
-                            class="rounded-circle z-depth-0" alt="avatar image" height="35">
+                        <img src="/img/usertakeexam.png" onerror="this.onerror=null;this.src='/img/student.png';"
+                            id="imageid" class="rounded-circle z-depth-0" alt="avatar image" height="35">
                     </a>
-                    <!-- <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+                    <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
                         aria-labelledby="navbarDropdownMenuLink-55">
                         <a class="dropdown-item" href="#">Tài khoản</a>
-                        <button type="button" class="dropdown-item" id="btnLogout">Đăng xuất</button>
-                    </div> -->
+                        <button type="button" class="dropdown-item" onclick="logout('<%= user.student_code %>')">Đăng
+                            xuất</button>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <button type="button" class="btn btn-primary" style="display: none;width:100%;margin-top: 2%;"
@@ -66,8 +69,8 @@
                         <h5 class="text-center"> <b>Thông tin thí sinh</b></h5>
                     </div>
                     <div class="col-sm-12" id="avatar_sv">
-                        <img src="/img/usertakeexam.png"
-                            onerror="this.onerror=null;this.src='/img/student.png';" width="100%" height="100%">
+                        <img src="/img/usertakeexam.png" onerror="this.onerror=null;this.src='/img/student.png';"
+                            width="100%" height="100%">
                     </div>
                 </div>
                 <div>
@@ -224,11 +227,10 @@
                 </div>
                 <div class="modal-body" style="height: 88vh;">
                     <div style="margin: auto;width: 60%;">
-                        <h4>1. Yêu tổ quốc, yêu đồng bào.</h4>
-                        <h4>2. Học tập tốt, lao động tốt.</h4>
-                        <h4>3. Đoàn kết tốt, kỷ luật tốt.</h4>
-                        <h4>4. Giữ gìn vệ sinh thật tốt.</h4>
-                        <h4>5. Khiêm tốn, thật thà, dũng cảm.</h4>
+                        <h4>1. Nghiêm túc thực hiện bài thi.</h4>
+                        <h4>2. Để tránh sai sót thí sinh không nên mở web ở nhiều tab, chỉ sử dụng 1 tab.</h4>
+                        <h4>3. Do chương trình đang trong quá trình chạy thử nghiệm.</h4>
+                        <h4>4. Các bạn có thể góp ý cho mình tại gmail: hoangvanvietanh@gmail.com.</h4>
                         <h4>Chúc các bạn thí sinh thi tốt ^^</h4>
                         <button type="button" style="width:100%" class="btn btn-primary" id="noiQuyThi"
                             data-dismiss="modal">Bắt đầu làm bài thi</button>
@@ -245,21 +247,9 @@
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/business/home.js"></script>
+    <script src="/text/createPDF.js"></script>
     <script src="/business/take_exam.js"></script>
     <script src="/js/jspdf.min.js"></script>
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
-    <script>
-        var slideIndex = 1;
-        showDivs(slideIndex,"mySlides");
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'UA-150192457-1');
-    </script>
-
 </body>
 
 </html>

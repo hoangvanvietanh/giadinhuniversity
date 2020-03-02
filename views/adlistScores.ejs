@@ -14,7 +14,8 @@
 
 <body style="min-height: 75rem;padding-top: 3.5rem;">
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1" style="padding: 5px;background-color: #002f69">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1"
+        style="padding: 5px;background-color: #002f69">
         <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +56,7 @@
 
         <div class="row">
             <div class="col">
-                
+
                 <div class="row">
                     <div class="col">
                         <form style="margin-top: 8px;">
@@ -87,7 +88,7 @@
                         </div>
                     </div>
                     <div class="col-6">
-                        
+
                         <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 100%;">Export
                             Excel</button>
                     </div>
@@ -113,7 +114,7 @@
             </div>
         </div>
     </div>
-    
+
     <script src="/js/jquery-3.3.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"
         integrity="sha256-8WqyJLuWKRBVhxXIL1jBDD7SDxU936oZkCnxQbWwJVw=" crossorigin="anonymous"></script>
@@ -142,7 +143,7 @@
                         }
                     })
                 }
-                
+
             })
             list_class.innerHTML = htmlListClass;
             chooseClass();
@@ -153,32 +154,32 @@
                 //console.log(student)
                 if (student.student_class.class_name == myClass.value && student.role != "admin") {
                     //console.log(student)
-                    htmllistScores += `</tr>`;
-                    student.marks.forEach(score=>{
+
+                    student.marks.forEach(score => {
                         htmllistScores += `
-                                <td>${student.student_code}</td>
+                        <tr><td>${student.student_code}</td>
                                 <td>${student.full_name}</td>
                                 <td>${score.subject}</td>
                                 <td>${score.exam_code}</td>
                                 <td>${score.date}</td>
-                                <td>${score.exam_score}</td>
+                                <td>${score.exam_score}</td></tr>
                                 `
                     })
-                    htmllistScores += `</tr>`;
+
                 }
                 if (myClass.value == "Tất cả" && student.role != "admin") {
-                    htmllistScores += `</tr>`;
-                    student.marks.forEach(score=>{
+
+                    student.marks.forEach(score => {
                         htmllistScores += `
-                                <td>${student.student_code}</td>
+                        <tr><td>${student.student_code}</td>
                                 <td>${student.full_name}</td>
                                 <td>${score.subject}</td>
                                 <td>${score.exam_code}</td>
                                 <td>${score.date}</td>
-                                <td>${score.exam_score}</td>
+                                <td>${score.exam_score}</td></tr>
                                 `
                     })
-                    htmllistScores += `</tr>`;
+
                 }
             })
             listScores.innerHTML = htmllistScores;

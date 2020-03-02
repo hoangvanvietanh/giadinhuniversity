@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/Google-Style-Text-Input.css">
     <link rel="stylesheet" href="/css/select.css">
     <link rel="stylesheet" href="/css/Studious-selectbox.css">
+    <script src="/ckeditor5/ckeditor-readonly.js"></script>
     <style>
         #Cau_hoi_chon,
         #list_cau_hoi {
@@ -282,6 +283,8 @@
 
 
         function chooseSubject() {
+            console.log("Vao")
+            var stt = 0;
             var htmlQuestion = "";
             var subject = document.getElementById("subject").value;
             var level = document.getElementById("levelOfQuestion").value;
@@ -303,25 +306,28 @@
                 <div onclick="moveButton(this,'${content.question.replace(/"/g, "dauNhay")}')" >
                             <tbody width="100%">
                                 <tr>
-                                    <td><b>Câu hỏi: ${content.question} </b></td>
+                                    <td><b>Câu hỏi: <div id="editor${stt}"> ${content.question}</div> </b></td>
                                     </br>
                                 </tr>
-                                <input type="hidden" id="CH${i}" value = "${content.question}">
+                                <input type="hidden" id="CH${i}" value = "">
                 `
+                            stt++;
                             for (var k = 0; k < content.answer_list.length; k++) {
                                 if (content.answer_list[k] == content.correct_answer) {
                                     htmlQuestion += `
             <tr>
-            <td><b>${listABC[k]}. ${content.answer_list[k]}</b></td></br>
+            <td><b>${listABC[k]}. <div id="editor${stt}">${content.answer_list[k]}</div></b></td></br>
             </tr>
             `
+                                    stt++;
                                 }
                                 else {
                                     htmlQuestion += `
             <tr>
-            <td>${listABC[k]}. ${content.answer_list[k]}</td></br>
+            <td>${listABC[k]}.<div id="editor${stt}"> ${content.answer_list[k]}</div></td></br>
             </tr>
             `
+                                    stt++
                                 }
                             }
                             htmlQuestion += "</tbody></br></div>";
@@ -332,6 +338,24 @@
                 }
             });
             list_cau_hoi.innerHTML = htmlQuestion;
+            console.log(stt)
+            for (var i = 0; i < stt; i++) {
+                ClassicEditor
+                    .create(document.querySelector(`#editor${i}`), {
+                        toolbar: {
+                            items: [
+                            ]
+                        },
+                        language: 'vi',
+                        licenseKey: '',
+                    })
+                    .then(editor => {
+                        // window.editor = editor;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            }
         }
         var i = 0;
         function moveButton(elem, value) {

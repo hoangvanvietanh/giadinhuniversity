@@ -4,8 +4,8 @@ const ListStudents = require('../models/User');
 const ListExams = require('../models/Exam');
 const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 const { ensureAuthenticatedAdmin, forwardAuthenticatedAdmin } = require('../config/authForAdmin');
-var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/";
-//var Dia_chi_Dich_vu = "http://localhost:1200";
+//var Dia_chi_Dich_vu = "https://dv-webtracnghiem.herokuapp.com/";
+var Dia_chi_Dich_vu = "http://localhost:1200";
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
@@ -36,6 +36,13 @@ router.get('/exam/manage_exam', ensureAuthenticated, (req, res) =>
   res.render('manage_exam', {
     user: req.user,
     markList: JSON.stringify(req.user.marks),
+    examList: JSON.stringify(ListExams)
+  }),
+);
+
+router.get('/exam/trainning', ensureAuthenticated, (req, res) =>
+  res.render('trainning', {
+    user: req.user,
     examList: JSON.stringify(ListExams)
   }),
 );
@@ -81,6 +88,12 @@ router.get('/admin/listScores', ensureAuthenticatedAdmin, (req, res) =>
 
 router.get('/admin/createExam', ensureAuthenticatedAdmin, (req, res) =>
   res.render('formCreateExam', {
+    user: req.user
+  })
+);
+
+router.get('/admin/createExamRandom', ensureAuthenticatedAdmin, (req, res) =>
+  res.render('adCreateExamRandom', {
     user: req.user
   })
 );
@@ -252,12 +265,10 @@ router.post('/exam/take_exam', (req, res, next) => {
       var Chuoi_goi = JSON.stringify(student)
       Xu_ly_HTTP.send(Chuoi_goi)
       Kq = Xu_ly_HTTP.responseText
+      
+      //res.send('POST request to the homepage')
     }
   });
-  setTimeout(function () {
-    req.logout();
-    res.redirect('/users/login');
-  }, 10000);
 });
 
 module.exports = router;

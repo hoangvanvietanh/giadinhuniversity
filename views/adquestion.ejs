@@ -7,11 +7,17 @@
     <title>Thư viện câu hỏi</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/adquestion.css">
+    <!-- <script src="/ckeditor5/ckeditor-readonly.js"></script> -->
+    <script type="text/javascript" src="/mathjax/MathJax.js?config=MML_SVG-full"></script>
+    <style>
+        
+    </style>
 </head>
 
 <body style="min-height: 75rem;padding-top: 3.5rem;">
     <!--Navbar -->
-    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1" style="padding: 5px;background-color: #002f69">
+    <nav class="mb-1 navbar navbar-expand-lg navbar-dark fixed-top orange lighten-1"
+        style="padding: 5px;background-color: #002f69">
         <a class="navbar-brand" href="#"><b>Gia Dinh University</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
             aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +96,8 @@
                     <div class="col-6">
                         <button class="btn btn-primary" id="btnQuestionPage" type="button" style="width: 60%;">Tạo câu
                             hỏi</button>
-                            <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 39%;">Export Excel</button>
+                        <button id="buttonExportExcel" type="button" class="btn btn-primary" style="width: 39%;">Export
+                            Excel</button>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -119,10 +126,21 @@
     <script src="/js/xlsx.full.min.js"></script>
     <script src="/js/FileSaver.js"></script>
     <script src="/business/dataForAdmin.js"></script>
+
+    </script>
+
     <script>
         var htmlListSubject = "";
         listSubject.forEach(subject => {
-            htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+            var subjectChossed = localStorage.getItem("subjectChoosed");
+            if(subject.subject_name == subjectChossed)
+            {
+                htmlListSubject += `<option value="${subject.subject_name}" selected>${subject.subject_name}</option>`;
+            }
+            else
+            {
+                htmlListSubject += `<option value="${subject.subject_name}" >${subject.subject_name}</option>`;
+            }
         })
         list_subject.innerHTML = htmlListSubject;
         chooseSubject();
@@ -133,24 +151,24 @@
             var level = document.getElementById("levelOfQuestion").value;
             questionListOfData.forEach(data => {
                 if (data.subject == subject) {
-                    console.log(data)
-                    console.log(subject+"---"+data.subject)
+                    var stt = 0;
                     data.question_list.forEach(content => {
                         if (content.level_question == level) {
                             htmlListQuestion += `<tr>
-                                <td colspan="2" class="scroll">${content.question}</td>
+                                <td colspan="2" class="scroll"> ${content.question} </div></td>
                                 
                                 `
                             content.answer_list.forEach(answer => {
                                 if (answer == content.correct_answer) {
-                                    htmlListQuestion += `<td><b>${answer}</b></td>`
+                                    stt++;
+                                    htmlListQuestion += `<td><b>${answer}</b></div></td>`
                                 }
                                 else {
-                                    htmlListQuestion += `<td>${answer}</td>`
+                                    stt++;
+                                    htmlListQuestion += `<td>${answer}</div></td>`
                                 }
                             })
                             htmlListQuestion += `</tr>`;
-
                         }
                     });
                 }
@@ -161,20 +179,24 @@
             var htmlListQuestion = "";
             var subject = document.getElementById("subject").value;
             var level = document.getElementById("levelOfQuestion").value;
+            var stt = 0;
             questionListOfData.forEach(data => {
                 if (data.subject == subject) {
                     data.question_list.forEach(content => {
                         if (content.level_question == level) {
+                            var contentQuestion = content.question.split("_idquestion")
                             htmlListQuestion += `<tr>
-                                <td colspan="2" class="scroll">${content.question}</td>
+                                <td>${contentQuestion[0]}</td>
                                 
                                 `
                             content.answer_list.forEach(answer => {
-                                if (answer == content.correct_answer) {
-                                    htmlListQuestion += `<td><b>${answer}</b></td>`
+                                var contentAnswer = answer.split("_idquestion")
+                                if (contentAnswer[1] == content.correct_answer) {
+                                    console.log("Đúng nè")
+                                    htmlListQuestion += `<td><b>${contentAnswer[0]}</b></div></td>`
                                 }
                                 else {
-                                    htmlListQuestion += `<td>${answer}</td>`
+                                    htmlListQuestion += `<td>${contentAnswer[0]}</div></td>`
                                 }
 
                             })
@@ -185,13 +207,16 @@
                 }
             });
             noiDung.innerHTML = htmlListQuestion;
+            localStorage.setItem("subjectChoosed",subject)
         }
 
+        
         btnQuestionPage.onclick = () => {
             document.location.href = "/admin/createQuestion";
         }
 
     </script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-150192457-1"></script>
     <script>
@@ -225,6 +250,7 @@
             }).hide();
         });
     </script>
+
 </body>
 
 </html>
